@@ -1,9 +1,43 @@
 import './globals.css'
 import Script from 'next/script'
+import type { Metadata } from 'next'
 
-export const metadata = {
-  title: 'Növényeknek mondotta el (részlet) - DownStream',
-  description: 'A scroll-driven visual story',
+// Determine base URL for metadata (og:image, etc.)
+const getBaseUrl = () => {
+  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`
+  if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL
+  return 'https://downstream.ink'
+}
+
+export const metadata: Metadata = {
+  metadataBase: new URL(getBaseUrl()),
+  title: 'Növényeknek mondotta el (részlet)',
+  description: 'Goja hajnal előtt ébredt, amikor az éjszakai portyáról hazatérő nyestek karmai végigkopogtak a háztetőn, és egy rövid időre még a puhára nyűtt taka...',
+  keywords: ['visual story', 'scroll-driven', 'animation', 'downstream'],
+  openGraph: {
+    title: 'Növényeknek mondotta el (részlet)',
+    description: 'Goja hajnal előtt ébredt, amikor az éjszakai portyáról hazatérő nyestek karmai végigkopogtak a háztetőn, és egy rövid időre még a puhára nyűtt taka...',
+    type: 'website',
+    siteName: 'DownStream',
+    images: [
+      {
+        url: '/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Növényeknek mondotta el (részlet)',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Növényeknek mondotta el (részlet)',
+    description: 'Goja hajnal előtt ébredt, amikor az éjszakai portyáról hazatérő nyestek karmai végigkopogtak a háztetőn, és egy rövid időre még a puhára nyűtt taka...',
+    images: ['/og-image.jpg'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 }
 
 export default function RootLayout({
@@ -13,7 +47,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="hu">
+      <head>
+
+      </head>
       <body>
+
         {children}
         <Script
           id="ds-analytics"
@@ -457,6 +495,7 @@ export default function RootLayout({
 `
           }}
         />
+      
       </body>
     </html>
   )

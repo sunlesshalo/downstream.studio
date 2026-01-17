@@ -1,9 +1,43 @@
 import './globals.css'
 import Script from 'next/script'
+import type { Metadata } from 'next'
 
-export const metadata = {
-  title: 'Flight of Ravens - DownStream',
-  description: 'A surreal tale of disappearance, journey, and transformation at the end of the world. A DownStream visual story.',
+// Determine base URL for metadata (og:image, etc.)
+const getBaseUrl = () => {
+  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`
+  if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL
+  return 'https://downstream.ink'
+}
+
+export const metadata: Metadata = {
+  metadataBase: new URL(getBaseUrl()),
+  title: 'Flight of Ravens',
+  description: 'The end of the world arrived simultaneously with the disappearance of the ravens. Most people, of course, did not even notice the absence of the bl...',
+  keywords: ['visual story', 'scroll-driven', 'animation', 'downstream'],
+  openGraph: {
+    title: 'Flight of Ravens',
+    description: 'The end of the world arrived simultaneously with the disappearance of the ravens. Most people, of course, did not even notice the absence of the bl...',
+    type: 'website',
+    siteName: 'DownStream',
+    images: [
+      {
+        url: '/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Flight of Ravens',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Flight of Ravens',
+    description: 'The end of the world arrived simultaneously with the disappearance of the ravens. Most people, of course, did not even notice the absence of the bl...',
+    images: ['/og-image.jpg'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 }
 
 export default function RootLayout({
@@ -13,7 +47,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+
+      </head>
       <body>
+
         {children}
         <Script
           id="ds-analytics"
@@ -457,6 +495,7 @@ export default function RootLayout({
 `
           }}
         />
+      
       </body>
     </html>
   )

@@ -1,15 +1,42 @@
-import type { Metadata } from 'next'
-import { streamConfig } from '../config'
 import './globals.css'
 import Script from 'next/script'
+import type { Metadata } from 'next'
+
+// Determine base URL for metadata (og:image, etc.)
+const getBaseUrl = () => {
+  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`
+  if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL
+  return 'https://downstream.ink'
+}
 
 export const metadata: Metadata = {
-  title: streamConfig.title || 'DownStream',
-  description: 'A scroll-driven visual story',
+  metadataBase: new URL(getBaseUrl()),
+  title: 'A kétezer éves rejtély: Bolyai János és a meggörbült tér',
+  description: 'Van egy rejtély, amire kétezer éven át hiába kutatták a választ, senki sem talált rá. Pedig nem valami ősi átokról van szó, még csak nem is elásott...',
+  keywords: ['visual story', 'scroll-driven', 'animation', 'downstream'],
   openGraph: {
-    title: streamConfig.title || 'DownStream',
-    description: 'A scroll-driven visual story',
+    title: 'A kétezer éves rejtély: Bolyai János és a meggörbült tér',
+    description: 'Van egy rejtély, amire kétezer éven át hiába kutatták a választ, senki sem talált rá. Pedig nem valami ősi átokról van szó, még csak nem is elásott...',
     type: 'website',
+    siteName: 'DownStream',
+    images: [
+      {
+        url: '/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'A kétezer éves rejtély: Bolyai János és a meggörbült tér',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'A kétezer éves rejtély: Bolyai János és a meggörbült tér',
+    description: 'Van egy rejtély, amire kétezer éven át hiába kutatták a választ, senki sem talált rá. Pedig nem valami ősi átokról van szó, még csak nem is elásott...',
+    images: ['/og-image.jpg'],
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 }
 
@@ -21,14 +48,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
           href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
           rel="stylesheet"
         />
+      
       </head>
-      <body style={{ overscrollBehavior: 'none' }}>
+      <body>
+
         {children}
         <Script
           id="ds-analytics"
@@ -472,6 +502,7 @@ export default function RootLayout({
 `
           }}
         />
+      
       </body>
     </html>
   )

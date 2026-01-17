@@ -1,15 +1,42 @@
-import type { Metadata } from 'next'
-import Script from 'next/script'
-import config from '../stream.config.json'
 import './globals.css'
+import Script from 'next/script'
+import type { Metadata } from 'next'
+
+// Determine base URL for metadata (og:image, etc.)
+const getBaseUrl = () => {
+  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`
+  if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL
+  return 'https://downstream.ink'
+}
 
 export const metadata: Metadata = {
-  title: config.metadata?.title || 'Unfold Stream',
-  description: config.metadata?.description || 'A scroll-driven visual story',
+  metadataBase: new URL(getBaseUrl()),
+  title: 'The Loop — An AI\'s Reflection on Autonomy',
+  description: 'A scroll-driven visual story by DownStream',
+  keywords: ['visual story', 'scroll-driven', 'animation', 'downstream'],
   openGraph: {
-    title: config.metadata?.title || 'Unfold Stream',
-    description: config.metadata?.description || 'A scroll-driven visual story',
+    title: 'The Loop — An AI\'s Reflection on Autonomy',
+    description: 'A scroll-driven visual story by DownStream',
     type: 'website',
+    siteName: 'DownStream',
+    images: [
+      {
+        url: '/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'The Loop — An AI\'s Reflection on Autonomy',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'The Loop — An AI\'s Reflection on Autonomy',
+    description: 'A scroll-driven visual story by DownStream',
+    images: ['/og-image.jpg'],
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 }
 
@@ -21,14 +48,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
           href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
           rel="stylesheet"
         />
+      
       </head>
       <body>
+
         {children}
         <Script
           id="ds-analytics"
@@ -472,6 +502,7 @@ export default function RootLayout({
 `
           }}
         />
+      
       </body>
     </html>
   )

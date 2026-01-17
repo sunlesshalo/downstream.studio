@@ -317,11 +317,113 @@ def generate_page_tsx() -> str:
     ''').strip() + '\n'
 
 
-def generate_layout_tsx(spec: dict, stream_id: str) -> str:
-    """Generate app/layout.tsx with analytics tracking and Telegram Mini App support."""
+def generate_social_preview_image(stream_id: str, app_dir: Path) -> str | None:
+    """Generate or copy a social preview image for the stream.
+
+    Uses the first keyframe as the base and resizes to 1200x630 for optimal
+    social media sharing (Facebook, LinkedIn, Twitter).
+
+    Returns the relative path to the image or None if not found.
+    """
+    stream_id = sanitize_stream_id(stream_id)
+
+    # Look for keyframe in various locations
+    keyframe_dirs = [
+        project_root / f"pipeline/streams/{stream_id}/keyframes",
+        project_root / f"streams/specs/{stream_id}/keyframes",
+    ]
+
+    keyframe_path = None
+    for kf_dir in keyframe_dirs:
+        if kf_dir.exists():
+            # Find first keyframe (segment_1.jpg, segment_1.png, keyframe_1.jpg, etc.)
+            for pattern in ["segment_1.*", "keyframe_1.*", "1.*"]:
+                matches = list(kf_dir.glob(pattern))
+                if matches:
+                    keyframe_path = matches[0]
+                    break
+            if keyframe_path:
+                break
+
+    # If no keyframe, try first frame from pipeline frames directory
+    if not keyframe_path:
+        frames_dir = project_root / f"pipeline/streams/{stream_id}/public/frames/1"
+        if frames_dir.exists():
+            frames = sorted(frames_dir.glob("frame_*.webp")) or sorted(frames_dir.glob("frame_*.jpg"))
+            if frames:
+                keyframe_path = frames[0]
+
+    # Try existing app's frames directory (for regeneration of existing apps)
+    if not keyframe_path:
+        frames_dir = app_dir / "public/frames/1"
+        if frames_dir.exists():
+            frames = sorted(frames_dir.glob("frame_*.webp")) or sorted(frames_dir.glob("frame_*.jpg"))
+            if frames:
+                keyframe_path = frames[0]
+
+    # Try streams/apps/{stream_id}/public/frames (already deployed apps)
+    if not keyframe_path:
+        frames_dir = project_root / f"streams/apps/{stream_id}/public/frames/1"
+        if frames_dir.exists():
+            frames = sorted(frames_dir.glob("frame_*.webp")) or sorted(frames_dir.glob("frame_*.jpg"))
+            if frames:
+                keyframe_path = frames[0]
+
+    if not keyframe_path:
+        print(f"  Warning: No source image found for social preview")
+        return None
+
+    # Create og-image.jpg in public folder
+    og_image_path = app_dir / "public/og-image.jpg"
+
+    try:
+        # Use ffmpeg to resize to 1200x630 (optimal for social sharing)
+        result = subprocess.run([
+            "ffmpeg", "-y",
+            "-i", str(keyframe_path),
+            "-vf", "scale=1200:630:force_original_aspect_ratio=increase,crop=1200:630",
+            "-q:v", "2",
+            str(og_image_path)
+        ], capture_output=True, text=True)
+
+        if result.returncode == 0:
+            print(f"  Created: public/og-image.jpg (from {keyframe_path.name})")
+            return "/og-image.jpg"
+        else:
+            # Fallback: just copy the original
+            shutil.copy(keyframe_path, og_image_path)
+            print(f"  Copied: public/og-image.jpg (original size)")
+            return "/og-image.jpg"
+    except FileNotFoundError:
+        # ffmpeg not available, just copy
+        shutil.copy(keyframe_path, og_image_path)
+        print(f"  Copied: public/og-image.jpg (ffmpeg not available)")
+        return "/og-image.jpg"
+    except Exception as e:
+        print(f"  Warning: Could not create social preview: {e}")
+        return None
+
+
+def generate_layout_tsx(spec: dict, stream_id: str, og_image_path: str | None = None) -> str:
+    """Generate app/layout.tsx with analytics tracking, SEO, and social media metadata."""
     stream = spec.get("stream", {})
     title = stream.get("title", "Stream")
     language = spec.get("input", {}).get("language", "en")
+
+    # Get description from spec or generate one
+    description = spec.get("input", {}).get("description", "")
+    if not description:
+        # Generate from story excerpt if available
+        sections = spec.get("sections", [])
+        if sections and sections[0].get("text_content"):
+            excerpt = sections[0]["text_content"][:150].strip()
+            description = excerpt + "..." if len(sections[0].get("text_content", "")) > 150 else excerpt
+        else:
+            description = f"A scroll-driven visual story: {title}"
+
+    # Author info
+    author = spec.get("input", {}).get("author", "")
+    author_meta = f'\n  authors: [{{ name: "{author}" }}],' if author else ""
 
     # Analytics endpoint - configurable via environment
     analytics_endpoint = os.environ.get(
@@ -367,12 +469,58 @@ def generate_layout_tsx(spec: dict, stream_id: str) -> str:
 })();
 """.strip()
 
+    # Escape single quotes in title and description for JS strings
+    safe_title = title.replace("'", "\\'")
+    safe_description = description.replace("'", "\\'").replace("\n", " ")[:200]
+
+    # Build Open Graph image metadata
+    og_image_meta = ""
+    if og_image_path:
+        og_image_meta = f"""
+    images: [
+      {{
+        url: '{og_image_path}',
+        width: 1200,
+        height: 630,
+        alt: '{safe_title}',
+      }},
+    ],"""
+
+    # Build Twitter card metadata
+    twitter_meta = f"""
+  twitter: {{
+    card: 'summary_large_image',
+    title: '{safe_title}',
+    description: '{safe_description}',{f"""
+    images: ['{og_image_path}'],""" if og_image_path else ""}
+  }},"""
+
     return f'''import './globals.css'
 import Script from 'next/script'
+import type {{ Metadata }} from 'next'
 
-export const metadata = {{
-  title: '{title} - DownStream',
-  description: 'A DownStream visual story',
+// Determine base URL for metadata (og:image, etc.)
+const getBaseUrl = () => {{
+  if (process.env.VERCEL_URL) return `https://${{process.env.VERCEL_URL}}`
+  if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL
+  return 'https://downstream.ink'
+}}
+
+export const metadata: Metadata = {{
+  metadataBase: new URL(getBaseUrl()),
+  title: '{safe_title}',
+  description: '{safe_description}',{author_meta}
+  keywords: ['visual story', 'scroll-driven', 'animation', 'downstream'],
+  openGraph: {{
+    title: '{safe_title}',
+    description: '{safe_description}',
+    type: 'website',
+    siteName: 'DownStream',{og_image_meta}
+  }},{twitter_meta}
+  robots: {{
+    index: true,
+    follow: true,
+  }},
 }}
 
 export default function RootLayout({{
@@ -727,12 +875,16 @@ def generate_app_for_tier(
     (app_dir / "app").mkdir(exist_ok=True)
     (app_dir / "public").mkdir(exist_ok=True)
 
+    # Generate social preview image (og-image.jpg)
+    print("\nGenerating social preview image...")
+    og_image_path = generate_social_preview_image(stream_id, app_dir)
+
     # Generate files
     files = {
         "config.tsx": generate_config_tsx(spec, frame_counts),
         "content.tsx": generate_content_tsx(spec),
         "app/page.tsx": generate_page_tsx(),
-        "app/layout.tsx": generate_layout_tsx(spec, stream_id),
+        "app/layout.tsx": generate_layout_tsx(spec, stream_id, og_image_path),
         "app/globals.css": generate_globals_css(spec),
         "package.json": generate_package_json(stream_id + suffix, has_form),
         "tsconfig.json": generate_tsconfig(),

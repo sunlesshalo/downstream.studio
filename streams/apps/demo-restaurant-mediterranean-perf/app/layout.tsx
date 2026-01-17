@@ -1,9 +1,43 @@
 import './globals.css'
 import Script from 'next/script'
+import type { Metadata } from 'next'
 
-export const metadata = {
-  title: 'LIMANI - DownStream',
-  description: 'A DownStream visual story',
+// Determine base URL for metadata (og:image, etc.)
+const getBaseUrl = () => {
+  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`
+  if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL
+  return 'https://downstream.ink'
+}
+
+export const metadata: Metadata = {
+  metadataBase: new URL(getBaseUrl()),
+  title: 'LIMANI',
+  description: 'A scroll-driven visual story by DownStream',
+  keywords: ['visual story', 'scroll-driven', 'animation', 'downstream'],
+  openGraph: {
+    title: 'LIMANI',
+    description: 'A scroll-driven visual story by DownStream',
+    type: 'website',
+    siteName: 'DownStream',
+    images: [
+      {
+        url: '/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'LIMANI',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'LIMANI',
+    description: 'A scroll-driven visual story by DownStream',
+    images: ['/og-image.jpg'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 }
 
 export default function RootLayout({
@@ -14,6 +48,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+
         {/* Google Fonts */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -26,8 +61,10 @@ export default function RootLayout({
           src="https://telegram.org/js/telegram-web-app.js"
           strategy="beforeInteractive"
         />
+      
       </head>
       <body>
+
         {children}
         {/* Telegram initialization */}
         <Script
@@ -493,6 +530,7 @@ export default function RootLayout({
 `
           }}
         />
+      
       </body>
     </html>
   )
