@@ -1,0 +1,17 @@
+[Unit]
+Description=DownStream Analytics API
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/root/downstream/infrastructure/analytics
+Environment="PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+ExecStart=/usr/bin/python3 api.py
+Restart=always
+RestartSec=10
+StandardOutput=append:/var/log/analytics.log
+StandardError=append:/var/log/analytics.log
+
+[Install]
+WantedBy=multi-user.target
