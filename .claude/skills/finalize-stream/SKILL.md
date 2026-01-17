@@ -37,6 +37,26 @@ When creating `content.tsx`:
 
 ---
 
+## PRE-DEPLOYMENT RULE (MANDATORY)
+
+**BEFORE deploying ANY stream to Vercel, you MUST check for existing deployments.**
+
+```bash
+# Check if stream already has a Vercel project
+source /root/downstream/.env
+curl -s "https://api.vercel.com/v9/projects" \
+  -H "Authorization: Bearer $VERCEL_TOKEN" | \
+  jq -r '.projects[] | select(.name | contains("STREAM_ID")) | .name'
+```
+
+If a project exists (e.g., `stream-bolyai`):
+1. Get the project ID and update `.vercel/project.json`
+2. Deploy to the EXISTING project
+
+**NEVER create duplicate projects. Always deploy to existing ones.**
+
+---
+
 ## STEP-BY-STEP PROCESS
 
 ### Step 1: Create Directory Structure
