@@ -254,6 +254,65 @@ check_env_vars() {
 }
 
 # ============================================
+# CHECK 8: Analytics Service
+# ============================================
+
+check_analytics_service() {
+    local ANALYTICS_URL="http://localhost:8082/health"
+    local STATE_FILE="/var/lib/downstream/analytics_state"
+
+    # Ensure state directory exists
+    mkdir -p "$(dirname "$STATE_FILE")" 2>/dev/null || true
+
+    # Get previous state (0 = healthy, 1 = down)
+    local prev_state=0
+    if [ -f "$STATE_FILE" ]; then
+        prev_state=$(cat "$STATE_FILE")
+    fi
+
+    # Check analytics service
+    local response
+    response=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 "$ANALYTICS_URL" 2>/dev/null)
+
+    if [ "$response" = "200" ]; then
+        # Service is healthy
+        echo "0" > "$STATE_FILE"
+
+        if [ "$prev_state" = "1" ]; then
+            # Was down, now recovered
+            alert_fixed "Analytics service recovered and responding normally"
+        fi
+    else
+        # Service is down
+        echo "1" > "$STATE_FILE"
+
+        if [ "$prev_state" = "0" ]; then
+            # Just went down - try to restart and alert
+            alert_issue_found "Analytics service not responding (HTTP $response)" "Attempting restart..."
+
+            # Try to restart the service
+            if systemctl restart analytics 2>/dev/null; then
+                sleep 5  # Wait for service to start
+
+                # Check if restart worked
+                response=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 "$ANALYTICS_URL" 2>/dev/null)
+                if [ "$response" = "200" ]; then
+                    echo "0" > "$STATE_FILE"
+                    alert_fixed "Analytics service restarted successfully"
+                else
+                    alert_needs_attention "Analytics service restart failed" "Service still not responding after restart. Check: journalctl -u analytics -n 50"
+                fi
+            else
+                alert_needs_attention "Analytics service down, restart failed" "Could not restart service. Check systemd: systemctl status analytics"
+            fi
+        else
+            # Already reported as down, still down
+            echo "[INFO] Analytics service still down (already reported)"
+        fi
+    fi
+}
+
+# ============================================
 # RUN ALL CHECKS
 # ============================================
 
@@ -266,6 +325,7 @@ check_stuck_processing
 check_disk_space
 check_activity
 check_env_vars
+check_analytics_service
 
 # ============================================
 # SUMMARY (only logged, not alerted)
