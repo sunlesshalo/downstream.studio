@@ -100,7 +100,7 @@ def generate_keyframe(segment: dict, stream_id: str, dry_run: bool = False) -> d
 def generate_segment_video(
     segment: dict,
     stream_id: str,
-    model: str = "minimax",
+    model: str = "kling",
     dry_run: bool = False
 ) -> dict:
     """Generate video and extract frames for a segment."""
@@ -232,7 +232,7 @@ def produce_videos(
     spec: dict,
     stream_id: str,
     segments: list = None,
-    model: str = "minimax",
+    model: str = "kling",
     dry_run: bool = False,
 ) -> list:
     """Generate all videos and extract frames for a stream."""
@@ -294,9 +294,9 @@ def main():
     parser.add_argument(
         "--model",
         type=str,
-        default="minimax",
+        default="kling",
         choices=["minimax", "kling", "kling-turbo"],
-        help="Video model to use (default: minimax)"
+        help="Video model to use (default: kling)"
     )
     parser.add_argument(
         "--parallel",
