@@ -1,0 +1,22 @@
+{
+  "id": "fotoszintezis-demo",
+  "title": "Jöjjön el a fotoszintézis országa",
+  "author": "Moskát Anita",
+  "language": "hu",
+  "source_url": "https://konyvesmagazin.hu/bookline-zold/moskat_anita_jojjon_el_fotoszintezis_orszaga_novella.html",
+
+  "story": "– Hát nem gyönyörű? – súgja oda Babér.\n\nA golfpályára tekint, a végtelen, folyton öntözött, pazarló gyepre, és tudom, hogy ő már nem öltönyös férfiakat lát egyre részegebben beszélgetni, hanem dús koronájú, ökológiai körforgásba illő, valódi erdőt. Le se kell hunynom a szemem, én is látom a kérgek göcsörtjeit, tenyerem összemérhetem a levelekkel.\n\n– De, az – felelem.\n\nApám fái ezért nem tudtak elég gyorsan nőni: nem a megfelelő táptalajt választotta. A növekedéshez rengeteg energia kell. Drüasz lányainak magvai már úgy használják fel a húst és a vért, mint más növények a szikleveleket.\n\nMiután a gyomorsav feloldja a védőburkot, a gyököcske a bélbolyhok közé ereszti ágait, megkapaszkodik a hasizomsejtek rostjai közt. A rügyecske ellenirányban nyújtózik, míg utat talál a hashártyáig és átdöfi azt. Növekvő hámsejtjei pihések, akár a megborzongó emberi bőr, szállítószövetei egybeforrnak az erekkel, egyetlen csepp vért sem hagynak a gyepre folyni, és végül minden csontgerenda, minden csigolyaív göcsörtté és tömör gesztté alakul, ahogy az mesterséges DNS-ében írva van. Sztómák nyílnak és csukódnak, mintha emberi tüdejét szívná tele az erdő a golfpálya helyén – tele lesz vele a sajtó, csodájára járnak a világ minden táján.\n\nTudtad-e? A leggyorsabb fa akár öt óra alatt is képes elérni a kívánt törzsmagasságot.\n\n…hisz te, a jóságos, nem csak a talajból, hanem szolgáid húsából, a bőr alól is megtalálod az utat…\n\nBekapcsolom a fülhallgatóm. Nem sikolyokat akarok hallani, öklendezést, vagy hasfalba döfött késeket, mintha még ki lehetne tépni a gyökerek szövedékét, akár a gyomot. A nyúló növényi sejtek cellulózropogására vágyom, mint apám laborjában, mintha még ott ülnék vele.\n\nHiszen már hallom is. Olyan, akár a tábortűz.\n\nLenyelem a számban tartogatott magot.",
+
+  "style": "surreal",
+
+  "brief": {
+    "tone": ["sacred horror", "transcendent", "ritual"],
+    "colors": "Burgundy, forest green, bone white, amber — the colors of flesh becoming wood",
+    "references": "Zdzisław Beksiński, Annihilation (2018 film), Ernst Haeckel biological illustrations",
+    "notes": "Demo excerpt from the story's climax. Eco-terrorists feed genetically modified seeds to elite gala guests — the seeds grow rapidly inside human bodies, transforming them into trees. This fragment is the revelation and transformation sequence."
+  },
+
+  "created_at": "2026-01-15T12:00:00Z",
+  "created_by": "Claude (DownStream demo for author outreach)",
+  "purpose": "Author outreach demo — to show Moskát Anita what her story could look like as a stream"
+}

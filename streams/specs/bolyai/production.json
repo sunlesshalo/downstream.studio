@@ -1,0 +1,228 @@
+{
+  "stream": {
+    "id": "bolyai",
+    "title": "A kétezer éves rejtély: Bolyai János és a meggörbült tér",
+    "interpretation_scale": 7,
+    "notes": "Educational narrative about János Bolyai's discovery of non-Euclidean geometry. Exactly 5 segments as specified. Visual approach: contrast between rigid Euclidean geometry (straight lines, grids, flat surfaces) and curved/organic hyperbolic forms. Mathematical visualizations made poetic."
+  },
+  "input": {
+    "language": "hu",
+    "word_count": 881,
+    "original_text": "1. A rejtély\nKétezer éven át senki nem talált rá a válaszra. Nem egy ősi átokról volt szó, és nem is egy elveszett kincs térképéről – csupán egy végtelenül egyszerű, vonalakkal kapcsolatos kérdésről. Olyan kérdés volt ez, amit bármelyik diák feltehetne egy matematikaórán, mégis a történelem legnagyobb elméi bicsaklottak bele sorra.\nA kérdés így hangzott: Miért biztos, hogy a párhuzamos egyenesek soha nem találkoznak?\n„Hát persze, hogy nem találkoznak!” – vághatnád rá. „Hiszen pont ez a párhuzamos fogalmának lényege.” Igazad is lenne, de a matematikusokat nem ilyen fából faragták: ők a végső bizonyítékot keresték.\nKétezer évvel ezelőtt egy görög tudós, Euklidész, lefektette a geometria alapszabályait. Öt egyszerű állítást (axiómát) fogalmazott meg, amelyekből minden más levezethető. Az első négy kristálytiszta volt:\nKét pont között egyenes húzható.\nMinden szakasz meghosszabbítható.\nBármely középpontból bármilyen sugarú kör rajzolható.\nMinden derékszög egyenlő.\nDe az az átkozott ötödik szabály... az egészen más volt. Bonyolultabb, nehézkesebb, mintha nem is illene a sorba. Ez a szabály mondta ki, hogy a párhuzamosok soha nem metszik egymást, de olyan körmönfont módon, ami már-már bizonyításért kiáltott.\nA matematikusokat évszázadokon át mardosta a kétség: ha a többi négy szabály ilyen elegáns, miért ilyen nyakatekert az ötödik? Tényleg alapigazság, amit csak elhinni lehet? Vagy levezethető a többi négyből? Arab, perzsa, olasz és német tudósok generációi próbálkoztak, és vallottak kudarcot. Aztán a figyelem egy erdélyi családra terelődött.\n2. Az apa: Bolyai Farkas\nBolyai Farkas nem volt mindennapi ember. Matematikus, feltaláló, zenész és költő egy személyben, aki Marosvásárhelyen tanított. A diákjai rajongtak érte, mert nem magoltatott, hanem gondolkodni tanított. Ám Farkasnak volt egy sötét szenvedélye: őt is megszállta a párhuzamosok démona.\nFiatalon a „matematika fejedelmével”, Carl Friedrich Gauss-szal levelezett. Farkas szentül hitte, hogy ő lesz az, aki végre pontot tesz a kétezer éves rejtély végére. Éjszakákon át görnyedt a papírok felett. Minden alkalommal, amikor azt hitte, megvan a megoldás, rájött egy apró, megsemmisítő hibára. A kudarc lassan felőrölte az önbecsülését.\nKözben felnőtt a fia, János. A fiú zsenialitása már korán megmutatkozott: hatévesen hegedült, tizenhárom évesen pedig már egyetemi szintű matematikát tanult. Farkas büszke volt, de rettegett is, mert látta, hogy János figyelme ugyanazon rejtély felé fordul, ami az ő életét tönkretette.\n1820-ban Farkas egy drámai levelet írt fiának, amely a tudománytörténet egyik legmegrázóbb dokumentuma:\n„Az Istenre kérlek, hagyj békét a párhuzamosok tanának... Én ezen az úton végigmentem, de nincs benne boldogság. Minden próbálkozásom kudarcot vallott, és a lelkem sötétségbe merült. Kérlek, ne próbáld meg – az életedet pazarolnád el, ahogy én tettem.”\nDe János nem hallgatott az apjára.\n3. A probléma lényege\nHogy megértsük János forradalmát, tegyünk egy próbát. Vegyél egy papírlapot. Húzz egy egyenest, fölé egy pontot, majd ezen a ponton keresztül egy másikat, ami párhuzamos az elsővel. Könnyű, igaz? A két vonal sosem találkozik.\nDe mi van akkor, ha a papírod nem lapos? Képzeld el, hogy egy kosárlabda felszínére rajzolsz. Ha a labda „egyenlítőjétől” elkezdesz két párhuzamos vonalat húzni az északi pólus felé, azok a csúcson találkozni fognak. Pedig párhuzamosként indultak! Ezt hívjuk gömbgeometriának.\nItt jön a zseniális csavar: honnan tudjuk, hogy a világunk „lapos”? Mi van, ha maga a tér – az egész univerzum – nem olyan, mint egy sima asztallap, hanem van benne egy láthatatlan görbület? Ez volt az a kérdés, ami mindent megváltoztatott.\n4. Az áttörés: „A semmiből egy új világ”\nJános katonatiszt lett, de a laktanyák gyertyafényénél, a menetelések szüneteiben is a párhuzamosokon töprengett. Ő azonban máshonnan közelített. Nem azt kérdezte: „Hogyan bizonyítsam be az ötödik szabályt?”, hanem azt: „Mi történik, ha nem igaz?”\nMi van, ha létezik egy olyan geometria, ahol a párhuzamosok nemhogy nem találkoznak, de egyenesen távolodnak egymástól? János kidolgozott egy rendszert, ami elsőre őrültségnek tűnt, mégis tökéletesen, ellentmondások nélkül működött. Felépített egy teljes matematikai univerzumot, amely nem Euklidész szabályaira épült.\n1823-ban írta meg apjának a híres sorokat:\n„A semmiből egy új, más világot teremtettem.”\nFarkas alig hitte el, amit lát. A fia nem azért járt sikerrel, mert okosabb volt nála, hanem mert volt bátorsága elvetni a kétezer éves dogmákat. Az eredmény végül 1832-ben, az Appendix című műben látott napvilágot. Mindössze huszonhat oldal volt, de alapjaiban rázta meg a tudományt.\n5. A nyereg alakú világ\nMit fedezett fel János? Egy olyan teret (úgynevezett hiperbolikus teret), ami leginkább egy lónyeregre hasonlít. Ebben a világban a szabályok megbolondulnak:\nA háromszög szögeinek összege kevesebb, mint 180 fok.\nEgy ponton keresztül végtelen sok párhuzamos húzható egy egyeneshez.\nEz nem csupán elvont matek. A természet imádja a Bolyai-féle geometriát: nézd meg egy korallzátony fodrait, egy salátalevél szélét vagy bizonyos gombák kalapját – mind-mind ezt a hiperbolikus formát követik.\n6. Az igazságtétel\nJános sikere keserédes volt. Amikor elküldték a művét Gaussnak, a nagy tudós hűvös választ adott: azt írta, nem dicsérheti Jánost, mert azzal önmagát dicsérné – állítása szerint ő már évekkel korábban rájött erre, csak nem merte leírni. János összeomlott, úgy érezte, elárulták és ellopták a felfedezését. Soha többé nem publikált semmit.\nA történelem azonban igazságot szolgáltatott. Nyolcvan évvel később egy fiatal német fizikus, Albert Einstein, a gravitáció titkát kutatta. Rájött, hogy a bolygók nem láthatatlan kötelek hatására keringenek: a Nap tömege egyszerűen meggörbíti maga körül a teret.\nEinsteinnek ahhoz, hogy leírja a világegyetem működését, pontosan arra a „görbe” geometriára volt szüksége, amit Bolyai János alkotott meg a laktanyák homályában.\nJános rájött arra, amit előtte kétezer évig senki: néha a legnagyobb felfedezéshez nem bizonyítani kell, amit mindenki igaznak tart, hanem megkérdőjelezni azt.",
+    "brief": {
+      "tone": [
+        "intellectual",
+        "inspiring",
+        "historical"
+      ],
+      "style_hints": [
+        "mathematical visualization",
+        "educational",
+        "Hungarian heritage"
+      ],
+      "references": [
+        "scientific illustration",
+        "vintage mathematics diagrams",
+        "cosmic visualization"
+      ],
+      "target_audience": "Hungarian readers interested in science and history",
+      "notes": "Story of Bolyai's discovery of non-Euclidean geometry. Visual motif: transition from rigid parallel lines to flowing curved space."
+    }
+  },
+  "visual_direction": {
+    "aesthetic": "Mathematical abstraction meets cosmic wonder. Clean geometric forms give way to organic hyperbolic curves. Renaissance study meets infinite space. Paper textures and aged document feel combined with cosmic depth.",
+    "color_palette": {
+      "background": "#0a0a14",
+      "primary": "#c9a656",
+      "secondary": "#8b7355",
+      "accent": "#4a6d8c",
+      "cold": "#1a2a3a",
+      "warm": "#d4a056"
+    },
+    "texture": "Aged paper, mathematical manuscript, subtle grain, ink wash",
+    "references": [
+      "Scientific illustration",
+      "M.C. Escher",
+      "Cosmic visualization",
+      "Renaissance study"
+    ],
+    "unifying_elements": "Geometric lines that curve and flow. The recurring motif of parallel lines transforming - starting rigid and flat, gradually bending and diverging into curved space. Mathematical symbols floating as if alive.",
+    "bookend_strategy": "evolution",
+    "bookend_method": "compositional_parallel",
+    "bookend_notes": "Opening: rigid parallel lines, Euclidean perfection, the prison of assumption. Closing: curved space embracing planets, Bolyai's vision proven. Both show lines, but transformed."
+  },
+  "composition_rules": {
+    "safe_zone": "Key visual elements must be in CENTER 60% of frame",
+    "reason": "Desktop crops ~20% from each side",
+    "prompt_suffix": "center-focused composition with key subject in middle of frame"
+  },
+  "segments": [
+    {
+      "id": 1,
+      "title": "THE RIDDLE",
+      "concept": {
+        "conventional_idea": "Parallel lines on parchment, ancient Greek scholar writing",
+        "tools_applied": [
+          "Motion Transfer",
+          "Absence as Presence"
+        ],
+        "chosen_concept": "The parallel lines themselves become the subject - glowing golden lines floating in void, perfectly parallel, impossibly rigid. The absence of meeting IS the presence - the space between them pulses with unresolved tension. The viewer sees what obsessed mathematicians for 2000 years.",
+        "justification": "Motion Transfer makes the static geometry dynamic. Absence as Presence makes the 'non-meeting' the visual focus. More powerful than showing a scholar."
+      },
+      "layers": {
+        "realistic": "Two perfectly parallel golden lines stretching across the frame, mathematical precision, aged paper texture",
+        "surreal": "The lines float in cosmic void, the space between them contains swirling mathematical symbols and question marks that drift like smoke, representing 2000 years of failed attempts"
+      },
+      "camera_instruction": "slow push in toward center",
+      "color_state": "warm",
+      "image_prompt": "Two perfectly parallel glowing golden lines stretching horizontally across deep cosmic void, aged mathematical manuscript texture overlay, swirling Greek symbols and question marks drifting like smoke between the lines, the space between pulses with ethereal blue light, warm amber lines against cold blue-black depth, mathematical precision meets cosmic mystery, film grain, painterly atmospheric, center-focused composition with key subject in middle of frame, 16:9 cinematic",
+      "negative_prompt": "text, words, people, faces, cluttered, modern elements, harsh lighting",
+      "motion_prompt": "slow push in toward the space between parallel lines, mathematical symbols drifting upward like embers, subtle pulse of light in the void between lines, particles floating left to right at varying depths, foreground symbols faster, background slower"
+    },
+    {
+      "id": 2,
+      "title": "THE FATHER'S WARNING",
+      "concept": {
+        "conventional_idea": "Bolyai Farkas writing letter at desk by candlelight",
+        "tools_applied": [
+          "Shadow Independence",
+          "Frame as Window"
+        ],
+        "chosen_concept": "Shadow Independence - Farkas's shadow on the wall shows him drowning in geometric lines, while his physical form hunches over papers. The shadow reveals the truth of his torment - consumed by the parallel postulate.",
+        "justification": "Shadow Independence creates visual metaphor for internal struggle. The shadow shows what the conscious mind hides. More emotionally powerful than literal scene."
+      },
+      "layers": {
+        "realistic": "Silhouette of hunched scholar at desk, candlelight, papers scattered, quill pen, 19th century Transylvanian study interior",
+        "surreal": "His shadow on the wall is entangled in geometric lines that wrap around it like chains, mathematical symbols drip from the shadow like tears, the shadow's hands reach upward in despair while the man writes calmly"
+      },
+      "camera_instruction": "slow pan right",
+      "color_state": "muted",
+      "image_prompt": "Silhouette of scholar hunched over desk in candlelit study, his shadow cast large on wall entangled in geometric lines like chains, mathematical symbols dripping from shadow like dark tears, shadow's hands raised in despair while figure writes calmly, warm candlelight on papers, cold blue-grey shadow on wall, scattered manuscripts, 19th century Transylvanian atmosphere, ink and paper textures, film grain, Gregory Crewdson lighting, center-focused composition with key subject in middle of frame, 16:9 cinematic",
+      "negative_prompt": "modern elements, detailed face, bright colors, cluttered background, text visible",
+      "motion_prompt": "slow pan right from figure to shadow, candlelight flickers casting moving shadows, geometric lines in shadow writhe slowly like living things, paper particles drift in the light, shadow hands move independently of figure"
+    },
+    {
+      "id": 3,
+      "title": "CURVED SPACE",
+      "concept": {
+        "conventional_idea": "Basketball/globe with lines drawn on it, demonstrating spherical geometry",
+        "tools_applied": [
+          "Scale Inversion",
+          "Dimensional Shift"
+        ],
+        "chosen_concept": "Scale Inversion - A tiny human figure stands on a vast curved surface that warps toward infinity. What was flat paper becomes a bending cosmic landscape. The parallel lines we saw in Segment 1 now curve toward each other on this impossible surface.",
+        "justification": "Scale Inversion creates awe and the feeling of conceptual breakthrough. The tiny figure = the viewer experiencing the revelation. Dimensional Shift from 2D flat to curved 3D space."
+      },
+      "layers": {
+        "realistic": "Vast curved mathematical surface like a sphere, grid lines curving toward horizon, tiny silhouette figure standing on the curve",
+        "surreal": "The surface floats in void, two golden parallel lines from Segment 1 visible curving toward each other at the 'top' of the sphere, where they meet there's a burst of light, defying Euclidean logic"
+      },
+      "camera_instruction": "pull back",
+      "color_state": "cold",
+      "image_prompt": "Tiny human silhouette standing on vast curved mathematical surface floating in cosmic void, gridlines curving toward distant horizon, two golden parallel lines arcing toward each other at the sphere's apex where they meet in a burst of light, deep blue-black cosmic depth, teal mathematical grid against warm golden lines, impossible geometry, scale distortion creates awe, film grain, atmospheric depth, center-focused composition with key subject in middle of frame, 16:9 cinematic",
+      "negative_prompt": "flat surface, text, multiple figures, cluttered, bright saturated colors",
+      "motion_prompt": "slow pull back revealing scale of curved surface, gridlines gently pulsing, particles drifting upward, the two golden lines slowly converging toward meeting point, subtle shimmer where impossible meeting occurs"
+    },
+    {
+      "id": 4,
+      "title": "A NEW WORLD FROM NOTHING",
+      "concept": {
+        "conventional_idea": "Young Bolyai writing 'Appendix' manuscript by candlelight in military barracks",
+        "tools_applied": [
+          "Frame as Window",
+          "Material Substitution"
+        ],
+        "chosen_concept": "Frame as Window - The open pages of the Appendix manuscript become a window/portal into a new universe. Through the book's pages, we see not text but a swirling hyperbolic space - the 'new world' Bolyai created.",
+        "justification": "Frame as Window perfectly captures 'from nothing, a new world' - the book literally opens into another reality. More powerful than showing a man writing."
+      },
+      "layers": {
+        "realistic": "Open manuscript book (Appendix) on wooden desk, candlelight, ink well, military barracks setting suggested by austere surroundings",
+        "surreal": "The open pages contain not text but a swirling hyperbolic universe - saddle-shaped spaces, diverging lines, infinite depth pouring out of the book like light, mathematical symbols floating up from the pages like ascending spirits"
+      },
+      "camera_instruction": "orbit",
+      "color_state": "warm",
+      "image_prompt": "Open ancient manuscript book on wooden desk serving as portal to hyperbolic universe within its pages, swirling saddle-shaped spaces and diverging curved lines visible through the book like a window to another dimension, golden light pouring upward from pages, mathematical symbols ascending like spirits, warm amber candlelight, austere surroundings suggesting military barracks, ink and aged paper texture, cosmic depth within the book, film grain, magical realism, center-focused composition with key subject in middle of frame, 16:9 cinematic",
+      "negative_prompt": "readable text, modern elements, detailed face, cluttered composition",
+      "motion_prompt": "slow orbit around the book-portal, hyperbolic space within swirling gently, mathematical symbols rising from pages, golden light rays emanating outward, particles of light drifting upward"
+    },
+    {
+      "id": 5,
+      "title": "VINDICATION",
+      "concept": {
+        "conventional_idea": "Einstein portrait with curved spacetime diagram, Bolyai's book next to relativity equations",
+        "tools_applied": [
+          "Motion Transfer",
+          "Layer Inversion"
+        ],
+        "chosen_concept": "Motion Transfer + compositional echo of Segment 1 - Return to two lines, but now they curve around a central glowing mass (the Sun). The rigid parallels from the opening have transformed into Einstein's curved spacetime. Space itself bends. Bolyai's 'impossible' geometry IS reality.",
+        "justification": "Bookend with Segment 1 - same composition (two lines in void) but transformed. Motion Transfer: the lines now follow curved space. Visual proof that Bolyai was right."
+      },
+      "layers": {
+        "realistic": "Curved spacetime visualization around a central glowing mass, planets following curved paths, the fabric of space visibly warped",
+        "surreal": "The two golden parallel lines from Segment 1 return, but now they curve around the central mass, bending through spacetime, diverging as they pass - Bolyai's hyperbolic geometry proven. Small points of light (stars, planets) caught in the curved grid."
+      },
+      "camera_instruction": "drift",
+      "color_state": "warm",
+      "image_prompt": "Two golden lines curving around central glowing mass representing the Sun, Einstein's curved spacetime made visible, the fabric of space warped like a grid bending around gravity, planets as small points of light following curved paths, deep cosmic blue-black void, warm golden lines against cold space, the parallel lines from the opening now gracefully curving apart through hyperbolic space, vindication visualized, film grain, cosmic grandeur, center-focused composition with key subject in middle of frame, 16:9 cinematic",
+      "negative_prompt": "text, equations, portraits, faces, cluttered, harsh contrast",
+      "motion_prompt": "gentle drift through curved spacetime, golden lines slowly bending around central mass, grid of space subtly warping, small planetary lights moving along curved paths, particles drifting in all directions at varying speeds creating depth, sense of cosmic peace and resolution"
+    }
+  ],
+  "sections": [
+    {
+      "id": "chapter-1",
+      "heading": null,
+      "heading_type": null,
+      "segment_ids": [
+        1
+      ],
+      "text_type": "prose",
+      "dialogue_markers": null,
+      "text_content": "1. A rejtély\nKétezer éven át senki nem talált rá a válaszra. Nem egy ősi átokról volt szó, és nem is egy elveszett kincs térképéről – csupán egy végtelenül egyszerű, vonalakkal kapcsolatos kérdésről. Olyan kérdés volt ez, amit bármelyik diák feltehetne egy matematikaórán, mégis a történelem legnagyobb elméi bicsaklottak bele sorra.\nA kérdés így hangzott: Miért biztos, hogy a párhuzamos egyenesek soha nem találkoznak?\n„Hát persze, hogy nem találkoznak!” – vághatnád rá. „Hiszen pont ez a párhuzamos fogalmának lényege.” Igazad is lenne, de a matematikusokat nem ilyen fából faragták: ők a végső bizonyítékot keresték.\nKétezer évvel ezelőtt egy görög tudós, Euklidész, lefektette a geometria alapszabályait. Öt egyszerű állítást (axiómát) fogalmazott meg, amelyekből minden más levezethető. Az első négy kristálytiszta volt:\nKét pont között egyenes húzható.\nMinden szakasz meghosszabbítható.\nBármely középpontból bármilyen sugarú kör rajzolható.\nMinden derékszög egyenlő.\nDe az az átkozott ötödik szabály... az egészen más volt. Bonyolultabb, nehézkesebb, mintha nem is illene a sorba. Ez a szabály mondta ki, hogy a párhuzamosok soha nem metszik egymást, de olyan körmönfont módon, ami már-már bizonyításért kiáltott.\nA matematikusokat évszázadokon át mardosta a kétség: ha a többi négy szabály ilyen elegáns, miért ilyen nyakatekert az ötödik? Tényleg alapigazság, amit csak elhinni lehet? Vagy levezethető a többi négyből? Arab, perzsa, olasz és német tudósok generációi próbálkoztak, és vallottak kudarcot. Aztán a figyelem egy erdélyi családra terelődött."
+    },
+    {
+      "id": "chapter-2",
+      "heading": null,
+      "heading_type": null,
+      "segment_ids": [
+        2
+      ],
+      "text_type": "prose_with_dialogue",
+      "dialogue_markers": [
+        "„",
+        "”"
+      ],
+      "text_content": "2. Az apa: Bolyai Farkas\nBolyai Farkas nem volt mindennapi ember. Matematikus, feltaláló, zenész és költő egy személyben, aki Marosvásárhelyen tanított. A diákjai rajongtak érte, mert nem magoltatott, hanem gondolkodni tanított. Ám Farkasnak volt egy sötét szenvedélye: őt is megszállta a párhuzamosok démona.\nFiatalon a „matematika fejedelmével”, Carl Friedrich Gauss-szal levelezett. Farkas szentül hitte, hogy ő lesz az, aki végre pontot tesz a kétezer éves rejtély végére. Éjszakákon át görnyedt a papírok felett. Minden alkalommal, amikor azt hitte, megvan a megoldás, rájött egy apró, megsemmisítő hibára. A kudarc lassan felőrölte az önbecsülését.\nKözben felnőtt a fia, János. A fiú zsenialitása már korán megmutatkozott: hatévesen hegedült, tizenhárom évesen pedig már egyetemi szintű matematikát tanult. Farkas büszke volt, de rettegett is, mert látta, hogy János figyelme ugyanazon rejtély felé fordul, ami az ő életét tönkretette.\n1820-ban Farkas egy drámai levelet írt fiának, amely a tudománytörténet egyik legmegrázóbb dokumentuma:\n„Az Istenre kérlek, hagyj békét a párhuzamosok tanának... Én ezen az úton végigmentem, de nincs benne boldogság. Minden próbálkozásom kudarcot vallott, és a lelkem sötétségbe merült. Kérlek, ne próbáld meg – az életedet pazarolnád el, ahogy én tettem.”\nDe János nem hallgatott az apjára."
+    },
+    {
+      "id": "chapter-3-4",
+      "heading": null,
+      "heading_type": null,
+      "segment_ids": [
+        3,
+        4
+      ],
+      "text_type": "prose_with_dialogue",
+      "dialogue_markers": [
+        "„",
+        "”"
+      ],
+      "text_content": "3. A probléma lényege\nHogy megértsük János forradalmát, tegyünk egy próbát. Vegyél egy papírlapot. Húzz egy egyenest, fölé egy pontot, majd ezen a ponton keresztül egy másikat, ami párhuzamos az elsővel. Könnyű, igaz? A két vonal sosem találkozik.\nDe mi van akkor, ha a papírod nem lapos? Képzeld el, hogy egy kosárlabda felszínére rajzolsz. Ha a labda „egyenlítőjétől” elkezdesz két párhuzamos vonalat húzni az északi pólus felé, azok a csúcson találkozni fognak. Pedig párhuzamosként indultak! Ezt hívjuk gömbgeometriának.\nItt jön a zseniális csavar: honnan tudjuk, hogy a világunk „lapos”? Mi van, ha maga a tér – az egész univerzum – nem olyan, mint egy sima asztallap, hanem van benne egy láthatatlan görbület? Ez volt az a kérdés, ami mindent megváltoztatott.\n4. Az áttörés: „A semmiből egy új világ”\nJános katonatiszt lett, de a laktanyák gyertyafényénél, a menetelések szüneteiben is a párhuzamosokon töprengett. Ő azonban máshonnan közelített. Nem azt kérdezte: „Hogyan bizonyítsam be az ötödik szabályt?”, hanem azt: „Mi történik, ha nem igaz?”\nMi van, ha létezik egy olyan geometria, ahol a párhuzamosok nemhogy nem találkoznak, de egyenesen távolodnak egymástól? János kidolgozott egy rendszert, ami elsőre őrültségnek tűnt, mégis tökéletesen, ellentmondások nélkül működött. Felépített egy teljes matematikai univerzumot, amely nem Euklidész szabályaira épült.\n1823-ban írta meg apjának a híres sorokat:\n„A semmiből egy új, más világot teremtettem.”\nFarkas alig hitte el, amit lát. A fia nem azért járt sikerrel, mert okosabb volt nála, hanem mert volt bátorsága elvetni a kétezer éves dogmákat. Az eredmény végül 1832-ben, az Appendix című műben látott napvilágot. Mindössze huszonhat oldal volt, de alapjaiban rázta meg a tudományt."
+    },
+    {
+      "id": "chapter-5-6",
+      "heading": null,
+      "heading_type": null,
+      "segment_ids": [
+        5
+      ],
+      "text_type": "prose",
+      "dialogue_markers": null,
+      "text_content": "5. A nyereg alakú világ\nMit fedezett fel János? Egy olyan teret (úgynevezett hiperbolikus teret), ami leginkább egy lónyeregre hasonlít. Ebben a világban a szabályok megbolondulnak:\nA háromszög szögeinek összege kevesebb, mint 180 fok.\nEgy ponton keresztül végtelen sok párhuzamos húzható egy egyeneshez.\nEz nem csupán elvont matek. A természet imádja a Bolyai-féle geometriát: nézd meg egy korallzátony fodrait, egy salátalevél szélét vagy bizonyos gombák kalapját – mind-mind ezt a hiperbolikus formát követik.\n6. Az igazságtétel\nJános sikere keserédes volt. Amikor elküldték a művét Gaussnak, a nagy tudós hűvös választ adott: azt írta, nem dicsérheti Jánost, mert azzal önmagát dicsérné – állítása szerint ő már évekkel korábban rájött erre, csak nem merte leírni. János összeomlott, úgy érezte, elárulták és ellopták a felfedezését. Soha többé nem publikált semmit.\nA történelem azonban igazságot szolgáltatott. Nyolcvan évvel később egy fiatal német fizikus, Albert Einstein, a gravitáció titkát kutatta. Rájött, hogy a bolygók nem láthatatlan kötelek hatására keringenek: a Nap tömege egyszerűen meggörbíti maga körül a teret.\nEinsteinnek ahhoz, hogy leírja a világegyetem működését, pontosan arra a „görbe” geometriára volt szüksége, amit Bolyai János alkotott meg a laktanyák homályában.\nJános rájött arra, amit előtte kétezer évig senki: néha a legnagyobb felfedezéshez nem bizonyítani kell, amit mindenki igaznak tart, hanem megkérdőjelezni azt."
+    }
+  ],
+  "output": {
+    "frame_format": "webp",
+    "dimensions": "1920x1080"
+  }
+}

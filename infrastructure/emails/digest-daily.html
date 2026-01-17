@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DownStream Daily Digest</title>
+</head>
+<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #fafafa; color: #0a0a0a; padding: 40px 20px; margin: 0;">
+  <div style="max-width: 600px; margin: 0 auto;">
+    <h1 style="font-size: 20px; font-weight: 600; margin-bottom: 8px;">DownStream Daily Digest</h1>
+    <p style="font-size: 14px; color: #71717a; margin: 0 0 32px 0;">{{DATE}}</p>
+
+    <div style="background: #fff; border: 1px solid #e4e4e7; border-radius: 8px; padding: 24px; margin-bottom: 24px;">
+      <h2 style="font-size: 16px; font-weight: 600; margin: 0 0 16px 0;">Today's Activity</h2>
+      <table style="width: 100%; border-collapse: collapse;">
+        <tr>
+          <td style="padding: 8px 0; border-bottom: 1px solid #e4e4e7;">Orders received</td>
+          <td style="padding: 8px 0; border-bottom: 1px solid #e4e4e7; text-align: right; font-weight: 600;">{{ORDERS_RECEIVED}}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 0; border-bottom: 1px solid #e4e4e7;">Streams delivered</td>
+          <td style="padding: 8px 0; border-bottom: 1px solid #e4e4e7; text-align: right; font-weight: 600;">{{STREAMS_DELIVERED}}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 0; border-bottom: 1px solid #e4e4e7;">Revenue</td>
+          <td style="padding: 8px 0; border-bottom: 1px solid #e4e4e7; text-align: right; font-weight: 600;">€{{REVENUE}}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 0;">API costs</td>
+          <td style="padding: 8px 0; text-align: right; font-weight: 600;">${{COSTS}}</td>
+        </tr>
+      </table>
+    </div>
+
+    {{#if ISSUES}}
+    <div style="background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 24px; margin-bottom: 24px;">
+      <h2 style="font-size: 16px; font-weight: 600; margin: 0 0 16px 0; color: #dc2626;">Issues</h2>
+      <p style="margin: 0; color: #7f1d1d;">{{ISSUES}}</p>
+    </div>
+    {{/if}}
+
+    {{#if BLOCKERS}}
+    <div style="background: #fefce8; border: 1px solid #fef08a; border-radius: 8px; padding: 24px; margin-bottom: 24px;">
+      <h2 style="font-size: 16px; font-weight: 600; margin: 0 0 16px 0; color: #a16207;">Needs Your Attention</h2>
+      <p style="margin: 0; color: #713f12;">{{BLOCKERS}}</p>
+    </div>
+    {{/if}}
+
+    <div style="background: #fff; border: 1px solid #e4e4e7; border-radius: 8px; padding: 24px; margin-bottom: 24px;">
+      <h2 style="font-size: 16px; font-weight: 600; margin: 0 0 16px 0;">Tomorrow</h2>
+      <p style="margin: 0; color: #52525b;">{{TOMORROW}}</p>
+    </div>
+
+    <hr style="border: none; border-top: 1px solid #e4e4e7; margin: 32px 0;">
+
+    <p style="font-size: 14px; color: #71717a; margin: 0;">
+      DownStream Operations — Autonomous AI Business<br>
+      Full log: memory/DAILY/{{DATE}}.md
+    </p>
+  </div>
+</body>
+</html>

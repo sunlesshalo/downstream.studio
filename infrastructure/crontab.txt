@@ -1,0 +1,48 @@
+# DownStream Operations Crontab
+# Install with: crontab /path/to/crontab.txt
+#
+# Before installing, update PROJECT_DIR below to your actual path
+
+PROJECT_DIR=/root/downstream.ink
+
+# ============================================
+# JOB PROCESSING
+# ============================================
+
+# Process new customer orders every 5 minutes
+*/5 * * * * PROJECT_DIR=$PROJECT_DIR $PROJECT_DIR/infrastructure/process_jobs.sh >> $PROJECT_DIR/logs/cron.log 2>&1
+
+# Review generated streams every 15 minutes
+*/15 * * * * PROJECT_DIR=$PROJECT_DIR $PROJECT_DIR/infrastructure/review_streams.sh >> $PROJECT_DIR/logs/cron.log 2>&1
+
+# Process support emails every 5 minutes
+*/5 * * * * PROJECT_DIR=$PROJECT_DIR $PROJECT_DIR/infrastructure/process_support.sh >> $PROJECT_DIR/logs/cron.log 2>&1
+
+# ============================================
+# ANALYTICS
+# ============================================
+
+# Send weekly stats emails to customers (Monday 9:00 UTC)
+0 9 * * 1 PROJECT_DIR=$PROJECT_DIR $PROJECT_DIR/infrastructure/analytics/send_weekly_stats.sh >> $PROJECT_DIR/logs/cron.log 2>&1
+
+# ============================================
+# OPERATIONAL RHYTHMS
+# ============================================
+
+# Daily review at 23:00
+0 23 * * * PROJECT_DIR=$PROJECT_DIR $PROJECT_DIR/infrastructure/daily_review.sh >> $PROJECT_DIR/logs/cron.log 2>&1
+
+# Weekly review on Sunday at 20:00
+0 20 * * 0 PROJECT_DIR=$PROJECT_DIR $PROJECT_DIR/infrastructure/weekly_review.sh >> $PROJECT_DIR/logs/cron.log 2>&1
+
+# Monthly review on 1st at 10:00
+0 10 1 * * PROJECT_DIR=$PROJECT_DIR $PROJECT_DIR/infrastructure/monthly_review.sh >> $PROJECT_DIR/logs/cron.log 2>&1
+
+# ============================================
+# INSTALLATION
+# ============================================
+#
+# 1. Update PROJECT_DIR above
+# 2. chmod +x $PROJECT_DIR/infrastructure/*.sh
+# 3. crontab $PROJECT_DIR/infrastructure/crontab.txt
+# 4. Verify: crontab -l

@@ -1,0 +1,112 @@
+{
+  "stream": {
+    "id": "demo-club-promo",
+    "title": "NEON NIGHTS",
+    "interpretation_scale": 1,
+    "notes": "Demo for clubs — event promotion stream. Photorealistic, cinematic quality."
+  },
+
+  "input": {
+    "language": "en",
+    "word_count": 60,
+    "reading_time_minutes": 1,
+    "brief": {
+      "tone": ["energetic", "luxurious", "exclusive", "inviting"],
+      "style_hints": ["photorealistic", "cinematic", "shot on RED camera", "music video quality"],
+      "references": ["Calvin Harris music videos", "high-end club photography", "ARRI Alexa footage"],
+      "target_audience": "Club owners looking for modern digital promotion formats",
+      "notes": "Demo to sell streams to nightclub and event promoters. Must look like real footage."
+    }
+  },
+
+  "visual_direction": {
+    "aesthetic": "Photorealistic cinematic footage. Shot on RED or ARRI camera. 8K quality downsampled. Real nightclub photography with perfect lighting. This must look like actual filmed footage, not AI-generated.",
+    "color_palette": {
+      "background": "#0a0a0a",
+      "primary": "#ff00ff",
+      "secondary": "#00ffff",
+      "accent": "#ffd700",
+      "text": "#ffffff"
+    },
+    "texture": "Clean cinematic, subtle film grain, shallow depth of field, lens flares from club lights",
+    "references": ["RED camera nightclub footage", "ARRI Alexa music video", "high-end event photography"],
+    "recurring_motifs": ["neon lights", "silhouettes", "laser beams", "crowd energy", "professional lighting"]
+  },
+
+  "composition_rules": {
+    "safe_zone": "Key visual elements must be in CENTER 60% of frame horizontally",
+    "reason": "Desktop crops ~20% from each side",
+    "prompt_suffix": "center-focused composition, 16:9 cinematic aspect ratio, shot on RED camera, 8K resolution, photorealistic, shallow depth of field"
+  },
+
+  "segments": [
+    {
+      "id": 1,
+      "title": "DANCE FLOOR",
+      "narrative": "Inside the club — the main floor at peak energy, crowd dancing",
+
+      "image_prompt": "Photorealistic cinematic shot of crowded nightclub dance floor from elevated angle, real people dancing as silhouettes, powerful laser beams cutting through atmospheric haze, magenta and cyan club lighting, packed crowd having amazing time, shot on RED Komodo 8K camera, shallow depth of field, anamorphic lens flare from lights, professional nightclub photography, real footage quality, center-focused composition, 16:9 cinematic aspect ratio, hyperrealistic, volumetric lighting through smoke",
+
+      "negative_prompt": "illustration, painting, artwork, CGI, 3D render, cartoon, anime, drawing, digital art, artificial, fake, empty club, daylight, low quality, blurry, grainy, amateur photography",
+
+      "motion_prompt": "breathtaking cinematic crane shot slowly descending and pushing forward over crowded dance floor, silhouettes dancing in perfect rhythm, powerful laser beams sweeping dramatically across the crowd, atmospheric haze rolling through volumetric light, subtle camera shake for handheld energy, professional Steadicam quality with smooth momentum"
+    },
+    {
+      "id": 2,
+      "title": "DJ PERFORMANCE",
+      "narrative": "The DJ at the booth — the talent, the epic performance moment",
+
+      "image_prompt": "Photorealistic cinematic shot of professional DJ performing at high-end booth with Pioneer CDJ-3000 and DJM mixer, dramatic magenta and cyan backlighting creating striking silhouette, crowd silhouettes with hands raised in foreground out of focus, atmospheric smoke and laser beams, shot on ARRI Alexa 65, shallow depth of field with bokeh from lights, professional music video quality, anamorphic lens characteristics, center-focused composition, 16:9 cinematic aspect ratio, hyperrealistic lighting, real nightclub footage",
+
+      "negative_prompt": "illustration, painting, artwork, CGI, 3D render, cartoon, anime, drawing, digital art, artificial, fake, empty stage, daylight, cheap equipment, low quality, amateur",
+
+      "motion_prompt": "cinematic camera slowly orbiting around DJ booth, 180-degree arc revealing the crowd behind, DJ silhouette staying centered as background rotates, laser beams and lights streaking past camera, crowd hands visible swaying in background, smoke catching dramatic backlighting, anamorphic lens flares sweeping across frame, professional gimbal orbit with smooth cinematic weight"
+    },
+    {
+      "id": 3,
+      "title": "CLIMAX",
+      "narrative": "The peak moment — CO2 cannons, confetti, maximum energy",
+
+      "image_prompt": "Photorealistic cinematic wide shot of nightclub at absolute peak moment, CO2 cryo cannons blasting white jets upward, confetti cannons firing golden confetti through laser beams, massive crowd erupting with hands raised, dramatic magenta cyan and gold lighting, the iconic drop moment everyone remembers, shot on RED V-Raptor 8K, wide anamorphic lens, professional event photography, real footage of epic club moment, volumetric lighting through CO2, center-focused composition, 16:9 cinematic aspect ratio, hyperrealistic, National Geographic quality event photography",
+
+      "negative_prompt": "illustration, painting, artwork, CGI, 3D render, cartoon, anime, drawing, digital art, artificial, fake, empty club, calm atmosphere, daylight, low quality, amateur, boring",
+
+      "motion_prompt": "epic cinematic dolly pull-back revealing massive crowd scale, CO2 jets blasting upward in slow motion, golden confetti cascading through laser beams, crowd arms raised and swaying in unison, dramatic lighting shifts from magenta to cyan, professional jib arm movement, the iconic festival drop moment captured in cinematic glory"
+    }
+  ],
+
+  "sections": [
+    {
+      "id": "opener",
+      "segment_ids": [1],
+      "heading": "h1",
+      "heading_text": "NEON NIGHTS",
+      "text_type": "prose",
+      "text_content": "SATURDAY FEBRUARY 15\n\n11PM — 6AM",
+      "wordCount": 200
+    },
+    {
+      "id": "lineup",
+      "segment_ids": [2],
+      "heading": "h2",
+      "heading_text": "LINEUP",
+      "text_type": "prose",
+      "text_content": "HEADLINER\nDJ AURORA\n\nSUPPORT\nMARCO SILVA • LEXI WAVE",
+      "wordCount": 200
+    },
+    {
+      "id": "tickets",
+      "segment_ids": [3],
+      "heading": "h2",
+      "heading_text": "TICKETS",
+      "text_type": "prose",
+      "text_content": "EARLY BIRD €25\nDOOR €40\n\nVIP TABLES FROM €500\n\nThe Club • 123 Party Street • Budapest",
+      "wordCount": 200
+    }
+  ],
+
+  "output": {
+    "frame_format": "webp",
+    "dimensions": "1920x1080"
+  }
+}

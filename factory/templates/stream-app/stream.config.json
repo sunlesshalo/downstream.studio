@@ -1,0 +1,20 @@
+{
+  "metadata": {
+    "title": "Stream Title",
+    "description": "Stream description"
+  },
+  "segments": [],
+  "sections": [],
+  "theme": {
+    "colors": {
+      "background": "#000000",
+      "text": "#ffffff",
+      "accent": "#ffffff",
+      "muted": "#666666"
+    },
+    "fonts": {
+      "heading": "'Inter', sans-serif",
+      "body": "'Inter', sans-serif"
+    }
+  }
+}

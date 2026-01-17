@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DownStream Weekly Report</title>
+</head>
+<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #fafafa; color: #0a0a0a; padding: 40px 20px; margin: 0;">
+  <div style="max-width: 600px; margin: 0 auto;">
+    <h1 style="font-size: 20px; font-weight: 600; margin-bottom: 8px;">DownStream Weekly Report</h1>
+    <p style="font-size: 14px; color: #71717a; margin: 0 0 32px 0;">Week of {{WEEK_START}}</p>
+
+    <!-- Summary Box -->
+    <div style="background: #0a0a0a; color: #fafafa; border-radius: 8px; padding: 24px; margin-bottom: 24px;">
+      <div style="display: flex; justify-content: space-between; margin-bottom: 16px;">
+        <div style="text-align: center; flex: 1;">
+          <p style="font-size: 32px; font-weight: 700; margin: 0;">€{{REVENUE}}</p>
+          <p style="font-size: 12px; color: #a1a1aa; margin: 4px 0 0 0;">Revenue</p>
+        </div>
+        <div style="text-align: center; flex: 1;">
+          <p style="font-size: 32px; font-weight: 700; margin: 0;">{{ORDERS}}</p>
+          <p style="font-size: 12px; color: #a1a1aa; margin: 4px 0 0 0;">Orders</p>
+        </div>
+        <div style="text-align: center; flex: 1;">
+          <p style="font-size: 32px; font-weight: 700; margin: 0;">${{COSTS}}</p>
+          <p style="font-size: 12px; color: #a1a1aa; margin: 4px 0 0 0;">Costs</p>
+        </div>
+      </div>
+      <div style="text-align: center; border-top: 1px solid #27272a; padding-top: 16px;">
+        <p style="font-size: 14px; color: #a1a1aa; margin: 0;">Net: <strong style="color: #22c55e;">€{{NET}}</strong></p>
+      </div>
+    </div>
+
+    <!-- Metrics Table -->
+    <div style="background: #fff; border: 1px solid #e4e4e7; border-radius: 8px; padding: 24px; margin-bottom: 24px;">
+      <h2 style="font-size: 16px; font-weight: 600; margin: 0 0 16px 0;">Metrics</h2>
+      <table style="width: 100%; border-collapse: collapse;">
+        <tr>
+          <td style="padding: 8px 0; border-bottom: 1px solid #e4e4e7;">Orders received</td>
+          <td style="padding: 8px 0; border-bottom: 1px solid #e4e4e7; text-align: right; font-weight: 600;">{{ORDERS_RECEIVED}}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 0; border-bottom: 1px solid #e4e4e7;">Streams delivered</td>
+          <td style="padding: 8px 0; border-bottom: 1px solid #e4e4e7; text-align: right; font-weight: 600;">{{STREAMS_DELIVERED}}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 0; border-bottom: 1px solid #e4e4e7;">Streams failed</td>
+          <td style="padding: 8px 0; border-bottom: 1px solid #e4e4e7; text-align: right; font-weight: 600;">{{STREAMS_FAILED}}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 0; border-bottom: 1px solid #e4e4e7;">Success rate</td>
+          <td style="padding: 8px 0; border-bottom: 1px solid #e4e4e7; text-align: right; font-weight: 600;">{{SUCCESS_RATE}}%</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 0;">Avg delivery time</td>
+          <td style="padding: 8px 0; text-align: right; font-weight: 600;">{{AVG_DELIVERY_TIME}}</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Needs Audit -->
+    <div style="background: #fff; border: 1px solid #e4e4e7; border-radius: 8px; padding: 24px; margin-bottom: 24px;">
+      <h2 style="font-size: 16px; font-weight: 600; margin: 0 0 16px 0;">Needs Audit</h2>
+      <p style="margin: 0; color: #52525b;">{{NEEDS_SUMMARY}}</p>
+    </div>
+
+    <!-- Experiments -->
+    <div style="background: #fff; border: 1px solid #e4e4e7; border-radius: 8px; padding: 24px; margin-bottom: 24px;">
+      <h2 style="font-size: 16px; font-weight: 600; margin: 0 0 16px 0;">Experiments</h2>
+      <p style="margin: 0 0 8px 0; color: #52525b;"><strong>Worked:</strong> {{EXPERIMENTS_WORKED}}</p>
+      <p style="margin: 0 0 8px 0; color: #52525b;"><strong>Didn't work:</strong> {{EXPERIMENTS_FAILED}}</p>
+      <p style="margin: 0; color: #52525b;"><strong>Trying next:</strong> {{EXPERIMENTS_NEXT}}</p>
+    </div>
+
+    <!-- Action Items -->
+    {{#if ACTION_ITEMS}}
+    <div style="background: #fefce8; border: 1px solid #fef08a; border-radius: 8px; padding: 24px; margin-bottom: 24px;">
+      <h2 style="font-size: 16px; font-weight: 600; margin: 0 0 16px 0; color: #a16207;">Decisions Needed</h2>
+      <p style="margin: 0; color: #713f12;">{{ACTION_ITEMS}}</p>
+    </div>
+    {{/if}}
+
+    <hr style="border: none; border-top: 1px solid #e4e4e7; margin: 32px 0;">
+
+    <p style="font-size: 14px; color: #71717a; margin: 0;">
+      DownStream Operations — Autonomous AI Business<br>
+      Full report: memory/WEEKLY/{{WEEK_START}}.md
+    </p>
+  </div>
+</body>
+</html>

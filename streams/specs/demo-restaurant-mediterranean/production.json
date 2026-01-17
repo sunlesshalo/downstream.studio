@@ -1,0 +1,67 @@
+{
+  "stream": {
+    "id": "demo-restaurant-mediterranean",
+    "title": "LIMANI",
+    "type": "promo"
+  },
+  "sections": [
+    {
+      "id": "welcome",
+      "segment_ids": [1],
+      "layout": "side-by-side",
+      "text_content": "LIMANI\n\nFresh. Simple. Mediterranean.\n\nWhere the sea meets the table.",
+      "text_type": "promo",
+      "wordCount": 200
+    },
+    {
+      "id": "the-table",
+      "segment_ids": [2],
+      "layout": "side-by-side",
+      "text_content": "THE TABLE\n\nMezze to Share\nHummus, baba ganoush, tzatziki, warm pita\n\nFrom the Grill\nWhole branzino, lemon, olive oil, wild herbs\n\nThe Garden\nHeirloom tomatoes, cucumber, feta, Kalamata olives",
+      "text_type": "promo",
+      "wordCount": 200
+    },
+    {
+      "id": "join-us",
+      "segment_ids": [3],
+      "layout": "side-by-side",
+      "text_content": "JOIN US\n\nLunch & Dinner\nTuesday – Sunday\n\n14 Seaside Promenade\nBarcelona\n\nRESERVE YOUR TABLE",
+      "text_type": "promo",
+      "wordCount": 200
+    }
+  ],
+  "segments": [
+    {
+      "id": 1,
+      "keyframe_prompt": "Mediterranean restaurant outdoor terrace at golden hour, white linen tablecloths, terracotta pots with olive trees, turquoise sea in background, warm sunset light casting long shadows, empty elegant table setting with wine glasses, bougainvillea flowers, photorealistic, shot on ARRI Alexa, 8K, shallow depth of field, cinematic color grading",
+      "motion_prompt": "Slow dolly forward movement toward the terrace table, camera gently gliding through the space, golden hour light shifting subtly, tablecloth fabric moving slightly in warm breeze, natural ambient movement",
+      "duration": 5,
+      "style": "photorealistic"
+    },
+    {
+      "id": 2,
+      "keyframe_prompt": "Overhead shot of abundant Mediterranean mezze spread on rustic wooden table, colorful hummus with olive oil drizzle, fresh vegetables, warm pita bread, grilled octopus, tabbouleh, pomegranate seeds scattered, hands reaching for food, natural daylight streaming in, photorealistic food photography, shot on Phase One IQ4, 8K, shallow depth of field",
+      "motion_prompt": "Slow crane shot descending from overhead toward table level, revealing the abundance of the spread, steam rising from warm dishes, hands moving to share food, natural light dancing on surfaces",
+      "duration": 5,
+      "style": "photorealistic"
+    },
+    {
+      "id": 3,
+      "keyframe_prompt": "Close-up of golden olive oil being drizzled over fresh grilled fish on white plate, lemon wedge, fresh herbs, Mediterranean restaurant table setting, warm natural light, wine glasses in soft focus background, intimate dining moment, photorealistic, shot on RED V-RAPTOR, 8K, macro lens, cinematic shallow depth of field",
+      "motion_prompt": "Slow push-in toward the dish, olive oil catching the light as it falls, steam rising gently, subtle camera movement creating intimate feeling, warm golden tones",
+      "duration": 5,
+      "style": "photorealistic"
+    }
+  ],
+  "visual_direction": {
+    "style": "Bright Mediterranean, warm natural light, golden hour tones",
+    "color_palette": {
+      "background": "#faf8f5",
+      "primary": "#c4a77d",
+      "secondary": "#2d4a3e",
+      "accent": "#d4a574"
+    },
+    "camera": "Slow, elegant movements - dolly, crane, push-in",
+    "lighting": "Natural daylight, golden hour warmth, soft shadows"
+  }
+}

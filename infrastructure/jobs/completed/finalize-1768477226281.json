@@ -1,0 +1,11 @@
+{
+  "type": "finalize-stream",
+  "id": "finalize-1768477226281",
+  "stream_id": "nvnyeknek-mondotta-el-rszlet",
+  "created_at": "2026-01-15T11:40:26.281363Z",
+  "created_by": "downstream",
+  "stream_path": "/Users/ferenczcsuszner/Coding/Experiments/AIrunBusiness/pipeline/streams/nvnyeknek-mondotta-el-rszlet",
+  "production_path": "/Users/ferenczcsuszner/Coding/Experiments/AIrunBusiness/pipeline/streams/nvnyeknek-mondotta-el-rszlet/production.json",
+  "output_path": "/Users/ferenczcsuszner/Coding/Experiments/AIrunBusiness/stream-nvnyeknek-mondotta-el-rszlet",
+  "status": "pending"
+}

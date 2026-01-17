@@ -1,0 +1,20 @@
+[Unit]
+Description=DownStream Director Dashboard
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/root/downstream.ink/infrastructure/director
+Environment="PATH=/root/downstream.ink/infrastructure/director/.venv/bin:/usr/local/bin:/usr/bin:/bin"
+Environment="PYTHONPATH=/root/downstream.ink/infrastructure/director"
+ExecStart=/root/downstream.ink/infrastructure/director/.venv/bin/uvicorn api:app --host 127.0.0.1 --port 8080
+Restart=always
+RestartSec=5
+
+# Logging
+StandardOutput=append:/root/downstream.ink/logs/director.log
+StandardError=append:/root/downstream.ink/logs/director.log
+
+[Install]
+WantedBy=multi-user.target

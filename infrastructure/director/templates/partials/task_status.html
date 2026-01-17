@@ -1,0 +1,62 @@
+{% if task.status == 'pending' %}
+<div hx-get="/tasks/{{ task.id }}"
+     hx-trigger="load delay:2s"
+     hx-swap="outerHTML"
+     class="flex items-center gap-2 text-sm text-muted">
+    <span class="spinner"></span>
+    <span>Queued...</span>
+    <button onclick="cancelTask('{{ task.id }}')"
+            class="btn btn-xs btn-secondary"
+            style="margin-left: auto;">Cancel</button>
+</div>
+
+{% elif task.status == 'running' %}
+<div hx-get="/tasks/{{ task.id }}"
+     hx-trigger="load delay:2s"
+     hx-swap="outerHTML"
+     class="flex items-center gap-2 text-sm">
+    <span class="spinner"></span>
+    <span>Generating segment {{ task.segment_id }}...</span>
+    <button onclick="cancelTask('{{ task.id }}')"
+            class="btn btn-xs btn-secondary"
+            style="margin-left: auto;">Cancel</button>
+</div>
+
+{% elif task.status == 'completed' %}
+<div class="flex items-center gap-1 text-sm" style="color: var(--success);">
+    <span>✓</span>
+    <span>Complete</span>
+</div>
+
+{% elif task.status == 'cancelled' %}
+<div class="flex items-center gap-1 text-sm text-muted">
+    <span>⊘</span>
+    <span>Cancelled</span>
+</div>
+
+{% elif task.status == 'failed' %}
+<div class="text-sm" style="color: var(--error);">
+    <div>✗ Failed</div>
+    {% if task.error_message %}
+    <div class="text-xs text-muted">{{ task.error_message[:100] }}</div>
+    {% endif %}
+</div>
+
+{% endif %}
+
+<script>
+function cancelTask(taskId) {
+    if (!confirm('Cancel this task?')) return;
+
+    fetch(`/tasks/${taskId}/cancel`, {
+        method: 'POST'
+    })
+    .then(response => response.json())
+    .then(data => {
+        window.location.reload();
+    })
+    .catch(error => {
+        alert('Failed to cancel task');
+    });
+}
+</script>

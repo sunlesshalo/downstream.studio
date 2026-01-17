@@ -1,0 +1,2145 @@
+{% extends "base.html" %}
+
+{% block title %}{{ stream.input.title if stream.input else stream.id }}{% endblock %}
+
+{% block extra_head %}
+<style>
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: var(--bg-tertiary);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--accent);
+    transition: width 0.3s;
+}
+
+.checkpoint-status {
+    display: inline-flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.checkpoint {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+}
+
+.checkpoint.complete { color: var(--success); }
+.checkpoint.partial { color: var(--warning); }
+.checkpoint.pending { color: var(--text-muted); }
+
+.accordion-section {
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    background: var(--bg-secondary);
+}
+
+.accordion-header {
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+}
+
+.accordion-header:hover {
+    background: var(--bg-tertiary);
+}
+
+.accordion-content {
+    padding: 0 1.5rem 1.5rem;
+    display: none;
+}
+
+.accordion-content.open {
+    display: block;
+}
+
+.asset-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.asset-card {
+    border: 2px solid var(--border);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    position: relative;
+    aspect-ratio: 16/9;
+    background: var(--bg-primary);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.asset-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+}
+
+.asset-card.selected {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px var(--accent);
+}
+
+.asset-card.approved {
+    border-color: var(--success);
+}
+
+.asset-thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.asset-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 0.5rem;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.7), transparent);
+    color: white;
+    font-size: 0.75rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.asset-status {
+    position: absolute;
+    bottom: 0.5rem;
+    right: 0.5rem;
+    background: rgba(0,0,0,0.8);
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+}
+
+.bulk-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    padding: 0.75rem;
+    background: var(--bg-tertiary);
+    border-radius: 0.375rem;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal.open {
+    display: flex;
+}
+
+.modal-content {
+    background: var(--bg-secondary);
+    border-radius: 0.5rem;
+    max-width: 900px;
+    max-height: 90vh;
+    overflow-y: auto;
+    width: 90%;
+    border: 1px solid var(--border);
+}
+
+.modal-header {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-body {
+    padding: 1.5rem;
+}
+
+.modal-footer {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    gap: 0.5rem;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.modal-footer-shortcuts {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    flex-shrink: 0;
+}
+
+.modal-footer-shortcuts kbd {
+    background: var(--bg-tertiary);
+    padding: 0.125rem 0.375rem;
+    border-radius: 0.25rem;
+    font-family: inherit;
+    font-size: 0.7rem;
+    border: 1px solid var(--border);
+}
+
+.modal-footer-buttons {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div style="margin-bottom: 1rem;">
+    <a href="/streams" style="color: var(--accent); text-decoration: none;">← Back to Streams</a>
+</div>
+
+<div class="flex justify-between items-center" style="margin-bottom: 2rem;">
+    <div>
+        <h1 style="margin-bottom: 0.5rem;">{{ stream.input.title if stream.input else stream.id }}</h1>
+        <div class="text-sm text-muted">
+            {{ progress.total_segments }} segments
+            {% if stream.input %}• {{ stream.input.language }}{% endif %}
+        </div>
+    </div>
+    <div style="display: flex; gap: 0.5rem;">
+        {% if progress.cp5_complete %}
+        <a href="{{ stream.deployment.url }}" target="_blank" class="btn btn-success">
+            View Live ↗
+        </a>
+        {% elif progress.finalized %}
+        <button class="btn btn-primary" onclick="deployStream()" id="deploy-btn">
+            Deploy →
+        </button>
+        {% elif progress.cp4_complete %}
+        <button class="btn btn-primary" onclick="finalizeStream()" id="finalize-btn">
+            Finalize Stream →
+        </button>
+        {% else %}
+        <button class="btn btn-secondary" disabled title="Approve all videos first">
+            Finalize Stream
+        </button>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Progress Overview -->
+<div class="card" style="margin-bottom: 2rem;">
+    <div class="progress-bar">
+        {% set total_steps = 5 %}
+        {% set completed = [progress.cp1_complete, progress.cp2_complete, progress.cp3_complete, progress.cp4_complete, progress.cp5_complete] | select | list | length %}
+        <div class="progress-fill" style="width: {{ (completed / total_steps * 100) | round }}%"></div>
+    </div>
+
+    <div class="checkpoint-status">
+        <div class="checkpoint {% if progress.cp1_complete %}complete{% else %}pending{% endif %}">
+            <span>{% if progress.cp1_complete %}✓{% else %}○{% endif %}</span>
+            <span>CP1: Story</span>
+        </div>
+        <div class="checkpoint {% if progress.cp2_complete %}complete{% else %}pending{% endif %}">
+            <span>{% if progress.cp2_complete %}✓{% else %}○{% endif %}</span>
+            <span>CP2: Visual Direction</span>
+        </div>
+        <div class="checkpoint {% if progress.cp3_complete %}complete{% elif progress.keyframes_generated > 0 %}partial{% else %}pending{% endif %}">
+            <span>{% if progress.cp3_complete %}✓{% elif progress.keyframes_generated > 0 %}◐{% else %}○{% endif %}</span>
+            <span>CP3: Keyframes ({{ progress.keyframes_approved }}/{{ progress.total_segments }})</span>
+        </div>
+        <div class="checkpoint {% if progress.cp4_complete %}complete{% elif progress.videos_generated > 0 %}partial{% else %}pending{% endif %}">
+            <span>{% if progress.cp4_complete %}✓{% elif progress.videos_generated > 0 %}◐{% else %}○{% endif %}</span>
+            <span>CP4: Videos ({{ progress.videos_approved }}/{{ progress.total_segments }})</span>
+        </div>
+        <div class="checkpoint {% if progress.cp5_complete %}complete{% else %}pending{% endif %}">
+            <span>{% if progress.cp5_complete %}✓{% else %}○{% endif %}</span>
+            <span>CP5: Deploy</span>
+        </div>
+    </div>
+</div>
+
+<!-- CP1: Story Brief -->
+<div class="accordion-section">
+    <div class="accordion-header" onclick="toggleAccordion('cp1')">
+        <div class="flex items-center gap-2">
+            <span style="font-size: 1.25rem;">{% if progress.cp1_complete %}✓{% else %}○{% endif %}</span>
+            <span style="font-weight: 600;">Story Brief</span>
+        </div>
+        <span class="text-muted text-sm">CP1</span>
+    </div>
+    <div class="accordion-content" id="cp1-content">
+        {% if stream.input %}
+        <div style="display: grid; gap: 1rem;">
+            <div style="display: flex; justify-content: space-between; align-items: start;">
+                <div>
+                    <label class="text-xs">Title</label>
+                    <div class="text-sm">{{ stream.input.title }}</div>
+                </div>
+                <button class="btn btn-sm btn-secondary" onclick="openEditBriefModal()">Edit Brief</button>
+            </div>
+            {% if stream.input.brief and stream.input.brief.notes %}
+            <div>
+                <label class="text-xs">Artistic Direction</label>
+                <div class="text-sm" style="background: var(--bg-tertiary); padding: 0.75rem; border-radius: 0.375rem;">{{ stream.input.brief.notes }}</div>
+            </div>
+            {% endif %}
+            {% if stream.input.brief and stream.input.brief.tone %}
+            <div>
+                <label class="text-xs">Tone</label>
+                <div class="flex gap-1">
+                    {% for tone in stream.input.brief.tone %}
+                    <span class="status">{{ tone }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+            <details>
+                <summary class="text-sm text-muted cursor-pointer">Show full story text</summary>
+                <div style="background: var(--bg-primary); padding: 1rem; border-radius: 0.375rem; white-space: pre-wrap; margin-top: 0.5rem;">{{ stream.input.story }}</div>
+            </details>
+        </div>
+        {% else %}
+        <div class="text-muted">No story input found</div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Edit Brief Modal -->
+<div id="edit-brief-modal" class="modal" style="display: none;">
+    <div class="modal-content" style="max-width: 700px;">
+        <div class="modal-header">
+            <h3 style="margin: 0;">Edit Story Brief</h3>
+            <button class="btn btn-secondary" onclick="closeEditBriefModal()" style="padding: 0.25rem 0.5rem;">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label>Title</label>
+                <input type="text" id="edit-title" value="{{ stream.input.title if stream.input else '' }}"
+                       style="width: 100%; padding: 0.5rem; border-radius: 0.375rem; background: var(--bg-tertiary); border: 1px solid var(--border); color: var(--text-primary);">
+            </div>
+            <div class="form-group">
+                <label>Artistic Direction <span class="text-muted">(style, mood, visual approach)</span></label>
+                <textarea id="edit-notes" rows="3"
+                          placeholder="e.g., 'organic papercraft style, colorful, scenes from perspective of someone peeking in' or 'dark, moody, abstract metaphorical imagery'"
+                          style="width: 100%; padding: 0.5rem; border-radius: 0.375rem; background: var(--bg-tertiary); border: 1px solid var(--border); color: var(--text-primary); font-family: inherit;">{{ stream.input.brief.notes if stream.input and stream.input.brief and stream.input.brief.notes else '' }}</textarea>
+            </div>
+            <div class="form-group">
+                <label>Story Text</label>
+                <textarea id="edit-story" rows="12"
+                          style="width: 100%; padding: 0.5rem; border-radius: 0.375rem; background: var(--bg-tertiary); border: 1px solid var(--border); color: var(--text-primary); font-family: inherit;">{{ stream.input.story if stream.input else '' }}</textarea>
+            </div>
+            <div class="form-group">
+                <label>Language</label>
+                <select id="edit-language" style="width: 100%; padding: 0.5rem; border-radius: 0.375rem; background: var(--bg-tertiary); border: 1px solid var(--border); color: var(--text-primary);">
+                    <option value="en" {% if stream.input and stream.input.language == 'en' %}selected{% endif %}>English</option>
+                    <option value="hu" {% if stream.input and stream.input.language == 'hu' %}selected{% endif %}>Hungarian</option>
+                    <option value="ro" {% if stream.input and stream.input.language == 'ro' %}selected{% endif %}>Romanian</option>
+                </select>
+            </div>
+            {% if stream.production %}
+            <div style="background: #3d2c1a; border: 1px solid #6b4c2c; padding: 0.75rem; border-radius: 0.375rem; margin-top: 1rem;">
+                <span style="color: #e8a87c;">Note:</span> <span class="text-sm">A production spec already exists. Editing the brief won't automatically update it. You may need to regenerate the production spec after making changes.</span>
+            </div>
+            {% endif %}
+        </div>
+        <div class="modal-footer" style="justify-content: flex-end;">
+            <button class="btn btn-secondary" onclick="closeEditBriefModal()">Cancel</button>
+            <button class="btn btn-primary" onclick="saveEditedBrief()">Save Changes</button>
+        </div>
+    </div>
+</div>
+
+<!-- Feedback Modal for Regenerating Prompts -->
+<div id="feedback-modal" class="modal" style="display: none;">
+    <div class="modal-content" style="max-width: 600px;">
+        <div class="modal-header">
+            <h3 style="margin: 0;">Regenerate Prompts with Feedback</h3>
+            <button class="btn btn-secondary" onclick="closeFeedbackModal()" style="padding: 0.25rem 0.5rem;">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p class="text-sm text-muted" style="margin-bottom: 1rem;">
+                Provide feedback to guide prompt regeneration. The existing prompts will be revised based on your direction.
+            </p>
+
+            <!-- Direction Presets -->
+            <div class="form-group" style="margin-bottom: 1.5rem;">
+                <label class="text-sm" style="font-weight: 600; display: block; margin-bottom: 0.75rem;">Quick Direction Presets</label>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+                    <label style="display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem; background: var(--bg-tertiary); border-radius: 0.375rem; cursor: pointer;">
+                        <input type="checkbox" class="direction-preset" value="more_illustrative">
+                        <span class="text-sm">More illustrative</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem; background: var(--bg-tertiary); border-radius: 0.375rem; cursor: pointer;">
+                        <input type="checkbox" class="direction-preset" value="more_abstract">
+                        <span class="text-sm">More abstract/metaphorical</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem; background: var(--bg-tertiary); border-radius: 0.375rem; cursor: pointer;">
+                        <input type="checkbox" class="direction-preset" value="stronger_figures">
+                        <span class="text-sm">Stronger central figures</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem; background: var(--bg-tertiary); border-radius: 0.375rem; cursor: pointer;">
+                        <input type="checkbox" class="direction-preset" value="more_atmospheric">
+                        <span class="text-sm">More atmospheric</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem; background: var(--bg-tertiary); border-radius: 0.375rem; cursor: pointer;">
+                        <input type="checkbox" class="direction-preset" value="more_dynamic_motion">
+                        <span class="text-sm">More dynamic motion</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem; background: var(--bg-tertiary); border-radius: 0.375rem; cursor: pointer;">
+                        <input type="checkbox" class="direction-preset" value="calmer_meditative">
+                        <span class="text-sm">Calmer, meditative</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem; background: var(--bg-tertiary); border-radius: 0.375rem; cursor: pointer;">
+                        <input type="checkbox" class="direction-preset" value="warmer_palette">
+                        <span class="text-sm">Warmer palette</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem; background: var(--bg-tertiary); border-radius: 0.375rem; cursor: pointer;">
+                        <input type="checkbox" class="direction-preset" value="cooler_palette">
+                        <span class="text-sm">Cooler palette</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Free-form Feedback -->
+            <div class="form-group">
+                <label class="text-sm" style="font-weight: 600; display: block; margin-bottom: 0.5rem;">Specific Feedback</label>
+                <textarea id="feedback-text" rows="5"
+                          placeholder="e.g., 'Scene 1 needs a stronger hook - make Goja more visible. Scene 3 feels too busy, simplify the composition. Add more camera movement to the motion prompts.'"
+                          style="width: 100%; padding: 0.75rem; border-radius: 0.375rem; background: var(--bg-tertiary); border: 1px solid var(--border); color: var(--text-primary); font-family: inherit;"></textarea>
+            </div>
+
+            <div id="feedback-status" style="margin-top: 1rem; display: none;">
+                <div class="text-sm" style="padding: 0.75rem; background: var(--bg-tertiary); border-radius: 0.375rem;">
+                    <span id="feedback-message">Creating revision job...</span>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer" style="justify-content: flex-end;">
+            <button class="btn btn-secondary" onclick="closeFeedbackModal()">Cancel</button>
+            <button class="btn btn-primary" id="submit-feedback-btn" onclick="submitFeedback()">Regenerate Prompts</button>
+        </div>
+    </div>
+</div>
+
+<!-- CP2: Visual Direction -->
+<div class="accordion-section">
+    <div class="accordion-header" onclick="toggleAccordion('cp2')">
+        <div class="flex items-center gap-2">
+            <span style="font-size: 1.25rem;">{% if progress.cp2_complete %}✓{% else %}○{% endif %}</span>
+            <span style="font-weight: 600;">Visual Direction</span>
+        </div>
+        <span class="text-muted text-sm">CP2</span>
+    </div>
+    <div class="accordion-content" id="cp2-content">
+        {% if stream.production and stream.production.visual_direction %}
+        {% set vd = stream.production.visual_direction %}
+        <div style="display: grid; gap: 1rem;">
+            <div>
+                <label class="text-xs">Aesthetic</label>
+                <div class="text-sm">{{ vd.aesthetic }}</div>
+            </div>
+            {% if vd.color_palette %}
+            <div>
+                <label class="text-xs">Color Palette</label>
+                <div class="flex gap-2">
+                    {% for key, value in vd.color_palette.items() %}
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <div style="width: 2rem; height: 2rem; background: {{ value }}; border-radius: 0.25rem; border: 1px solid var(--border);"></div>
+                        <span class="text-xs">{{ value }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        {% else %}
+        <div style="text-align: center; padding: 2rem;">
+            <div class="text-muted" style="margin-bottom: 1rem;">No production spec found</div>
+            {% if stream.input %}
+            <button class="btn btn-primary" onclick="generateProductionSpec()" id="generate-spec-btn">
+                Generate Production Spec
+            </button>
+            <div id="generate-spec-status" style="margin-top: 1rem; display: none;">
+                <div class="text-sm text-muted" id="generate-spec-message">Creating job...</div>
+            </div>
+            {% else %}
+            <div class="text-sm text-muted">Add story input first (CP1)</div>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Production Settings -->
+<div class="accordion-section">
+    <div class="accordion-header" onclick="toggleAccordion('prod-settings')">
+        <div class="flex items-center gap-2">
+            <span style="font-size: 1.25rem;">⚙</span>
+            <span style="font-weight: 600;">Production Settings</span>
+        </div>
+        <span class="text-muted text-sm">Config</span>
+    </div>
+    <div class="accordion-content" id="prod-settings-content">
+        {% set ps = stream.production.production_settings if stream.production and stream.production.production_settings else {} %}
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 1.5rem;">
+            <!-- Text Type -->
+            <div>
+                <label class="text-xs" style="display: block; margin-bottom: 0.5rem;">Text Type</label>
+                <select id="text-type-select" class="form-control" style="width: 100%; padding: 0.5rem; border-radius: 0.375rem; background: var(--bg-tertiary); border: 1px solid var(--border); color: var(--text-primary);">
+                    <option value="prose" {% if ps.text_type == 'prose' %}selected{% endif %}>Prose (narrative, story)</option>
+                    <option value="list" {% if ps.text_type == 'list' %}selected{% endif %}>List (menu, program)</option>
+                    <option value="mixed" {% if ps.text_type == 'mixed' %}selected{% endif %}>Mixed (prose + lists)</option>
+                    <option value="sparse" {% if ps.text_type == 'sparse' %}selected{% endif %}>Sparse (minimal text)</option>
+                </select>
+            </div>
+
+            <!-- Sync Mode -->
+            <div>
+                <label class="text-xs" style="display: block; margin-bottom: 0.5rem;">Sync Mode</label>
+                <select id="sync-mode-select" class="form-control" style="width: 100%; padding: 0.5rem; border-radius: 0.375rem; background: var(--bg-tertiary); border: 1px solid var(--border); color: var(--text-primary);">
+                    <option value="word-count" {% if ps.sync_mode == 'word-count' or not ps.sync_mode %}selected{% endif %}>Word Count (auto height)</option>
+                    <option value="explicit" {% if ps.sync_mode == 'explicit' %}selected{% endif %}>Explicit (manual height)</option>
+                    <option value="hybrid" {% if ps.sync_mode == 'hybrid' %}selected{% endif %}>Hybrid (word count + min height)</option>
+                </select>
+            </div>
+
+            <!-- Default Scroll Height -->
+            <div>
+                <label class="text-xs" style="display: block; margin-bottom: 0.5rem;">Default Scroll Height (px)</label>
+                <input type="number" id="default-scroll-height" class="form-control"
+                       value="{{ ps.scroll_config.default_scroll_height if ps.scroll_config else 700 }}"
+                       style="width: 100%; padding: 0.5rem; border-radius: 0.375rem; background: var(--bg-tertiary); border: 1px solid var(--border); color: var(--text-primary);">
+            </div>
+
+            <!-- Min Scroll Height -->
+            <div>
+                <label class="text-xs" style="display: block; margin-bottom: 0.5rem;">Min Scroll Height (px)</label>
+                <input type="number" id="min-scroll-height" class="form-control"
+                       value="{{ ps.scroll_config.min_scroll_height if ps.scroll_config else 400 }}"
+                       style="width: 100%; padding: 0.5rem; border-radius: 0.375rem; background: var(--bg-tertiary); border: 1px solid var(--border); color: var(--text-primary);">
+            </div>
+        </div>
+
+        <button class="btn btn-primary btn-sm" onclick="saveProductionSettings()">Save Settings</button>
+        <button class="btn btn-secondary btn-sm" onclick="analyzeInput()">Auto-Detect from Text</button>
+
+        <!-- Section Scroll Heights -->
+        <div style="margin-top: 2rem;">
+            <h4 style="font-size: 0.875rem; font-weight: 600; margin-bottom: 1rem;">Section Scroll Heights</h4>
+            <p class="text-xs text-muted" style="margin-bottom: 1rem;">Override scroll heights per section for non-prose content. Leave empty to use sync mode default.</p>
+
+            <div id="section-heights-grid" style="display: grid; gap: 0.75rem;">
+                {% if stream.production and stream.production.sections %}
+                {% for section in stream.production.sections %}
+                <div class="section-height-row" style="display: grid; grid-template-columns: 1fr 100px 100px 100px; gap: 0.5rem; align-items: center; padding: 0.5rem; background: var(--bg-tertiary); border-radius: 0.375rem;">
+                    <div>
+                        <span class="text-sm" style="font-weight: 500;">{{ section.id }}</span>
+                        <span class="text-xs text-muted" style="margin-left: 0.5rem;">
+                            {% if section.word_count %}{{ section.word_count }} words{% endif %}
+                        </span>
+                    </div>
+                    <input type="number"
+                           class="form-control section-scroll-height"
+                           data-section-id="{{ section.id }}"
+                           placeholder="Auto"
+                           value="{{ section.scroll_height if section.scroll_height else '' }}"
+                           style="padding: 0.375rem; font-size: 0.75rem; border-radius: 0.25rem; background: var(--bg-primary); border: 1px solid var(--border); color: var(--text-primary);">
+                    <input type="number"
+                           class="form-control section-min-height"
+                           data-section-id="{{ section.id }}"
+                           placeholder="Min"
+                           value="{{ section.min_scroll_height if section.min_scroll_height else '' }}"
+                           style="padding: 0.375rem; font-size: 0.75rem; border-radius: 0.25rem; background: var(--bg-primary); border: 1px solid var(--border); color: var(--text-primary);">
+                    <span class="text-xs text-muted">px</span>
+                </div>
+                {% endfor %}
+                {% else %}
+                <div class="text-muted text-sm">No sections defined</div>
+                {% endif %}
+            </div>
+
+            <button class="btn btn-primary btn-sm" style="margin-top: 1rem;" onclick="saveSectionHeights()">Save Section Heights</button>
+        </div>
+
+        <!-- Quality Tiers & Frame Extraction -->
+        <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border);">
+            <h4 style="font-size: 0.875rem; font-weight: 600; margin-bottom: 1rem;">Quality Tiers & Frame Extraction</h4>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
+                <div>
+                    <label class="text-xs" style="display: block; margin-bottom: 0.5rem;">High Quality Frames</label>
+                    <input type="number" id="high-frame-count" class="form-control"
+                           value="{{ ps.frame_targets.high if ps.frame_targets else 140 }}"
+                           style="width: 100%; padding: 0.5rem; border-radius: 0.375rem; background: var(--bg-tertiary); border: 1px solid var(--border); color: var(--text-primary);">
+                </div>
+                <div>
+                    <label class="text-xs" style="display: block; margin-bottom: 0.5rem;">Performance Frames</label>
+                    <input type="number" id="perf-frame-count" class="form-control"
+                           value="{{ ps.frame_targets.performance if ps.frame_targets else 40 }}"
+                           style="width: 100%; padding: 0.5rem; border-radius: 0.375rem; background: var(--bg-tertiary); border: 1px solid var(--border); color: var(--text-primary);">
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                <button class="btn btn-primary btn-sm" onclick="extractFrames('both')">
+                    Extract Both Tiers
+                </button>
+                <button class="btn btn-secondary btn-sm" onclick="extractFrames('high')">
+                    Extract High Quality Only
+                </button>
+                <button class="btn btn-secondary btn-sm" onclick="extractFrames('performance')">
+                    Extract Performance Only
+                </button>
+            </div>
+
+            <div id="extraction-status" style="margin-top: 1rem; display: none;">
+                <div class="text-sm" style="padding: 0.75rem; background: var(--bg-tertiary); border-radius: 0.375rem;">
+                    <span id="extraction-message">Extracting frames...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CP3: Keyframes -->
+<div class="accordion-section">
+    <div class="accordion-header" onclick="toggleAccordion('cp3')">
+        <div class="flex items-center gap-2">
+            <span style="font-size: 1.25rem;">{% if progress.cp3_complete %}✓{% elif progress.keyframes_generated > 0 %}◐{% else %}○{% endif %}</span>
+            <span style="font-weight: 600;">Keyframes</span>
+            <span class="text-muted text-sm">({{ progress.keyframes_generated }}/{{ progress.total_segments }} generated, {{ progress.keyframes_approved }}/{{ progress.total_segments }} approved)</span>
+        </div>
+        <span class="text-muted text-sm">CP3</span>
+    </div>
+    <div class="accordion-content open" id="cp3-content">
+        {% if stream.production %}
+        <!-- Prompts Feedback Section -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding: 0.75rem; background: var(--bg-tertiary); border-radius: 0.375rem;">
+            <div class="text-sm">
+                <strong>Prompts:</strong>
+                <span class="text-muted">{{ stream.production.segments | length }} segments defined</span>
+            </div>
+            <button class="btn btn-sm btn-secondary" onclick="openFeedbackModal()">
+                Regenerate Prompts with Feedback
+            </button>
+        </div>
+        {% endif %}
+
+        <!-- Generation Actions -->
+        <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+            <button class="btn btn-primary" onclick="generateAllKeyframes()" id="generate-keyframes-btn">
+                Generate All Keyframes
+            </button>
+            <button class="btn btn-secondary" onclick="generateMissingKeyframes()">
+                Generate Missing Only
+            </button>
+            <span id="keyframe-gen-status" class="text-sm text-muted" style="align-self: center; margin-left: 0.5rem;"></span>
+        </div>
+
+        <div class="bulk-actions">
+            <button class="btn btn-sm btn-secondary" onclick="selectAll('keyframes')">Select All</button>
+            <button class="btn btn-sm btn-success" onclick="approveSelected('keyframe')">Approve Selected (<span id="keyframe-selected-count">0</span>)</button>
+            <button class="btn btn-sm btn-danger" onclick="regenerateSelected('keyframe')">Regenerate Selected</button>
+        </div>
+
+        <div class="asset-grid" id="keyframes-grid">
+            {% for kf in keyframes %}
+            <div class="asset-card {% if kf.decision == 'approved' %}approved{% endif %}"
+                 data-segment-id="{{ kf.segment_id }}"
+                 data-asset-type="keyframe"
+                 onclick="handleAssetClick(event, '{{ kf.segment_id }}', 'keyframe')">
+                <input type="checkbox" class="asset-checkbox"
+                       style="position: absolute; top: 0.5rem; left: 0.5rem; z-index: 10;"
+                       onclick="event.stopPropagation(); updateSelectedCount('keyframe');">
+                {% if kf.exists %}
+                <img src="/streams/{{ stream.id }}/assets/keyframe/{{ kf.segment_id }}"
+                     class="asset-thumbnail"
+                     alt="Segment {{ kf.segment_id }}">
+                {% else %}
+                <div style="display: flex; align-items: center; justify-content: center; height: 100%; background: var(--bg-tertiary); color: var(--text-muted);">
+                    <div class="text-xs text-center">Not generated</div>
+                </div>
+                {% endif %}
+                <div class="asset-overlay">
+                    <span>#{{ kf.segment_id }}</span>
+                    {% if kf.decision == 'approved' %}
+                    <span style="color: var(--success);">✓</span>
+                    {% endif %}
+                </div>
+                {% if kf.exists and kf.decision != 'approved' %}
+                <div class="asset-status">Pending</div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- CP4: Videos -->
+<div class="accordion-section">
+    <div class="accordion-header" onclick="toggleAccordion('cp4')">
+        <div class="flex items-center gap-2">
+            <span style="font-size: 1.25rem;">{% if progress.cp4_complete %}✓{% elif progress.videos_generated > 0 %}◐{% else %}○{% endif %}</span>
+            <span style="font-weight: 600;">Videos</span>
+            <span class="text-muted text-sm">({{ progress.videos_generated }}/{{ progress.total_segments }} generated, {{ progress.videos_approved }}/{{ progress.total_segments }} approved)</span>
+        </div>
+        <span class="text-muted text-sm">CP4</span>
+    </div>
+    <div class="accordion-content" id="cp4-content">
+        <!-- Generation Actions -->
+        <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+            <button class="btn btn-primary" onclick="generateAllVideos()" id="generate-videos-btn">
+                Generate All Videos
+            </button>
+            <button class="btn btn-secondary" onclick="generateMissingVideos()">
+                Generate Missing Only
+            </button>
+            <span id="video-gen-status" class="text-sm text-muted" style="align-self: center; margin-left: 0.5rem;"></span>
+        </div>
+
+        <div class="bulk-actions">
+            <button class="btn btn-sm btn-secondary" onclick="selectAll('videos')">Select All</button>
+            <button class="btn btn-sm btn-success" onclick="approveSelected('video')">Approve Selected (<span id="video-selected-count">0</span>)</button>
+            <button class="btn btn-sm btn-danger" onclick="regenerateSelected('video')">Regenerate Selected</button>
+        </div>
+
+        <div class="asset-grid" id="videos-grid">
+            {% for v in videos %}
+            <div class="asset-card {% if v.decision == 'approved' %}approved{% endif %}"
+                 data-segment-id="{{ v.segment_id }}"
+                 data-asset-type="video"
+                 onclick="handleAssetClick(event, '{{ v.segment_id }}', 'video')">
+                <input type="checkbox" class="asset-checkbox"
+                       style="position: absolute; top: 0.5rem; left: 0.5rem; z-index: 10;"
+                       onclick="event.stopPropagation(); updateSelectedCount('video');">
+                {% if v.exists %}
+                <video class="asset-thumbnail" style="pointer-events: none;">
+                    <source src="/streams/{{ stream.id }}/assets/video/{{ v.segment_id }}" type="video/mp4">
+                </video>
+                {% elif v.keyframe_exists %}
+                <img src="/streams/{{ stream.id }}/assets/keyframe/{{ v.segment_id }}"
+                     class="asset-thumbnail"
+                     alt="Segment {{ v.segment_id }}"
+                     style="opacity: 0.5;">
+                {% else %}
+                <div style="display: flex; align-items: center; justify-content: center; height: 100%; background: var(--bg-tertiary); color: var(--text-muted);">
+                    <div class="text-xs text-center">Not generated</div>
+                </div>
+                {% endif %}
+                <div class="asset-overlay">
+                    <span>#{{ v.segment_id }}</span>
+                    {% if v.decision == 'approved' %}
+                    <span style="color: var(--success);">✓</span>
+                    {% endif %}
+                </div>
+                {% if v.exists and v.decision != 'approved' %}
+                <div class="asset-status">Pending</div>
+                {% elif not v.exists %}
+                <div class="asset-status">
+                    {% if v.keyframe_exists %}Pending generation{% else %}No keyframe{% endif %}
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- Asset Detail Modal -->
+<div id="asset-modal" class="modal" style="display: none;">
+    <div class="modal-overlay" onclick="closeModal()"></div>
+    <div class="modal-content">
+        <div class="modal-header">
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+                <h3 id="modal-title" style="margin: 0;">Segment Detail</h3>
+                <span id="modified-indicator" style="display: none; color: var(--warning); font-size: 0.75rem; background: rgba(255, 179, 71, 0.2); padding: 0.25rem 0.5rem; border-radius: 0.25rem;">Modified (auto-saves on close)</span>
+            </div>
+            <button onclick="closeModal()" class="btn btn-sm btn-secondary">✕</button>
+        </div>
+        <div class="modal-body">
+            <!-- Tab Navigation -->
+            <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--border);">
+                <button id="tab-current" class="tab-btn active" onclick="switchTab('current')">Current</button>
+                <button id="tab-versions" class="tab-btn" onclick="switchTab('versions')" style="display: none;">Versions (<span id="version-count">0</span>)</button>
+                <button id="tab-notes" class="tab-btn" onclick="switchTab('notes')">Notes (<span id="notes-count">0</span>)</button>
+            </div>
+
+            <!-- Current Tab -->
+            <div id="tab-current-content" class="tab-content active">
+                <div id="modal-asset-container" style="margin-bottom: 1.5rem;"></div>
+                <div id="modal-info" style="margin-bottom: 1.5rem;"></div>
+            </div>
+
+            <!-- Versions Tab -->
+            <div id="tab-versions-content" class="tab-content" style="display: none;">
+                <div id="versions-list"></div>
+            </div>
+
+            <!-- Notes Tab -->
+            <div id="tab-notes-content" class="tab-content" style="display: none;">
+                <div style="margin-bottom: 1.5rem;">
+                    <label class="text-xs" style="display: block; margin-bottom: 0.5rem;">Add Note:</label>
+                    <textarea id="new-note"
+                              class="form-control"
+                              placeholder="Add feedback, suggestions, or comments about this segment..."
+                              style="width: 100%; min-height: 80px; padding: 0.75rem; border-radius: 0.375rem; background: var(--bg-tertiary); border: 1px solid var(--border); color: var(--text-primary); font-family: inherit; font-size: 0.875rem; resize: vertical; margin-bottom: 0.5rem;"></textarea>
+                    <button class="btn btn-sm btn-primary" onclick="addNote()">Add Note</button>
+                </div>
+                <div id="notes-list"></div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="modal-footer-shortcuts">
+                <kbd>Space</kbd> Approve · <kbd>R</kbd> Regen · <kbd>S</kbd> Save · <kbd>N</kbd> Notes · <kbd>V</kbd> Versions · <kbd>Esc</kbd> Close
+            </div>
+            <div class="modal-footer-buttons">
+                <button id="modal-save-btn" class="btn btn-primary" onclick="savePrompts()">Save Prompts</button>
+                <button id="modal-approve-btn" class="btn btn-success" onclick="approveAsset()">Approve</button>
+                <button id="modal-regenerate-btn" class="btn btn-danger" onclick="regenerateAsset()">Regenerate</button>
+                <button class="btn btn-secondary" onclick="closeModal()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.modal-content {
+    position: relative;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    max-width: 800px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.modal-body {
+    padding: 1.5rem;
+}
+
+.modal-footer {
+    display: flex;
+    gap: 0.75rem;
+    padding: 1.5rem;
+    border-top: 1px solid var(--border);
+    justify-content: flex-end;
+}
+
+#modal-asset-container img,
+#modal-asset-container video {
+    width: 100%;
+    border-radius: 0.375rem;
+    border: 1px solid var(--border);
+}
+
+.tab-btn {
+    padding: 0.5rem 1rem;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 0.875rem;
+}
+
+.tab-btn.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.version-item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1rem;
+    padding: 1rem;
+    border: 1px solid var(--border);
+    border-radius: 0.375rem;
+    margin-bottom: 1rem;
+    align-items: center;
+}
+
+.version-item.current {
+    border-color: var(--accent);
+    background: var(--bg-tertiary);
+}
+
+.version-preview {
+    max-height: 200px;
+    border-radius: 0.375rem;
+    border: 1px solid var(--border);
+}
+
+kbd {
+    display: inline-block;
+    padding: 0.125rem 0.375rem;
+    font-size: 0.75rem;
+    font-family: monospace;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border);
+    border-radius: 0.25rem;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+</style>
+
+<script>
+function toggleAccordion(id) {
+    const content = document.getElementById(id + '-content');
+    content.classList.toggle('open');
+}
+
+function selectAll(gridType) {
+    const grid = document.getElementById(gridType + '-grid');
+    const checkboxes = grid.querySelectorAll('.asset-checkbox');
+    const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+
+    checkboxes.forEach(cb => {
+        cb.checked = !allChecked;
+    });
+
+    updateSelectedCount(gridType === 'keyframes' ? 'keyframe' : 'video');
+}
+
+function updateSelectedCount(assetType) {
+    const grid = assetType === 'keyframe' ? 'keyframes-grid' : 'videos-grid';
+    const count = document.querySelectorAll(`#${grid} .asset-checkbox:checked`).length;
+    document.getElementById(assetType + '-selected-count').textContent = count;
+}
+
+function getSelectedSegments(assetType) {
+    const grid = assetType === 'keyframe' ? 'keyframes-grid' : 'videos-grid';
+    const checkboxes = document.querySelectorAll(`#${grid} .asset-checkbox:checked`);
+    return Array.from(checkboxes).map(cb => cb.closest('.asset-card').dataset.segmentId);
+}
+
+function approveSelected(assetType) {
+    const segments = getSelectedSegments(assetType);
+    if (segments.length === 0) {
+        alert('No items selected');
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append('segment_ids', segments.join(','));
+    formData.append('asset_type', assetType);
+
+    fetch('/streams/{{ stream.id }}/bulk-approve', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        window.location.reload();
+    });
+}
+
+function regenerateSelected(assetType) {
+    const segments = getSelectedSegments(assetType);
+    if (segments.length === 0) {
+        alert('No items selected');
+        return;
+    }
+
+    alert('Regenerating ' + segments.length + ' ' + assetType + '(s)');
+    // TODO: Implement bulk regeneration
+}
+
+let currentSegmentId = null;
+let currentAssetType = null;
+let originalImagePrompt = null;
+let originalMotionPrompt = null;
+
+function hasUnsavedChanges() {
+    const imagePrompt = document.getElementById('modal-image-prompt');
+    const motionPrompt = document.getElementById('modal-motion-prompt');
+
+    if (!imagePrompt) return false;
+
+    if (imagePrompt.value !== originalImagePrompt) return true;
+    if (motionPrompt && motionPrompt.value !== (originalMotionPrompt || '')) return true;
+
+    return false;
+}
+
+function autoSavePromptsIfChanged() {
+    if (!hasUnsavedChanges()) return Promise.resolve(false);
+
+    const imagePrompt = document.getElementById('modal-image-prompt');
+    const motionPrompt = document.getElementById('modal-motion-prompt');
+
+    if (!imagePrompt || !currentSegmentId) return Promise.resolve(false);
+
+    const formData = new FormData();
+    formData.append('image_prompt', imagePrompt.value);
+    if (motionPrompt) {
+        formData.append('motion_prompt', motionPrompt.value);
+    }
+
+    console.log('Auto-saving prompts for segment', currentSegmentId);
+
+    return fetch(`/streams/{{ stream.id }}/spec/segment/${currentSegmentId}`, {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        if (response.ok) {
+            // Update originals so we don't try to save again
+            originalImagePrompt = imagePrompt.value;
+            if (motionPrompt) originalMotionPrompt = motionPrompt.value;
+            console.log('Auto-saved prompts successfully');
+            return true;
+        }
+        return false;
+    })
+    .catch(err => {
+        console.error('Failed to auto-save prompts:', err);
+        return false;
+    });
+}
+
+function handleAssetClick(event, segmentId, assetType) {
+    if (event.target.type === 'checkbox') return;
+
+    currentSegmentId = segmentId;
+    currentAssetType = assetType;
+
+    // Find segment data
+    const segmentData = (assetType === 'keyframe' ? {{ keyframes | tojson }} : {{ videos | tojson }}).find(s => s.segment_id == segmentId);
+
+    if (!segmentData) return;
+
+    // Update modal title
+    document.getElementById('modal-title').textContent = `Segment ${segmentId}${segmentData.segment && segmentData.segment.title ? ': ' + segmentData.segment.title : ''}`;
+
+    // Update asset container
+    const assetContainer = document.getElementById('modal-asset-container');
+    if (assetType === 'keyframe' && segmentData.exists) {
+        assetContainer.innerHTML = `<img src="/streams/{{ stream.id }}/assets/keyframe/${segmentId}" alt="Segment ${segmentId}">`;
+    } else if (assetType === 'video' && segmentData.exists) {
+        assetContainer.innerHTML = `<video controls autoplay loop style="width: 100%;"><source src="/streams/{{ stream.id }}/assets/video/${segmentId}" type="video/mp4"></video>`;
+    } else if (assetType === 'video' && segmentData.keyframe_exists) {
+        assetContainer.innerHTML = `<img src="/streams/{{ stream.id }}/assets/keyframe/${segmentId}" alt="Segment ${segmentId}" style="opacity: 0.5;"><div class="text-muted text-sm" style="margin-top: 0.5rem;">Video not yet generated</div>`;
+    } else {
+        assetContainer.innerHTML = `<div style="padding: 2rem; background: var(--bg-tertiary); border-radius: 0.375rem; text-align: center; color: var(--text-muted);">Not generated</div>`;
+    }
+
+    // Update info with editable prompts
+    const info = document.getElementById('modal-info');
+    info.innerHTML = '';  // Clear first
+
+    if (segmentData.segment) {
+        // Add "Represents" field (read-only)
+        if (segmentData.segment.represents) {
+            const representsDiv = document.createElement('div');
+            representsDiv.style.marginBottom = '0.75rem';
+            const label = document.createElement('label');
+            label.className = 'text-xs';
+            label.textContent = 'Represents';
+            const content = document.createElement('div');
+            content.className = 'text-sm';
+            content.textContent = segmentData.segment.represents;  // SECURITY: Use textContent instead of innerHTML
+            representsDiv.appendChild(label);
+            representsDiv.appendChild(content);
+            info.appendChild(representsDiv);
+        }
+
+        // Add Keyframe Prompt textarea
+        if (segmentData.segment.image_prompt) {
+            const promptDiv = document.createElement('div');
+            promptDiv.style.marginBottom = '0.75rem';
+            const label = document.createElement('label');
+            label.className = 'text-xs';
+            label.textContent = 'Keyframe Prompt';
+            const textarea = document.createElement('textarea');
+            textarea.id = 'modal-image-prompt';
+            textarea.className = 'form-control';
+            textarea.style.cssText = 'width: 100%; min-height: 80px; padding: 0.75rem; border-radius: 0.375rem; background: var(--bg-tertiary); border: 1px solid var(--border); color: var(--text-primary); font-family: inherit; font-size: 0.875rem; resize: vertical;';
+            textarea.value = segmentData.segment.image_prompt;  // SECURITY: Use .value for textarea
+            originalImagePrompt = segmentData.segment.image_prompt;  // Store original for change detection
+            promptDiv.appendChild(label);
+            promptDiv.appendChild(textarea);
+            info.appendChild(promptDiv);
+        }
+
+        // Add Motion Prompt textarea
+        if (segmentData.segment.motion_prompt || assetType === 'video') {
+            const motionDiv = document.createElement('div');
+            motionDiv.style.marginBottom = '0.75rem';
+            const label = document.createElement('label');
+            label.className = 'text-xs';
+            label.textContent = 'Motion Prompt';
+            const textarea = document.createElement('textarea');
+            textarea.id = 'modal-motion-prompt';
+            textarea.className = 'form-control';
+            textarea.style.cssText = 'width: 100%; min-height: 80px; padding: 0.75rem; border-radius: 0.375rem; background: var(--bg-tertiary); border: 1px solid var(--border); color: var(--text-primary); font-family: inherit; font-size: 0.875rem; resize: vertical;';
+            textarea.value = segmentData.segment.motion_prompt || '';  // SECURITY: Use .value for textarea
+            originalMotionPrompt = segmentData.segment.motion_prompt || '';  // Store original for change detection
+            motionDiv.appendChild(label);
+            motionDiv.appendChild(textarea);
+            info.appendChild(motionDiv);
+        }
+    } else {
+        // Reset originals when no segment data
+        originalImagePrompt = null;
+        originalMotionPrompt = null;
+    }
+
+    // Update button states
+    const approveBtn = document.getElementById('modal-approve-btn');
+    const regenerateBtn = document.getElementById('modal-regenerate-btn');
+
+    if (segmentData.decision === 'approved') {
+        approveBtn.disabled = true;
+        approveBtn.textContent = 'Approved ✓';
+    } else {
+        approveBtn.disabled = false;
+        approveBtn.textContent = 'Approve';
+    }
+
+    regenerateBtn.disabled = false;
+
+    // Load version history and notes
+    loadVersionHistory(segmentId, assetType);
+    loadNotes(segmentId, assetType);
+
+    // Reset modified indicator
+    document.getElementById('modified-indicator').style.display = 'none';
+
+    // Add input listeners to detect changes
+    setTimeout(() => {
+        const imagePrompt = document.getElementById('modal-image-prompt');
+        const motionPrompt = document.getElementById('modal-motion-prompt');
+
+        if (imagePrompt) {
+            imagePrompt.addEventListener('input', updateModifiedIndicator);
+        }
+        if (motionPrompt) {
+            motionPrompt.addEventListener('input', updateModifiedIndicator);
+        }
+    }, 0);
+
+    // Show modal
+    document.getElementById('asset-modal').style.display = 'flex';
+}
+
+function switchTab(tab) {
+    // Update tab buttons
+    document.getElementById('tab-current').classList.toggle('active', tab === 'current');
+    document.getElementById('tab-versions').classList.toggle('active', tab === 'versions');
+    document.getElementById('tab-notes').classList.toggle('active', tab === 'notes');
+
+    // Update tab content
+    document.getElementById('tab-current-content').classList.toggle('active', tab === 'current');
+    document.getElementById('tab-versions-content').classList.toggle('active', tab === 'versions');
+    document.getElementById('tab-notes-content').classList.toggle('active', tab === 'notes');
+}
+
+function loadVersionHistory(segmentId, assetType) {
+    fetch(`/streams/{{ stream.id }}/versions/${segmentId}/${assetType}`)
+        .then(response => response.json())
+        .then(data => {
+            const versions = data.versions || [];
+            const versionCount = versions.length;
+
+            // Show/hide versions tab
+            const versionsTab = document.getElementById('tab-versions');
+            if (versionCount > 1) {
+                versionsTab.style.display = 'block';
+                document.getElementById('version-count').textContent = versionCount;
+            } else {
+                versionsTab.style.display = 'none';
+                switchTab('current');  // Force back to current tab
+            }
+
+            // Render versions list
+            const versionsList = document.getElementById('versions-list');
+            if (versionCount === 0) {
+                versionsList.innerHTML = '<div class="text-muted">No versions available</div>';
+                return;
+            }
+
+            let html = '<div style="display: grid; gap: 1rem;">';
+            versions.forEach(version => {
+                const url = `/streams/{{ stream.id }}/versions/${segmentId}/${assetType}/${version.filename}`;
+                const isCurrent = version.is_current;
+                const sizeKB = (version.size / 1024).toFixed(1);
+
+                html += `
+                    <div class="version-item ${isCurrent ? 'current' : ''}">
+                        <div>
+                            <div style="display: flex; gap: 0.5rem; align-items: center; margin-bottom: 0.5rem;">
+                                ${isCurrent ? '<span class="status" style="background: var(--accent);">Current</span>' : ''}
+                                <span class="text-sm text-muted">${version.timestamp}</span>
+                                <span class="text-xs text-muted">${sizeKB} KB</span>
+                            </div>
+                            ${assetType === 'keyframe'
+                                ? `<img src="${url}" class="version-preview" alt="Version ${version.timestamp}">`
+                                : `<video class="version-preview" controls><source src="${url}" type="video/mp4"></video>`
+                            }
+                        </div>
+                        <div>
+                            ${!isCurrent ? `<button class="btn btn-sm btn-primary" onclick="restoreVersion('${version.filename}')">Restore This Version</button>` : ''}
+                        </div>
+                    </div>
+                `;
+            });
+            html += '</div>';
+
+            versionsList.innerHTML = html;
+        })
+        .catch(error => {
+            console.error('Error loading versions:', error);
+        });
+}
+
+function restoreVersion(filename) {
+    if (!confirm('Restore this version as the current version? The current version will be archived.')) return;
+
+    const formData = new FormData();
+    formData.append('filename', filename);
+
+    fetch(`/streams/{{ stream.id }}/restore-version/${currentSegmentId}/${currentAssetType}`, {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert('Version restored successfully');
+        window.location.reload();
+    });
+}
+
+function loadNotes(segmentId, assetType) {
+    fetch(`/streams/{{ stream.id }}/reviews/${segmentId}/${assetType}`)
+        .then(response => response.json())
+        .then(data => {
+            const reviews = data.reviews || [];
+            document.getElementById('notes-count').textContent = reviews.length;
+
+            const notesList = document.getElementById('notes-list');
+            if (reviews.length === 0) {
+                notesList.innerHTML = '<div class="text-muted text-sm">No notes yet</div>';
+                return;
+            }
+
+            let html = '<div style="display: grid; gap: 1rem;">';
+            reviews.forEach(review => {
+                const timestamp = new Date(review.reviewed_at).toLocaleString();
+                const decisionBadge = review.decision === 'approved'
+                    ? '<span class="status" style="background: var(--success);">Approved</span>'
+                    : review.decision === 'regenerated'
+                    ? '<span class="status" style="background: var(--warning);">Regenerated</span>'
+                    : review.decision === 'restored'
+                    ? '<span class="status" style="background: var(--info);">Restored</span>'
+                    : '';
+
+                html += `
+                    <div style="padding: 1rem; border: 1px solid var(--border); border-radius: 0.375rem; background: var(--bg-tertiary);">
+                        <div style="display: flex; gap: 0.5rem; align-items: center; margin-bottom: 0.5rem;">
+                            ${decisionBadge}
+                            <span class="text-sm text-muted">${review.reviewed_by || 'Unknown'}</span>
+                            <span class="text-xs text-muted">${timestamp}</span>
+                        </div>
+                        ${review.notes ? `<div class="text-sm">${escapeHtml(review.notes)}</div>` : ''}
+                    </div>
+                `;
+            });
+            html += '</div>';
+
+            notesList.innerHTML = html;
+        })
+        .catch(error => {
+            console.error('Error loading notes:', error);
+        });
+}
+
+function addNote() {
+    const noteField = document.getElementById('new-note');
+    const note = noteField.value.trim();
+
+    if (!note) {
+        alert('Please enter a note');
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append('notes', note);
+
+    fetch(`/streams/{{ stream.id }}/reviews/${currentSegmentId}/${currentAssetType}`, {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        noteField.value = '';
+        loadNotes(currentSegmentId, currentAssetType);
+    })
+    .catch(error => {
+        alert('Failed to add note');
+    });
+}
+
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+function closeModal() {
+    // Auto-save any prompt changes before closing
+    autoSavePromptsIfChanged().then(saved => {
+        if (saved) {
+            console.log('Prompts auto-saved on modal close');
+        }
+        document.getElementById('asset-modal').style.display = 'none';
+        currentSegmentId = null;
+        currentAssetType = null;
+        originalImagePrompt = null;
+        originalMotionPrompt = null;
+    });
+}
+
+function approveAsset() {
+    if (!currentSegmentId || !currentAssetType) return;
+
+    fetch(`/streams/{{ stream.id }}/approve/${currentSegmentId}/${currentAssetType}`, {
+        method: 'POST'
+    })
+    .then(response => response.json())
+    .then(data => {
+        window.location.reload();
+    });
+}
+
+function savePrompts() {
+    if (!currentSegmentId) return;
+
+    const imagePrompt = document.getElementById('modal-image-prompt');
+    const motionPrompt = document.getElementById('modal-motion-prompt');
+
+    if (!imagePrompt) {
+        alert('No prompts to save');
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append('image_prompt', imagePrompt.value);
+    if (motionPrompt) {
+        formData.append('motion_prompt', motionPrompt.value);
+    }
+
+    fetch(`/streams/{{ stream.id }}/spec/segment/${currentSegmentId}`, {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        if (response.ok) {
+            // Update originals so change detection knows we saved
+            originalImagePrompt = imagePrompt.value;
+            if (motionPrompt) originalMotionPrompt = motionPrompt.value;
+            updateModifiedIndicator();
+            alert('Prompts saved successfully');
+        }
+    });
+}
+
+function updateModifiedIndicator() {
+    const indicator = document.getElementById('modified-indicator');
+    if (!indicator) return;
+
+    if (hasUnsavedChanges()) {
+        indicator.style.display = 'inline';
+    } else {
+        indicator.style.display = 'none';
+    }
+}
+
+function regenerateAsset() {
+    if (!currentSegmentId || !currentAssetType) return;
+
+    const imagePrompt = document.getElementById('modal-image-prompt');
+    const motionPrompt = document.getElementById('modal-motion-prompt');
+
+    // Check if prompts were edited
+    let promptsEdited = false;
+    if (imagePrompt) {
+        const originalData = (currentAssetType === 'keyframe' ? {{ keyframes | tojson }} : {{ videos | tojson }}).find(s => s.segment_id == currentSegmentId);
+        if (originalData && originalData.segment) {
+            if (imagePrompt.value !== originalData.segment.image_prompt) {
+                promptsEdited = true;
+            }
+            if (motionPrompt && originalData.segment.motion_prompt && motionPrompt.value !== originalData.segment.motion_prompt) {
+                promptsEdited = true;
+            }
+        }
+    }
+
+    const confirmMsg = promptsEdited
+        ? `Save the updated prompts and regenerate this ${currentAssetType}?`
+        : `Regenerate this ${currentAssetType}? This will create a new version.`;
+
+    if (!confirm(confirmMsg)) return;
+
+    // Save prompts first if edited
+    if (promptsEdited && imagePrompt) {
+        const formData = new FormData();
+        formData.append('image_prompt', imagePrompt.value);
+        if (motionPrompt) {
+            formData.append('motion_prompt', motionPrompt.value);
+        }
+
+        fetch(`/streams/{{ stream.id }}/spec/segment/${currentSegmentId}`, {
+            method: 'POST',
+            body: formData
+        })
+        .then(() => {
+            // Then regenerate
+            return fetch(`/streams/{{ stream.id }}/regenerate/${currentSegmentId}/${currentAssetType}`, {
+                method: 'POST'
+            });
+        })
+        .then(response => response.json())
+        .then(data => {
+            closeModal();
+            alert('Prompts saved and regeneration started. The page will refresh when complete.');
+            setTimeout(() => window.location.reload(), 3000);
+        });
+    } else {
+        // Just regenerate with existing prompts
+        fetch(`/streams/{{ stream.id }}/regenerate/${currentSegmentId}/${currentAssetType}`, {
+            method: 'POST'
+        })
+        .then(response => response.json())
+        .then(data => {
+            closeModal();
+            alert('Regeneration started. The page will refresh when complete.');
+            setTimeout(() => window.location.reload(), 3000);
+        });
+    }
+}
+
+// Auto-expand first incomplete section
+window.addEventListener('load', () => {
+    {% if not progress.cp3_complete %}
+    document.getElementById('cp3-content').classList.add('open');
+    {% elif not progress.cp4_complete %}
+    document.getElementById('cp4-content').classList.add('open');
+    {% endif %}
+});
+
+// Keyboard shortcuts
+document.addEventListener('keydown', (e) => {
+    // Ignore if typing in input/textarea
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+        return;
+    }
+
+    const modal = document.getElementById('asset-modal');
+    const isModalOpen = modal.style.display === 'flex';
+
+    // Global shortcuts
+    if (e.key === 'Escape' && isModalOpen) {
+        e.preventDefault();
+        closeModal();
+        return;
+    }
+
+    // Modal shortcuts (only when modal is open)
+    if (isModalOpen) {
+        if (e.key === ' ' || e.key === 'Spacebar') {
+            e.preventDefault();
+            const approveBtn = document.getElementById('modal-approve-btn');
+            if (approveBtn && !approveBtn.disabled) {
+                approveAsset();
+            }
+        } else if (e.key === 'r' || e.key === 'R') {
+            e.preventDefault();
+            const regenerateBtn = document.getElementById('modal-regenerate-btn');
+            if (regenerateBtn && !regenerateBtn.disabled) {
+                regenerateAsset();
+            }
+        } else if (e.key === 's' || e.key === 'S') {
+            e.preventDefault();
+            const saveBtn = document.getElementById('modal-save-btn');
+            if (saveBtn) {
+                savePrompts();
+            }
+        } else if (e.key === 'n' || e.key === 'N') {
+            e.preventDefault();
+            switchTab('notes');
+        } else if (e.key === 'v' || e.key === 'V') {
+            e.preventDefault();
+            const versionsTab = document.getElementById('tab-versions');
+            if (versionsTab.style.display !== 'none') {
+                switchTab('versions');
+            }
+        }
+    }
+});
+
+
+// Generate Production Spec
+function generateProductionSpec() {
+    const btn = document.getElementById('generate-spec-btn');
+    const statusDiv = document.getElementById('generate-spec-status');
+    const messageDiv = document.getElementById('generate-spec-message');
+
+    btn.disabled = true;
+    btn.textContent = 'Creating job...';
+    statusDiv.style.display = 'block';
+    messageDiv.textContent = 'Creating production spec job...';
+
+    fetch('/streams/{{ stream.id }}/generate-spec', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'queued') {
+            messageDiv.innerHTML = 'Job created: <strong>' + data.job_id + '</strong><br>Waiting for Claude Code to process...';
+            btn.textContent = 'Waiting...';
+            // Start polling for production.json
+            pollForProduction();
+        } else {
+            messageDiv.innerHTML = '<span style="color: var(--danger);">Error: ' + (data.error || 'Unknown error') + '</span>';
+            btn.disabled = false;
+            btn.textContent = 'Generate Production Spec';
+        }
+    })
+    .catch(err => {
+        messageDiv.innerHTML = '<span style="color: var(--danger);">Network error: ' + err.message + '</span>';
+        btn.disabled = false;
+        btn.textContent = 'Generate Production Spec';
+    });
+}
+
+function pollForProduction() {
+    const messageDiv = document.getElementById('generate-spec-message');
+
+    fetch('/streams/{{ stream.id }}/check-production')
+    .then(response => response.json())
+    .then(data => {
+        if (data.exists) {
+            messageDiv.innerHTML = '<span style="color: var(--success);">Production spec ready! Reloading...</span>';
+            setTimeout(() => window.location.reload(), 1000);
+        } else {
+            // Keep polling every 2 seconds
+            setTimeout(pollForProduction, 2000);
+        }
+    })
+    .catch(err => {
+        // On error, keep polling
+        setTimeout(pollForProduction, 3000);
+    });
+}
+
+
+// Edit Brief Functions
+function openEditBriefModal() {
+    document.getElementById('edit-brief-modal').style.display = 'flex';
+}
+
+function closeEditBriefModal() {
+    document.getElementById('edit-brief-modal').style.display = 'none';
+}
+
+function saveEditedBrief() {
+    const data = {
+        title: document.getElementById('edit-title').value,
+        story: document.getElementById('edit-story').value,
+        language: document.getElementById('edit-language').value,
+        notes: document.getElementById('edit-notes').value
+    };
+
+    fetch('/streams/{{ stream.id }}/update-input', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(result => {
+        if (result.status === 'success') {
+            closeEditBriefModal();
+            window.location.reload();
+        } else {
+            alert('Error saving: ' + (result.error || 'Unknown error'));
+        }
+    })
+    .catch(err => {
+        alert('Network error: ' + err.message);
+    });
+}
+
+
+// Feedback Modal Functions
+function openFeedbackModal() {
+    document.getElementById('feedback-modal').style.display = 'flex';
+    document.getElementById('feedback-text').value = '';
+    document.querySelectorAll('.direction-preset').forEach(cb => cb.checked = false);
+    document.getElementById('feedback-status').style.display = 'none';
+    document.getElementById('submit-feedback-btn').disabled = false;
+}
+
+function closeFeedbackModal() {
+    document.getElementById('feedback-modal').style.display = 'none';
+}
+
+function submitFeedback() {
+    const feedback = document.getElementById('feedback-text').value.trim();
+    const presets = Array.from(document.querySelectorAll('.direction-preset:checked')).map(cb => cb.value);
+
+    if (!feedback && presets.length === 0) {
+        alert('Please provide feedback or select at least one direction preset');
+        return;
+    }
+
+    const btn = document.getElementById('submit-feedback-btn');
+    const statusDiv = document.getElementById('feedback-status');
+    const messageSpan = document.getElementById('feedback-message');
+
+    btn.disabled = true;
+    btn.textContent = 'Creating job...';
+    statusDiv.style.display = 'block';
+    messageSpan.textContent = 'Creating revision job...';
+
+    fetch('/streams/{{ stream.id }}/regenerate-spec', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            feedback: feedback,
+            presets: presets
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'queued') {
+            messageSpan.innerHTML = 'Job created: <strong>' + data.job_id + '</strong><br>Waiting for Claude Code to revise prompts...';
+            btn.textContent = 'Waiting...';
+            // Start polling for production.json update
+            pollForProductionUpdate();
+        } else {
+            messageSpan.innerHTML = '<span style="color: var(--danger);">Error: ' + (data.error || 'Unknown error') + '</span>';
+            btn.disabled = false;
+            btn.textContent = 'Regenerate Prompts';
+        }
+    })
+    .catch(err => {
+        messageSpan.innerHTML = '<span style="color: var(--danger);">Network error: ' + err.message + '</span>';
+        btn.disabled = false;
+        btn.textContent = 'Regenerate Prompts';
+    });
+}
+
+let productionCheckCount = 0;
+const PRODUCTION_FILE_MTIME = {{ stream.production | tojson if stream.production else 'null' }} ? Date.now() : 0;
+
+function pollForProductionUpdate() {
+    const messageSpan = document.getElementById('feedback-message');
+    productionCheckCount++;
+
+    // Simple polling - check if production.json exists (it will be updated by Claude Code)
+    // Since we can't easily check mtime from frontend, we'll poll for a reasonable time then reload
+    if (productionCheckCount > 30) {  // ~60 seconds max
+        messageSpan.innerHTML = '<span style="color: var(--warning);">Still waiting... Check the jobs folder or reload the page.</span>';
+        return;
+    }
+
+    fetch('/streams/{{ stream.id }}/check-production')
+    .then(response => response.json())
+    .then(data => {
+        if (data.exists) {
+            // For revision, we can't easily detect if it changed, so after some time just reload
+            if (productionCheckCount > 5) {  // After ~10 seconds, assume it might be done
+                messageSpan.innerHTML = '<span style="color: var(--success);">Checking for updates... Reloading page.</span>';
+                setTimeout(() => window.location.reload(), 1500);
+            } else {
+                setTimeout(pollForProductionUpdate, 2000);
+            }
+        } else {
+            setTimeout(pollForProductionUpdate, 2000);
+        }
+    })
+    .catch(err => {
+        setTimeout(pollForProductionUpdate, 3000);
+    });
+}
+
+
+// Production Settings Functions
+function saveProductionSettings() {
+    const settings = {
+        text_type: document.getElementById('text-type-select').value,
+        sync_mode: document.getElementById('sync-mode-select').value,
+        scroll_config: {
+            default_scroll_height: parseInt(document.getElementById('default-scroll-height').value) || 700,
+            min_scroll_height: parseInt(document.getElementById('min-scroll-height').value) || 400
+        },
+        frame_targets: {
+            high: parseInt(document.getElementById('high-frame-count').value) || 140,
+            performance: parseInt(document.getElementById('perf-frame-count').value) || 40
+        }
+    };
+
+    fetch('/streams/{{ stream.id }}/production-settings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(settings)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            alert('Production settings saved');
+        } else {
+            alert('Failed to save: ' + (data.error || 'Unknown error'));
+        }
+    })
+    .catch(err => {
+        alert('Error saving settings: ' + err.message);
+    });
+}
+
+function analyzeInput() {
+    fetch('/streams/{{ stream.id }}/analyze-input', {
+        method: 'POST'
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success' && data.analysis) {
+            const ps = data.analysis.production_settings;
+            document.getElementById('text-type-select').value = ps.text_type || 'prose';
+            document.getElementById('sync-mode-select').value = ps.sync_mode || 'word-count';
+            if (ps.scroll_config) {
+                document.getElementById('default-scroll-height').value = ps.scroll_config.default_scroll_height || 700;
+                document.getElementById('min-scroll-height').value = ps.scroll_config.min_scroll_height || 400;
+            }
+            alert('Text analyzed. Detected type: ' + ps.text_type + ', recommended sync mode: ' + ps.sync_mode);
+        } else {
+            alert('Analysis failed: ' + (data.error || 'Unknown error'));
+        }
+    })
+    .catch(err => {
+        alert('Error analyzing input: ' + err.message);
+    });
+}
+
+function saveSectionHeights() {
+    const sections = [];
+    document.querySelectorAll('.section-height-row').forEach(row => {
+        const sectionId = row.querySelector('.section-scroll-height').dataset.sectionId;
+        const scrollHeight = row.querySelector('.section-scroll-height').value;
+        const minHeight = row.querySelector('.section-min-height').value;
+
+        sections.push({
+            id: sectionId,
+            scroll_height: scrollHeight ? parseInt(scrollHeight) : null,
+            min_scroll_height: minHeight ? parseInt(minHeight) : null
+        });
+    });
+
+    fetch('/streams/{{ stream.id }}/section-heights', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ sections: sections })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            alert('Section heights saved');
+        } else {
+            alert('Failed to save: ' + (data.error || 'Unknown error'));
+        }
+    })
+    .catch(err => {
+        alert('Error saving section heights: ' + err.message);
+    });
+}
+
+function extractFrames(tier) {
+    const highFrames = document.getElementById('high-frame-count').value || 140;
+    const perfFrames = document.getElementById('perf-frame-count').value || 40;
+
+    const statusDiv = document.getElementById('extraction-status');
+    const messageSpan = document.getElementById('extraction-message');
+
+    statusDiv.style.display = 'block';
+    messageSpan.textContent = 'Starting frame extraction (' + tier + ')...';
+
+    fetch('/streams/{{ stream.id }}/extract-frames', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            tier: tier,
+            high_frames: parseInt(highFrames),
+            perf_frames: parseInt(perfFrames)
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'queued') {
+            messageSpan.textContent = 'Extraction queued (Task ID: ' + data.task_id + '). This may take a few minutes...';
+            // Poll for completion
+            pollExtractionStatus(data.task_id);
+        } else if (data.status === 'success') {
+            messageSpan.textContent = 'Extraction complete!';
+            setTimeout(() => { statusDiv.style.display = 'none'; }, 3000);
+        } else {
+            messageSpan.textContent = 'Error: ' + (data.error || 'Unknown error');
+        }
+    })
+    .catch(err => {
+        messageSpan.textContent = 'Error: ' + err.message;
+    });
+}
+
+function pollExtractionStatus(taskId) {
+    const statusDiv = document.getElementById('extraction-status');
+    const messageSpan = document.getElementById('extraction-message');
+
+    fetch('/tasks/' + taskId)
+    .then(response => response.text())
+    .then(html => {
+        // Check if task is complete by looking at the response
+        if (html.includes('completed') || html.includes('success')) {
+            messageSpan.textContent = 'Extraction complete!';
+            setTimeout(() => {
+                statusDiv.style.display = 'none';
+                window.location.reload();
+            }, 2000);
+        } else if (html.includes('failed') || html.includes('error')) {
+            messageSpan.textContent = 'Extraction failed. Check logs for details.';
+        } else {
+            // Still running, poll again
+            setTimeout(() => pollExtractionStatus(taskId), 3000);
+        }
+    })
+    .catch(err => {
+        messageSpan.textContent = 'Error checking status: ' + err.message;
+    });
+}
+
+
+// Keyframe Generation Functions
+function generateAllKeyframes() {
+    generateKeyframes('all');
+}
+
+function generateMissingKeyframes() {
+    generateKeyframes('missing');
+}
+
+function generateKeyframes(mode) {
+    const btn = document.getElementById('generate-keyframes-btn');
+    const status = document.getElementById('keyframe-gen-status');
+
+    btn.disabled = true;
+    status.textContent = 'Creating generation job...';
+
+    fetch('/streams/{{ stream.id }}/generate-keyframes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ mode: mode })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'queued') {
+            status.innerHTML = 'Job <strong>' + data.job_id + '</strong> created. Waiting for generation...';
+            // Poll for completion
+            pollKeyframeGeneration();
+        } else {
+            status.innerHTML = '<span style="color: var(--danger);">Error: ' + (data.error || 'Unknown error') + '</span>';
+            btn.disabled = false;
+        }
+    })
+    .catch(err => {
+        status.innerHTML = '<span style="color: var(--danger);">Error: ' + err.message + '</span>';
+        btn.disabled = false;
+    });
+}
+
+let keyframePollCount = 0;
+function pollKeyframeGeneration() {
+    const status = document.getElementById('keyframe-gen-status');
+    keyframePollCount++;
+
+    if (keyframePollCount > 60) {  // ~2 minutes max
+        status.innerHTML = '<span style="color: var(--warning);">Taking longer than expected. Reload to check progress.</span>';
+        document.getElementById('generate-keyframes-btn').disabled = false;
+        return;
+    }
+
+    // Check if any keyframes have been generated
+    fetch('/streams/{{ stream.id }}/progress')
+    .then(response => response.json())
+    .then(data => {
+        const generated = data.keyframes_generated || 0;
+        const total = data.total_segments || {{ progress.total_segments }};
+        status.textContent = `Generating... (${generated}/${total} complete)`;
+
+        if (generated >= total) {
+            status.innerHTML = '<span style="color: var(--success);">All keyframes generated! Reloading...</span>';
+            setTimeout(() => window.location.reload(), 1500);
+        } else {
+            setTimeout(pollKeyframeGeneration, 2000);
+        }
+    })
+    .catch(err => {
+        setTimeout(pollKeyframeGeneration, 3000);
+    });
+}
+
+
+// Video Generation Functions
+function generateAllVideos() {
+    generateVideos('all');
+}
+
+function generateMissingVideos() {
+    generateVideos('missing');
+}
+
+function generateVideos(mode) {
+    const btn = document.getElementById('generate-videos-btn');
+    const status = document.getElementById('video-gen-status');
+
+    btn.disabled = true;
+    status.textContent = 'Creating generation job...';
+
+    fetch('/streams/{{ stream.id }}/generate-videos', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ mode: mode })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'queued') {
+            status.innerHTML = 'Job <strong>' + data.job_id + '</strong> created. Waiting for generation...';
+            // Poll for completion
+            pollVideoGeneration();
+        } else {
+            status.innerHTML = '<span style="color: var(--danger);">Error: ' + (data.error || 'Unknown error') + '</span>';
+            btn.disabled = false;
+        }
+    })
+    .catch(err => {
+        status.innerHTML = '<span style="color: var(--danger);">Error: ' + err.message + '</span>';
+        btn.disabled = false;
+    });
+}
+
+let videoPollCount = 0;
+function pollVideoGeneration() {
+    const status = document.getElementById('video-gen-status');
+    videoPollCount++;
+
+    if (videoPollCount > 120) {  // ~4 minutes max (videos take longer)
+        status.innerHTML = '<span style="color: var(--warning);">Taking longer than expected. Reload to check progress.</span>';
+        document.getElementById('generate-videos-btn').disabled = false;
+        return;
+    }
+
+    // Check if any videos have been generated
+    fetch('/streams/{{ stream.id }}/progress')
+    .then(response => response.json())
+    .then(data => {
+        const generated = data.videos_generated || 0;
+        const total = data.total_segments || {{ progress.total_segments }};
+        status.textContent = `Generating... (${generated}/${total} complete)`;
+
+        if (generated >= total) {
+            status.innerHTML = '<span style="color: var(--success);">All videos generated! Reloading...</span>';
+            setTimeout(() => window.location.reload(), 1500);
+        } else {
+            setTimeout(pollVideoGeneration, 2000);
+        }
+    })
+    .catch(err => {
+        setTimeout(pollVideoGeneration, 3000);
+    });
+}
+
+// Poll job status until complete
+function pollJobStatus(jobId, onComplete, onError, maxAttempts = 120) {
+    let attempts = 0;
+    const poll = () => {
+        attempts++;
+        fetch(`/jobs/${jobId}/status`)
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'completed') {
+                    onComplete(data);
+                } else if (data.status === 'failed') {
+                    onError(data.error || 'Job failed');
+                } else if (data.status === 'not_found' && attempts > 5) {
+                    onError('Job not found');
+                } else if (attempts >= maxAttempts) {
+                    onError('Timeout waiting for job');
+                } else {
+                    // Still pending or processing, poll again
+                    setTimeout(poll, 5000);
+                }
+            })
+            .catch(err => {
+                if (attempts >= maxAttempts) {
+                    onError(err.message);
+                } else {
+                    setTimeout(poll, 5000);
+                }
+            });
+    };
+    poll();
+}
+
+// Finalize Stream - Create the runnable Next.js app
+function finalizeStream() {
+    const btn = document.getElementById('finalize-btn');
+    if (!btn) return;
+
+    if (!confirm('Finalize stream? This will create the final Next.js app with all videos and text combined.')) {
+        return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Finalizing...';
+
+    fetch('/streams/{{ stream.id }}/finalize', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            btn.textContent = '✓ Finalized!';
+            btn.style.background = 'var(--success)';
+            alert('Stream finalized successfully!\\n\\nOutput: ' + data.output_path + '\\n\\nRun: cd ' + data.output_path + ' && npm install && npm run dev');
+            window.location.reload();
+        } else if (data.status === 'queued') {
+            btn.textContent = 'Processing...';
+            // Poll for completion
+            pollJobStatus(data.job_id,
+                (result) => {
+                    btn.textContent = '✓ Finalized!';
+                    btn.style.background = 'var(--success)';
+                    setTimeout(() => window.location.reload(), 1000);
+                },
+                (error) => {
+                    btn.textContent = 'Finalize Stream →';
+                    btn.disabled = false;
+                    alert('Finalization failed: ' + error);
+                }
+            );
+        } else {
+            btn.textContent = 'Finalize Stream →';
+            btn.disabled = false;
+            alert('Error: ' + (data.error || 'Unknown error'));
+        }
+    })
+    .catch(err => {
+        btn.textContent = 'Finalize Stream →';
+        btn.disabled = false;
+        alert('Error: ' + err.message);
+    });
+}
+
+// Deploy Stream - Deploy to Vercel
+function deployStream() {
+    const btn = document.getElementById('deploy-btn');
+    if (!btn) return;
+
+    if (!confirm('Deploy stream to production? This will make it live at a public URL.')) {
+        return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Deploying...';
+
+    fetch('/streams/{{ stream.id }}/deploy', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            btn.textContent = '✓ Deployed!';
+            btn.style.background = 'var(--success)';
+            alert('Stream deployed successfully!\\n\\nURL: ' + data.url);
+            window.location.reload();
+        } else if (data.status === 'queued') {
+            btn.textContent = 'Queued...';
+            alert('Deployment job queued: ' + data.job_id + '\\n\\nThis may take a few minutes.');
+            setTimeout(() => window.location.reload(), 5000);
+        } else {
+            btn.textContent = 'Deploy →';
+            btn.disabled = false;
+            alert('Error: ' + (data.error || 'Unknown error'));
+        }
+    })
+    .catch(err => {
+        btn.textContent = 'Deploy →';
+        btn.disabled = false;
+        alert('Error: ' + err.message);
+    });
+}
+</script>
+{% endblock %}

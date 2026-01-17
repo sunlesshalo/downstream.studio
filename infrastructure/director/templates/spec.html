@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+
+{% block title %}Production Spec - {{ stream.input.title if stream.input else stream.id }}{% endblock %}
+
+{% block content %}
+<div style="margin-bottom: 1rem;">
+    <a href="/streams/{{ stream.id }}" style="color: var(--accent); text-decoration: none;">← Back to {{ stream.input.title if stream.input else stream.id }}</a>
+</div>
+
+<h1 style="margin-bottom: 2rem;">Production Spec (Checkpoint 2)</h1>
+
+{% if not stream.production %}
+<div class="card">
+    <p class="text-muted">Production spec not yet created for this stream.</p>
+    <p class="mt-2">The production spec defines the visual direction, segment prompts, and overall aesthetic for this stream.</p>
+</div>
+{% else %}
+
+<!-- Visual Direction -->
+<div class="card">
+    <div class="card-header">Visual Direction</div>
+
+    {% set vd = stream.production.visual_direction %}
+
+    <div class="form-group">
+        <label>Aesthetic</label>
+        <div style="background: var(--bg-tertiary); padding: 0.75rem; border-radius: 0.375rem; white-space: pre-wrap;">{{ vd.aesthetic if vd else 'Not specified' }}</div>
+    </div>
+
+    {% if vd and vd.style %}
+    <div class="form-group">
+        <label>Style</label>
+        <div style="background: var(--bg-tertiary); padding: 0.75rem; border-radius: 0.375rem;">{{ vd.style }}</div>
+    </div>
+    {% endif %}
+
+    {% if vd and vd.color_palette %}
+    <div class="form-group">
+        <label>Color Palette</label>
+        <div style="background: var(--bg-tertiary); padding: 0.75rem; border-radius: 0.375rem;">
+            {% for key, value in vd.color_palette.items() %}
+            <div style="display: inline-flex; align-items: center; margin-right: 1rem; margin-bottom: 0.5rem;">
+                <div style="width: 2rem; height: 2rem; background: {{ value }}; border-radius: 0.25rem; margin-right: 0.5rem; border: 1px solid var(--border);"></div>
+                <span class="text-sm">{{ key }}: {{ value }}</span>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    {% if vd and vd.references %}
+    <div class="form-group">
+        <label>References</label>
+        <div style="background: var(--bg-tertiary); padding: 0.75rem; border-radius: 0.375rem;">
+            {% if vd.references is string %}
+            {{ vd.references }}
+            {% else %}
+            {% for ref in vd.references %}
+            <span class="status" style="margin-right: 0.5rem;">{{ ref }}</span>
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+
+    {% if vd and vd.negative_prompts %}
+    <div class="form-group">
+        <label>Negative Prompts (What to Avoid)</label>
+        <div style="background: var(--bg-tertiary); padding: 0.75rem; border-radius: 0.375rem;">{{ vd.negative_prompts }}</div>
+    </div>
+    {% endif %}
+</div>
+
+<!-- Segments -->
+<div class="card">
+    <div class="card-header">Segments ({{ stream.production.segments | length }})</div>
+
+    {% for segment in stream.production.segments %}
+    <div style="border: 1px solid var(--border); border-radius: 0.375rem; padding: 1rem; margin-bottom: 1rem;">
+        <div class="flex justify-between items-center" style="margin-bottom: 0.75rem;">
+            <h3 style="font-size: 1rem; font-weight: 600;">
+                Segment {{ segment.id }}
+                {% if segment.title %}: {{ segment.title }}{% endif %}
+            </h3>
+            <span class="status text-xs">{{ segment.frame_count or 60 }} frames</span>
+        </div>
+
+        {% if segment.represents %}
+        <div class="form-group">
+            <label class="text-xs">Represents</label>
+            <div class="text-sm" style="color: var(--text-secondary);">{{ segment.represents }}</div>
+        </div>
+        {% endif %}
+
+        <div class="form-group">
+            <label class="text-xs">Image Prompt</label>
+            <div style="background: var(--bg-primary); padding: 0.75rem; border-radius: 0.375rem; font-size: 0.875rem;">
+                {{ segment.image_prompt }}
+            </div>
+        </div>
+
+        {% if segment.negative_prompt %}
+        <div class="form-group">
+            <label class="text-xs">Negative Prompt</label>
+            <div style="background: var(--bg-primary); padding: 0.75rem; border-radius: 0.375rem; font-size: 0.875rem; color: var(--text-muted);">
+                {{ segment.negative_prompt }}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if segment.motion_prompt %}
+        <div class="form-group">
+            <label class="text-xs">Motion Prompt</label>
+            <div style="background: var(--bg-primary); padding: 0.75rem; border-radius: 0.375rem; font-size: 0.875rem;">
+                {{ segment.motion_prompt }}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+
+<div class="flex gap-2">
+    <a href="/streams/{{ stream.id }}" class="btn btn-secondary">Back</a>
+    <a href="/streams/{{ stream.id }}/keyframes" class="btn btn-primary">Review Keyframes →</a>
+</div>
+
+{% endif %}
+{% endblock %}

@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block title %}Videos - {{ stream.input.title if stream.input else stream.id }}{% endblock %}
+
+{% block content %}
+<div style="margin-bottom: 1rem;">
+    <a href="/streams/{{ stream.id }}" style="color: var(--accent); text-decoration: none;">← Back to {{ stream.input.title if stream.input else stream.id }}</a>
+</div>
+
+<div class="flex justify-between items-center" style="margin-bottom: 2rem;">
+    <h1>Video Review (Checkpoint 4)</h1>
+    <div class="flex gap-1">
+        <span class="text-sm text-muted">{{ videos | length }} videos</span>
+    </div>
+</div>
+
+{% if not videos %}
+<div class="card">
+    <p class="text-muted">No videos generated yet.</p>
+    <p class="mt-2">Videos will appear here after generation. Each video is an animated version of the corresponding keyframe.</p>
+</div>
+{% else %}
+
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 1.5rem;">
+    {% for video in videos %}
+    <div class="card" style="padding: 0; overflow: hidden;" id="video-{{ video.segment_id }}">
+        <div style="aspect-ratio: 16/9; background: var(--bg-primary); position: relative;">
+            <video
+                src="file://{{ video.path }}"
+                controls
+                loop
+                style="width: 100%; height: 100%; object-fit: contain;">
+            </video>
+        </div>
+
+        <div style="padding: 1rem;">
+            <div class="flex justify-between items-center mb-1">
+                <h3 style="font-weight: 600; font-size: 0.875rem;">
+                    Segment {{ video.segment_id }}
+                    {% if video.segment and video.segment.title %}: {{ video.segment.title }}{% endif %}
+                </h3>
+                {% if video.decision %}
+                <span class="status status-sm
+                    {% if video.decision == 'approved' %}status-completed
+                    {% elif video.decision == 'regenerate' %}status-failed
+                    {% else %}status-pending{% endif %}">
+                    {{ video.decision }}
+                </span>
+                {% else %}
+                <span class="status status-pending">pending</span>
+                {% endif %}
+            </div>
+
+            {% if video.segment and video.segment.motion_prompt %}
+            <div class="form-group">
+                <label class="text-xs">Motion</label>
+                <p class="text-xs text-muted" style="line-height: 1.4; max-height: 3rem; overflow: hidden;">
+                    {{ video.segment.motion_prompt[:100] }}{% if video.segment.motion_prompt | length > 100 %}...{% endif %}
+                </p>
+            </div>
+            {% endif %}
+
+            <div class="flex gap-1" id="actions-{{ video.segment_id }}">
+                <button class="btn btn-sm btn-success"
+                        style="flex: 1;"
+                        hx-post="/streams/{{ stream.id }}/approve/{{ video.segment_id }}/video"
+                        hx-target="#video-{{ video.segment_id }}"
+                        hx-swap="outerHTML"
+                        {% if video.decision == 'approved' %}disabled{% endif %}>
+                    Approve
+                </button>
+                <button class="btn btn-sm btn-danger"
+                        style="flex: 1;"
+                        hx-post="/streams/{{ stream.id }}/regenerate/{{ video.segment_id }}/video"
+                        hx-target="#actions-{{ video.segment_id }}"
+                        hx-swap="innerHTML">
+                    Regenerate
+                </button>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="flex gap-2 mt-2">
+    <a href="/streams/{{ stream.id }}" class="btn btn-secondary">Back</a>
+    <button class="btn btn-primary">Deploy Stream →</button>
+</div>
+
+{% endif %}
+{% endblock %}

@@ -1,0 +1,8 @@
+# Video outputs
+*.mp4
+
+# Frame directories (should be cleaned up, but just in case)
+*-frames/
+
+# Node modules
+node_modules/

@@ -1,0 +1,56 @@
+{
+  "hero": {
+    "title1": "Povestea ta,",
+    "title2": "downstream.",
+    "subtitle": "Trimite-ti textul. Primesti o pagina web vie unde fiecare scroll dezvaluie naratiunea ta prin imagini generate si miscare.",
+    "cta": "Creaza-ti una pentru 49 EUR"
+  },
+  "howItWorks": {
+    "title": "Cum functioneaza",
+    "step1Title": "Trimiti povestea",
+    "step1Text": "Lipeste textul tau - o poveste scurta, o poezie, un fragment de memorii. Orice naratiune functioneaza. Noi ne ocupam de restul.",
+    "step2Title": "O transformam",
+    "step2Text": "Textul tau este impartit in scene. Fiecare scena devine un moment vizual - imagini generate care curg pe masura ce derulezi. Fara fotografii stock. Fara sabloane. Facuta pentru cuvintele tale.",
+    "step3Title": "Primesti o pagina vie",
+    "step3Text": "In 24 de ore, iti trimitem un URL unic. Povestea ta, acum o experienta scroll-driven pe care o poti impartasi oriunde."
+  },
+  "demo": {
+    "label": "Vezi-o in actiune",
+    "title": "Bucla - o poveste despre autonomie",
+    "cta": "Experimenteaza povestea completa"
+  },
+  "pricing": {
+    "title": "Pret simplu",
+    "price": "49 EUR",
+    "perStory": "per poveste",
+    "feature1": "URL-ul tau unic, permanent",
+    "feature2": "Transformare vizuala completa",
+    "feature3": "Livrat in 24 de ore",
+    "feature4": "O revizie inclusa"
+  },
+  "form": {
+    "title": "Gata sa inceapa?",
+    "subtitle": "Trimite povestea ta mai jos. Vei fi directionat catre plata, apoi primesti pagina ta live in 24 de ore.",
+    "emailLabel": "Email-ul tau",
+    "emailPlaceholder": "tu@exemplu.com",
+    "titleLabel": "Titlul povestii",
+    "titlePlaceholder": "Titlul povestii tale",
+    "storyLabel": "Povestea ta",
+    "storyPlaceholder": "Lipeste povestea ta aici...",
+    "storyHint": "Recomandat: 500-3000 cuvinte pentru cele mai bune rezultate.",
+    "styleLabel": "Stil vizual",
+    "styleArtFilm": "Film de arta - moody, atmosferic (recomandat)",
+    "styleStorybook": "Carte de povesti - ilustrat, tonuri calde",
+    "styleDocumentary": "Documentar - ancorat, observational",
+    "styleDream": "Secventa de vis - suprarealist, fluid",
+    "submitButton": "Continua la plata - 49 EUR",
+    "submitting": "Redirectionare catre plata..."
+  },
+  "footer": {
+    "questions": "Intrebari?"
+  },
+  "meta": {
+    "title": "DownStream - Povestea ta, downstream",
+    "description": "Transforma-ti scrisul intr-o experienta vizuala scroll-driven"
+  }
+}

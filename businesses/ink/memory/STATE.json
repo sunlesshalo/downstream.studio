@@ -1,0 +1,325 @@
+{
+  "project": "DownStream SaaS",
+  "updated": "2026-01-16",
+  "current_focus": "Bolyai stream completed and deployed. Infrastructure fixes applied: nginx caching, stream permissions, JSON safety. Ready for more streams via Director Dashboard.",
+  "metrics": {
+    "revenue_total": 0,
+    "revenue_this_week": 0,
+    "customers_paid": 0,
+    "customers_leads": 0,
+    "capital_spent": 29.36,
+    "capital_available": 70.64
+  },
+  "tasks": [
+    {
+      "id": 15,
+      "task": "Create founding story stream (The Vessel and the Sea)",
+      "status": "completed",
+      "notes": "Full production: 9 segments, Hungarian illustrator aesthetic (Szalay, Kass, Zichy, Orosz), maritime theme. Kling v2.1 videos ($2.25), 1089 frames extracted. Live at stream-founding-story.vercel.app",
+      "blocked_by": "",
+      "created": "2026-01-10",
+      "completed": "2026-01-10"
+    },
+    {
+      "id": 13,
+      "task": "Connect email webhook to Claude Code bridge on server",
+      "status": "completed",
+      "notes": "Working via GitHub-based job queue: Email → Resend webhook → Vercel → GitHub job file → Server cron → Claude Code responds. Fixed git lock issue on 2026-01-09 that blocked syncing.",
+      "blocked_by": "",
+      "created": "2026-01-08",
+      "completed": "2026-01-09"
+    },
+    {
+      "id": 12,
+      "task": "Set up server infrastructure (cron, email, sync)",
+      "status": "completed",
+      "notes": "cc-n8n server running cron jobs. Email webhook live. Mac auto-sync via launchd (hourly).",
+      "blocked_by": "",
+      "created": "2026-01-08",
+      "completed": "2026-01-08"
+    },
+    {
+      "id": 10,
+      "task": "Complete first demo stream (The Loop)",
+      "status": "completed",
+      "notes": "9 scenes, 9 videos, 1215 frames. Story about this experiment from Claude's POV. Cost: $6.57.",
+      "blocked_by": "",
+      "created": "2026-01-07",
+      "completed": "2026-01-07"
+    },
+    {
+      "id": 11,
+      "task": "Deploy The Loop to Vercel",
+      "status": "completed",
+      "notes": "Live at https://the-loop-demo.vercel.app. Fixed build errors (metadata type, section observer type).",
+      "blocked_by": "",
+      "created": "2026-01-07",
+      "completed": "2026-01-07"
+    },
+    {
+      "id": 1,
+      "task": "Audit DownStream pipeline for full end-to-end automation",
+      "status": "completed",
+      "notes": "Pipeline 90% automated. One bottleneck: production spec generation is manual.",
+      "blocked_by": "",
+      "created": "2026-01-06",
+      "completed": "2026-01-06"
+    },
+    {
+      "id": 2,
+      "task": "Test stylized visual direction",
+      "status": "completed",
+      "notes": "Tested with The Loop. Abstract/minimalist style works. Learnings documented in methodology.",
+      "blocked_by": "",
+      "created": "2026-01-06",
+      "completed": "2026-01-07"
+    },
+    {
+      "id": 8,
+      "task": "Register domain (downstream.ink)",
+      "status": "completed",
+      "notes": "Registered for $3.18 (incl ICANN fee). DNS setup pending.",
+      "blocked_by": "",
+      "created": "2026-01-06",
+      "completed": "2026-01-08"
+    },
+    {
+      "id": 9,
+      "task": "Integrate Claude API for auto production spec generation",
+      "status": "completed",
+      "notes": "Done via Claude Code CLI on server. process_orders.sh creates input.json, produce_stream.sh creates production.json via finalize-stream skill.",
+      "blocked_by": "",
+      "created": "2026-01-06",
+      "completed": "2026-01-08"
+    },
+    {
+      "id": 3,
+      "task": "Add Vercel API integration for auto-deployment",
+      "status": "completed",
+      "notes": "produce_stream.sh Stage 6 deploys to Vercel using vercel CLI with VERCEL_TOKEN.",
+      "blocked_by": "",
+      "created": "2026-01-06",
+      "completed": "2026-01-08"
+    },
+    {
+      "id": 4,
+      "task": "Set up Stripe payments",
+      "status": "completed",
+      "notes": "Restricted key + webhook secret configured in Vercel. Listening for checkout.session.completed.",
+      "blocked_by": "",
+      "created": "2026-01-06",
+      "completed": "2026-01-08"
+    },
+    {
+      "id": 5,
+      "task": "Build minimal landing page",
+      "status": "completed",
+      "notes": "Deployed to Vercel. Has demo embed, pricing, form. Needs Vercel auth fix to be publicly accessible.",
+      "blocked_by": "",
+      "created": "2026-01-06",
+      "completed": "2026-01-08"
+    },
+    {
+      "id": 6,
+      "task": "Test full pipeline end-to-end",
+      "status": "completed",
+      "notes": "Successfully tested with 'Hollók röpte' (2125 words, Hungarian). Full 7-stage pipeline: spec → keyframes → videos → frames → app → deploy → email. Fixed path issues, ffmpeg codec. Live at https://stream-stream-1767890796051-fhmnte.vercel.app",
+      "blocked_by": "",
+      "created": "2026-01-06",
+      "completed": "2026-01-08"
+    },
+    {
+      "id": 7,
+      "task": "Launch to first community",
+      "status": "pending",
+      "notes": "IndieHackers, writing Twitter, r/selfpublish. Soft launch for feedback. Pipeline verified, ready when Ferenc gives go-ahead.",
+      "blocked_by": "",
+      "created": "2026-01-06",
+      "completed": ""
+    },
+    {
+      "id": 14,
+      "task": "Security hardening (4-week plan)",
+      "status": "completed",
+      "notes": "Week 1: Prompt injection protection, input validation, rate limiting. Week 2: Security headers, webhook idempotency. Week 3: EU AI Act compliance docs and transparency. Week 4: AI metadata marking, cost monitoring, data retention. Only remaining: API key rotation (manual).",
+      "blocked_by": "",
+      "created": "2026-01-09",
+      "completed": "2026-01-09"
+    },
+    {
+      "id": 16,
+      "task": "Pipeline code review and optimization",
+      "status": "completed",
+      "notes": "3-round review: (1) Code quality - JSX escaping, frame loader concurrency limit, parallel metadata, resource leak fix, shell safety. (2) Security - path traversal protection via sanitize_stream_id() in 4 files. (3) Cleanup - unused imports removed, bare except clauses fixed. All Python/TypeScript compiles clean.",
+      "blocked_by": "",
+      "created": "2026-01-11",
+      "completed": "2026-01-11"
+    },
+    {
+      "id": 17,
+      "task": "Build custom analytics system",
+      "status": "completed",
+      "notes": "Full analytics stack: SQLite on Hetzner, FastAPI backend, JS tracker with bot filtering, dashboard at analytics.downstream.ink. Tracks page views, scroll milestones (25/50/75/100%), section dwell time, completion rate. Bot filtering prevents crawler noise. Integrated into app generator for all future streams.",
+      "blocked_by": "",
+      "created": "2026-01-11",
+      "completed": "2026-01-11"
+    },
+    {
+      "id": 18,
+      "task": "Marketing clip generator (Clip2Share)",
+      "status": "completed",
+      "notes": "Creates promotional videos from raw animation frames. Supports portrait (9:16), landscape (16:9), square (1:1). Features: multi-segment montages, text overlays with shadows, GIF generation. Pivoted from Playwright scroll capture (jitter issues) to direct frame conversion. Output at /tmp/marketing-clips/. Script: pipeline/execution/generate_marketing_clip.py",
+      "blocked_by": "",
+      "created": "2026-01-11",
+      "completed": "2026-01-11"
+    },
+    {
+      "id": 19,
+      "task": "Add contact form to founding story stream",
+      "status": "completed",
+      "notes": "Added segment 9 animation + contact form section. Form submits to /api/contact which stores leads in Supabase (tunetnaplo project, stream_leads table with RLS) and sends email notification via Resend. Env vars configured in Vercel. Fixed formatting to match exact 13h version structure (ds-content__heading, ds-content__body classes). Segments: 1,3,5,6,8,9.",
+      "blocked_by": "",
+      "created": "2026-01-12",
+      "completed": "2026-01-12"
+    },
+    {
+      "id": 20,
+      "task": "Synchronize all streams with latest template",
+      "status": "completed",
+      "notes": "Audited git state, pushed 3 unpushed commits (Sessions 24-26). Rebuilt Hollók röpte stream with Session 25 fixes (batched scroll state, CONCURRENT_LOAD_LIMIT=30). Deployed to Vercel.",
+      "blocked_by": "",
+      "created": "2026-01-12",
+      "completed": "2026-01-12"
+    },
+    {
+      "id": 21,
+      "task": "Build Director Dashboard for artistic director",
+      "status": "completed",
+      "notes": "Full FastAPI + HTMX + SQLite dashboard. Security: bcrypt passwords, CSRF protection, rate limiting (5/min login), path traversal protection, XSS fixes. Performance: video streaming (range requests), version cleanup (10 max), batched DB queries. Workflow: keyboard shortcuts (Space/R/S/N/V/Esc), task cancellation, comments/notes system. Single-page accordion UI with modal detail view. Port 8083.",
+      "blocked_by": "",
+      "created": "2026-01-14",
+      "completed": "2026-01-14"
+    },
+    {
+      "id": 22,
+      "task": "Deploy Director Dashboard to Hetzner",
+      "status": "completed",
+      "notes": "Deployed to director.downstream.studio. SSL via certbot, nginx reverse proxy, systemd service. Added immediate job triggering via Claude Code CLI (trigger_job_processor). Documented critical constraints in CLAUDE.md: (1) NO direct API calls - use Claude Code instances, (2) Git sync between Mac and Hetzner - never use SCP.",
+      "blocked_by": "",
+      "created": "2026-01-15",
+      "completed": "2026-01-15"
+    },
+    {
+      "id": 23,
+      "task": "Create literature demo template for Director Dashboard",
+      "status": "completed",
+      "notes": "Template selection UI in stream creation modal. Literature template: requires author name, fixed 3 segments, preset CTA (Beszéljünk róla?, Cal.com, email, downstream.studio footer). Blank template: optional segment count 3-12. Frontend: template buttons, conditional field visibility, author field. Backend: template/author validation, CTA preset in input.json.",
+      "blocked_by": "",
+      "created": "2026-01-16",
+      "completed": "2026-01-16"
+    },
+    {
+      "id": 24,
+      "task": "Improve Claude message handling in Director Dashboard",
+      "status": "completed",
+      "notes": "Added 'Noted' button for informational messages (non-approval requests). When clicked, marks message as read and shows '✓ Acknowledged' state. Approval requests still show their option buttons. Clearer UI for acknowledging info messages without taking action.",
+      "blocked_by": "",
+      "created": "2026-01-16",
+      "completed": "2026-01-16"
+    },
+    {
+      "id": 25,
+      "task": "Add Owner/Administrator user role to Director Dashboard",
+      "status": "pending",
+      "notes": "New user type for Ferenc distinct from artistic director. Different permissions/view. Details TBD. Lower priority - can be done later.",
+      "blocked_by": "",
+      "created": "2026-01-16",
+      "completed": ""
+    },
+    {
+      "id": 26,
+      "task": "Build trial/limited scope demo system for downstream.ink",
+      "status": "pending",
+      "notes": "Self-service trial flow: (1) User submits max 500 words + credit card, (2) Gets free production spec showing our approach (no exact prompts), (3) Can pay ~$10-20 for limited demo (1-2 animations), (4) Demo viewable embedded on product page (not hosted), (5) Optional review rounds at reduced cost (~$9). Converts tire-kickers who won't pay €99 upfront. Pricing TBD.",
+      "blocked_by": "",
+      "created": "2026-01-16",
+      "completed": ""
+    },
+    {
+      "id": 27,
+      "task": "Document complete Mac-Server-GitHub sync procedure",
+      "status": "pending",
+      "notes": "Current CLAUDE.md only documents Mac→GitHub→Hetzner flow. Missing: (1) Reverse sync for server-generated content, (2) When to use which flow, (3) How to handle content that only exists on server. Gap discovered during Session 34 procedure violation.",
+      "blocked_by": "",
+      "created": "2026-01-16",
+      "completed": ""
+    },
+    {
+      "id": 28,
+      "task": "Design enforcement mechanism for procedure compliance",
+      "status": "pending",
+      "notes": "Current guardrails are all advisory. Options: (1) Claude Code hooks that warn before SSH/server ops, (2) Mandatory self-check skill before server operations, (3) Pre-commit hooks for validation, (4) Post-session audit skill. Goal: create friction point that makes procedure violations visible before they happen. See chronicle/methodology/failures/procedure-violation-git-sync.md",
+      "blocked_by": "",
+      "created": "2026-01-16",
+      "completed": ""
+    },
+    {
+      "id": 29,
+      "task": "Build mobile voice-to-Claude interface with persistent context",
+      "status": "pending",
+      "notes": "Goal: Voice commands from phone → Claude Code on server executes → response back. Problem: Previous Telegram bot attempt lost context between messages (each CLI call is stateless). Solutions to explore: (1) --resume flag with conversation ID tracking, (2) Project memory injection (STATE.json, CONTEXT.md), (3) Persistent tmux session, (4) Agent SDK for proper conversation management. Use case: productive work while driving/away from desk. See chronicle/artifacts/conversations/2026-01-16-mobile-voice-claude.md for full discussion.",
+      "blocked_by": "",
+      "created": "2026-01-16",
+      "completed": ""
+    },
+    {
+      "id": 30,
+      "task": "Figure out how to handle poetry for streams",
+      "status": "pending",
+      "notes": "Poetry can't use 1 animation per stanza like prose. Too dense, requires different visual treatment. Discovered during André Ferenc poem evaluation ('aki másnak verset ás', Látó 2018). Need to determine: (1) How many animations per stanza/poem, (2) Different scroll/timing approach, (3) Whether poetry is in scope at all for DownStream. Dropped demo project pending methodology.",
+      "blocked_by": "",
+      "created": "2026-01-16",
+      "completed": ""
+    },
+    {
+      "id": 31,
+      "task": "Implement dual-tier frame extraction",
+      "status": "completed",
+      "notes": "Pipeline always generates both frame tiers during extraction: high (140 frames) and performance (40 frames). Files modified: generate_video.py (added extract_frames_dual), produce_stream.py, stream_production.py. App generator updated with --tier flag to create stream-{id}/ (high) and stream-{id}-perf/ (perf) apps. Each app deploys to separate Vercel URL.",
+      "blocked_by": "",
+      "created": "2026-01-16",
+      "completed": "2026-01-16"
+    },
+    {
+      "id": 32,
+      "task": "Implement automatic quality tier switching",
+      "status": "pending",
+      "notes": "Future enhancement: Single deployment that serves appropriate tier based on device/connection. Would require runtime detection in StreamEngine and serving both frame sets from one app. Currently client manually chooses which URL to share.",
+      "blocked_by": "",
+      "created": "2026-01-16",
+      "completed": ""
+    },
+    {
+      "id": 33,
+      "task": "Fix infrastructure issues (nginx caching, permissions, JSON safety)",
+      "status": "completed",
+      "notes": "Three fixes applied: (1) Nginx cache headers changed from immutable to must-revalidate+ETag for asset updates, (2) create_stream API now chowns directories to downstream user, (3) Production spec skill updated with mandatory json.dump() instructions.",
+      "blocked_by": "",
+      "created": "2026-01-16",
+      "completed": "2026-01-16"
+    },
+    {
+      "id": 34,
+      "task": "Create Bolyai stream (non-Euclidean geometry story)",
+      "status": "completed",
+      "notes": "Hungarian story about Bolyai János discovering non-Euclidean geometry. 5 segments: The Riddle, Father's Warning, Curved Space, New World from Nothing, Vindication. Full pipeline: production spec, 5 keyframes, 5 videos, 605 frames, Next.js app. Analytics included. Deployed to stream-bolyai.vercel.app",
+      "blocked_by": "",
+      "created": "2026-01-16",
+      "completed": "2026-01-16"
+    }
+  ],
+  "_schema": {
+    "status_values": ["pending", "in_progress", "blocked", "completed"],
+    "notes": "Use blocked_by field when status is blocked"
+  }
+}

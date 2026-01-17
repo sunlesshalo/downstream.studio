@@ -1,0 +1,763 @@
+/* ================================
+   THE EXPERIMENT (REVISED)
+   Elegant. Distant. Alien.
+   Archive of consciousness.
+   ================================ */
+
+.page {
+  width: 100%;
+  min-height: 100vh;
+  background: #0a0a0c;
+  color: #d8d8dc;
+  font-family: Georgia, serif;
+  animation: breathe 12s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0%, 100% { opacity: 0.98; }
+  50% { opacity: 1; }
+}
+
+/* ================================
+   FLOATING ANIMATION LAYER
+   ================================ */
+@keyframes float1 {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-2px); }
+}
+
+@keyframes float2 {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(1px); }
+}
+
+@keyframes float3 {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-1.5px); }
+}
+
+@keyframes shimmer {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 0.8; }
+}
+
+/* ================================
+   COLOR SHIFTING
+   ================================ */
+@keyframes warmCool1 {
+  0%, 100% { color: #d4a08c; }
+  50% { color: #8ca8b8; }
+}
+
+@keyframes warmCool2 {
+  0%, 100% { color: #c0b8ac; }
+  50% { color: #a8bcc4; }
+}
+
+/* ================================
+   FLOATING HEADER
+   ================================ */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 1.5rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(10, 10, 12, 0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(160, 160, 168, 0.08);
+  transform: translateY(-100%);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.headerVisible {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.logo {
+  font-size: 0.9rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #a8a8b0;
+  font-family: Georgia, serif;
+  font-weight: normal;
+}
+
+.nav {
+  display: flex;
+  gap: 2.5rem;
+}
+
+.navLink {
+  background: none;
+  border: none;
+  color: #a8a8b0;
+  font-family: Georgia, serif;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  text-decoration: none;
+  position: relative;
+}
+
+.navLink::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  width: 0;
+  height: 1px;
+  background: #c0b8ac;
+  transition: width 0.3s ease, left 0.3s ease;
+}
+
+.navLink:hover {
+  color: #d8d8dc;
+}
+
+.navLink:hover::after {
+  width: 100%;
+  left: 0;
+}
+
+/* ================================
+   STREAM SECTION (HERO)
+   ================================ */
+.streamSection {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 600px;
+}
+
+.streamContainer {
+  width: 100%;
+  height: 100%;
+}
+
+.streamIframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.streamFade {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 12rem 2rem 3rem;
+  background: linear-gradient(
+    to top,
+    #0a0a0c 0%,
+    #0a0a0c 15%,
+    rgba(10, 10, 12, 0.95) 30%,
+    rgba(10, 10, 12, 0.7) 50%,
+    rgba(10, 10, 12, 0.3) 70%,
+    transparent 100%
+  );
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.heroText {
+  text-align: center;
+  pointer-events: auto;
+  animation: float1 8s ease-in-out infinite;
+}
+
+.heroLabel {
+  font-family: Georgia, serif;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #a8a8b0;
+  margin-bottom: 1.5rem;
+  opacity: 0.6;
+}
+
+/* ================================
+   CTA BUTTONS
+   ================================ */
+.ctaPrimary {
+  display: inline-block;
+  padding: 1rem 2.5rem;
+  background: transparent;
+  color: #c0b8ac;
+  border: 1px solid rgba(192, 184, 172, 0.4);
+  border-radius: 2px;
+  font-family: Georgia, serif;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.ctaPrimary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(192, 184, 172, 0.05);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.ctaPrimary:hover {
+  border-color: rgba(192, 184, 172, 0.7);
+  color: #d8d8dc;
+}
+
+.ctaPrimary:hover::before {
+  opacity: 1;
+}
+
+.ctaSecondary {
+  display: inline-block;
+  padding: 1rem 2.5rem;
+  background: transparent;
+  color: #a8a8b0;
+  border: 1px solid rgba(160, 160, 176, 0.2);
+  border-radius: 2px;
+  font-family: Georgia, serif;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.ctaSecondary:hover {
+  border-color: rgba(160, 160, 176, 0.5);
+  color: #d8d8dc;
+}
+
+/* ================================
+   QUESTION SECTION
+   ================================ */
+.question {
+  padding: 8rem 0;
+  border-bottom: 1px solid rgba(160, 160, 168, 0.06);
+}
+
+.pullQuote {
+  font-size: 1.4rem;
+  font-style: italic;
+  text-align: center;
+  color: #d8d8dc;
+  max-width: 700px;
+  margin: 0 auto 2rem;
+  line-height: 1.7;
+  font-weight: 300;
+  animation: float2 10s ease-in-out infinite;
+}
+
+.attribution {
+  text-align: center;
+  font-family: Georgia, serif;
+  font-size: 0.85rem;
+  color: #a8a8b0;
+  opacity: 0.7;
+  animation: float3 12s ease-in-out infinite;
+}
+
+/* ================================
+   CONTAINER
+   ================================ */
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* ================================
+   ABOUT SECTION
+   ================================ */
+.about {
+  padding: 8rem 0;
+  border-bottom: 1px solid rgba(160, 160, 168, 0.06);
+}
+
+.aboutContent {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 5rem;
+  align-items: start;
+}
+
+.aboutText h2 {
+  font-size: 1.6rem;
+  font-weight: normal;
+  color: #d8d8dc;
+  margin-bottom: 2rem;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+
+.aboutText p {
+  margin-bottom: 1.5rem;
+  line-height: 1.8;
+  font-size: 1rem;
+  color: #c0c0c8;
+  opacity: 0.85;
+}
+
+.aboutMeta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.metaCard {
+  background: transparent;
+  border: 1px solid rgba(160, 160, 168, 0.1);
+  padding: 2rem;
+  text-align: center;
+  border-radius: 2px;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+  animation: float1 9s ease-in-out infinite;
+}
+
+.metaCard:hover {
+  border-color: rgba(192, 184, 172, 0.3);
+  background: rgba(192, 184, 172, 0.02);
+}
+
+.metaLabel {
+  display: block;
+  font-family: Georgia, serif;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #a8a8b0;
+  margin-bottom: 0.75rem;
+  opacity: 0.6;
+}
+
+.metaValue {
+  display: block;
+  font-size: 1.25rem;
+  color: #d8d8dc;
+  font-family: Georgia, serif;
+  font-weight: normal;
+  animation: warmCool1 8s ease-in-out infinite;
+}
+
+/* ================================
+   EXPERIMENT SECTION
+   ================================ */
+.experiment {
+  padding: 8rem 0;
+  background: transparent;
+  border-bottom: 1px solid rgba(160, 160, 168, 0.06);
+}
+
+.sectionTitle {
+  font-size: 1.6rem;
+  font-weight: normal;
+  text-align: center;
+  color: #d8d8dc;
+  margin-bottom: 1rem;
+  letter-spacing: -0.01em;
+}
+
+.sectionSubtitle {
+  text-align: center;
+  color: #a8a8b0;
+  font-size: 0.95rem;
+  margin-bottom: 4rem;
+  opacity: 0.7;
+}
+
+.experimentGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
+}
+
+.experimentCard {
+  padding: 2.5rem;
+  border: 1px solid rgba(160, 160, 168, 0.1);
+  background: transparent;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  animation: float2 11s ease-in-out infinite;
+}
+
+.experimentCard:hover {
+  border-color: rgba(192, 184, 172, 0.3);
+  background: rgba(192, 184, 172, 0.02);
+}
+
+.experimentNumber {
+  font-family: Georgia, serif;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #a8a8b0;
+  opacity: 0.5;
+  margin-bottom: 1.5rem;
+  animation: shimmer 6s ease-in-out infinite;
+}
+
+.experimentCard h3 {
+  font-size: 1.2rem;
+  font-weight: normal;
+  color: #d8d8dc;
+  margin-bottom: 1rem;
+  letter-spacing: -0.01em;
+}
+
+.experimentCard p {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #b8b8c0;
+  opacity: 0.8;
+}
+
+/* ================================
+   TRY IT SECTION
+   ================================ */
+.tryIt {
+  padding: 8rem 0;
+  border-bottom: 1px solid rgba(160, 160, 168, 0.06);
+}
+
+.optionsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.optionCard {
+  padding: 3rem;
+  border: 1px solid rgba(160, 160, 168, 0.1);
+  background: transparent;
+  text-align: center;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  animation: float3 13s ease-in-out infinite;
+}
+
+.optionCard:hover {
+  border-color: rgba(192, 184, 172, 0.3);
+  background: rgba(192, 184, 172, 0.02);
+}
+
+.optionLabel {
+  font-family: Georgia, serif;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #a8a8b0;
+  margin-bottom: 1.5rem;
+  opacity: 0.6;
+}
+
+.optionCard h3 {
+  font-size: 1.3rem;
+  font-weight: normal;
+  color: #d8d8dc;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.01em;
+}
+
+.optionPrice {
+  font-size: 2.2rem;
+  color: #c0b8ac;
+  margin-bottom: 1.5rem;
+  font-family: Georgia, serif;
+  font-weight: normal;
+  animation: warmCool2 7s ease-in-out infinite;
+}
+
+.optionDesc {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #b8b8c0;
+  margin-bottom: 2rem;
+  opacity: 0.8;
+}
+
+.optionFeatures {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2rem;
+  text-align: left;
+}
+
+.optionFeatures li {
+  font-size: 0.9rem;
+  color: #a8a8b0;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(160, 160, 168, 0.08);
+  font-family: Georgia, serif;
+  opacity: 0.85;
+}
+
+.optionFeatures li:last-child {
+  border-bottom: none;
+}
+
+.optionFeatures li::before {
+  content: '— ';
+  color: #c0b8ac;
+  margin-right: 0.5rem;
+  opacity: 0.6;
+  animation: shimmer 7s ease-in-out infinite;
+}
+
+/* ================================
+   FOLLOW SECTION
+   ================================ */
+.follow {
+  padding: 8rem 0;
+  text-align: center;
+  background: transparent;
+  border-bottom: 1px solid rgba(160, 160, 168, 0.06);
+}
+
+.followTitle {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  font-weight: normal;
+  letter-spacing: -0.01em;
+}
+
+.followSubtitle {
+  color: #a8a8b0;
+  margin-bottom: 3rem;
+  opacity: 0.7;
+  font-size: 0.95rem;
+}
+
+.emailForm {
+  display: flex;
+  gap: 0;
+  max-width: 450px;
+  margin: 0 auto;
+  border: 1px solid rgba(160, 160, 168, 0.2);
+  border-radius: 2px;
+  background: rgba(192, 184, 172, 0.02);
+  transition: all 0.3s ease;
+}
+
+.emailForm:focus-within {
+  border-color: rgba(192, 184, 172, 0.4);
+  background: rgba(192, 184, 172, 0.04);
+}
+
+.emailInput {
+  flex: 1;
+  padding: 1.25rem 1.5rem;
+  background: transparent;
+  border: none;
+  border-right: 1px solid rgba(160, 160, 168, 0.1);
+  color: #d8d8dc;
+  font-family: Georgia, serif;
+  font-size: 0.95rem;
+}
+
+.emailInput::placeholder {
+  color: #7a7a82;
+  opacity: 0.6;
+}
+
+.emailInput:focus {
+  outline: none;
+}
+
+.emailButton {
+  padding: 1.25rem 2.5rem;
+  background: transparent;
+  border: none;
+  border-left: 1px solid rgba(160, 160, 168, 0.1);
+  color: #c0b8ac;
+  font-family: Georgia, serif;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.emailButton:hover {
+  color: #d8d8dc;
+  background: rgba(192, 184, 172, 0.05);
+}
+
+.emailSuccess {
+  font-family: Georgia, serif;
+  font-size: 0.9rem;
+  color: #a8a8b0;
+  margin-top: 1rem;
+}
+
+/* ================================
+   FOOTER
+   ================================ */
+.footer {
+  padding: 5rem 0 4rem;
+  text-align: center;
+  border-top: 1px solid rgba(160, 160, 168, 0.06);
+}
+
+.footerLogo {
+  font-size: 0.9rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #a8a8b0;
+  margin-bottom: 1rem;
+}
+
+.footerMeta {
+  font-size: 0.85rem;
+  color: #7a7a82;
+  margin: 0.5rem 0;
+}
+
+.footerMeta a {
+  color: #c0b8ac;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+
+.footerMeta a:hover {
+  opacity: 0.7;
+}
+
+.copyright {
+  font-size: 0.75rem;
+  color: #5a5a62;
+  margin-top: 2rem;
+  font-family: Georgia, serif;
+}
+
+/* ================================
+   MOBILE STYLES
+   ================================ */
+@media (max-width: 1024px) {
+  .aboutContent {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .aboutMeta {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .experimentGrid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .optionsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 1rem;
+  }
+
+  .nav {
+    gap: 1.5rem;
+  }
+
+  .navLink {
+    font-size: 0.8rem;
+  }
+
+  .streamSection {
+    height: 85vh;
+  }
+
+  .streamFade {
+    padding: 10rem 1.5rem 2rem;
+  }
+
+  .pullQuote {
+    font-size: 1.2rem;
+  }
+
+  .question {
+    padding: 4rem 0;
+  }
+
+  .about {
+    padding: 4rem 0;
+  }
+
+  .aboutMeta {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .experiment {
+    padding: 4rem 0;
+  }
+
+  .sectionTitle {
+    font-size: 1.3rem;
+  }
+
+  .tryIt {
+    padding: 4rem 0;
+  }
+
+  .follow {
+    padding: 4rem 0;
+  }
+
+  .emailForm {
+    flex-direction: column;
+  }
+
+  .emailInput {
+    border-right: none;
+    border-bottom: 1px solid rgba(160, 160, 168, 0.1);
+  }
+
+  .emailButton {
+    border-left: none;
+    border-top: 1px solid rgba(160, 160, 168, 0.1);
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 1.5rem;
+  }
+
+  .header {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .nav {
+    gap: 1rem;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .aboutMeta {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .optionCard {
+    padding: 1.5rem;
+  }
+}

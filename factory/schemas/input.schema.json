@@ -1,0 +1,158 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://downstream.app/schemas/input.json",
+  "title": "DownStream Input",
+  "description": "Client input for stream creation - compiled from intake form",
+  "type": "object",
+
+  "required": ["id", "title", "language", "text"],
+
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$",
+      "description": "URL-safe identifier for the stream (auto-generated from title)",
+      "examples": ["az-ehseg", "product-launch-clarity"]
+    },
+
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200,
+      "description": "Display title for the stream",
+      "examples": ["Az Éhség", "Introducing Clarity"]
+    },
+
+    "language": {
+      "type": "string",
+      "pattern": "^[a-z]{2}$",
+      "description": "ISO 639-1 language code",
+      "examples": ["en", "hu", "de", "fr"]
+    },
+
+    "text": {
+      "type": "string",
+      "minLength": 100,
+      "description": "The full story/content text (extracted from uploaded file)",
+      "examples": ["Once upon a time..."]
+    },
+
+    "source": {
+      "type": "object",
+      "description": "Information about the uploaded file",
+      "properties": {
+        "filename": {
+          "type": "string",
+          "description": "Original filename",
+          "examples": ["my-story.pdf", "content.docx"]
+        },
+        "format": {
+          "type": "string",
+          "enum": ["pdf", "docx", "doc", "txt", "gdoc", "md"],
+          "description": "Source file format"
+        },
+        "uploaded_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Upload timestamp"
+        }
+      }
+    },
+
+    "brief": {
+      "type": "object",
+      "description": "Creative direction from client (all optional)",
+      "properties": {
+        "tone": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "dark",
+              "light",
+              "dreamy",
+              "intense",
+              "calm",
+              "energetic",
+              "mysterious",
+              "hopeful",
+              "melancholic",
+              "playful",
+              "dramatic",
+              "minimal"
+            ]
+          },
+          "description": "Mood/tone for visuals (multi-select)",
+          "examples": [["dark", "atmospheric"], ["light", "hopeful"]]
+        },
+
+        "style": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "cinematic",
+              "painterly",
+              "photorealistic",
+              "abstract",
+              "illustrated",
+              "minimalist",
+              "surreal",
+              "vintage",
+              "modern",
+              "fantasy",
+              "noir"
+            ]
+          },
+          "description": "Visual style preference (multi-select)",
+          "examples": [["cinematic", "painterly"], ["minimalist", "modern"]]
+        },
+
+        "colors": {
+          "type": "string",
+          "maxLength": 500,
+          "description": "Color preferences (free text)",
+          "examples": ["Dark with warm amber accents", "Monochrome blue", "Earth tones"]
+        },
+
+        "references": {
+          "type": "string",
+          "maxLength": 1000,
+          "description": "Visual references - films, artists, other works (free text)",
+          "examples": ["Tarkovsky films, Beksiński paintings", "Apple product videos, Stripe aesthetic"]
+        },
+
+        "notes": {
+          "type": "string",
+          "maxLength": 2000,
+          "description": "Any additional context or instructions (free text)",
+          "examples": ["The void is a metaphor for hunger", "This is for a product launch"]
+        }
+      }
+    },
+
+    "client": {
+      "type": "object",
+      "description": "Client information (from purchase/signup)",
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "name": {
+          "type": "string"
+        },
+        "order_id": {
+          "type": "string",
+          "description": "Reference to payment/order"
+        }
+      }
+    },
+
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the input was submitted"
+    }
+  }
+}

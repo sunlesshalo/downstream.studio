@@ -1,0 +1,10 @@
+{
+  "type": "support-email",
+  "id": "support-1767874763622",
+  "created_at": "2026-01-08T12:19:23.624Z",
+  "from": "ferencz@pinelines.eu",
+  "to": [
+    "hello@downstream.ink"
+  ],
+  "subject": "anyone there?"
+}

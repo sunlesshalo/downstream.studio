@@ -1,0 +1,60 @@
+{
+  "metadata": {
+    "title": "The Vessel and the Sea - DownStream",
+    "description": "The founding story of DownStream. A manifesto about stories that matter."
+  },
+  "id": "founding-story",
+  "title": "The Vessel and the Sea",
+  "type": "story",
+  "segments": [
+    { "id": 1, "frameCount": 121, "framePath": "/frames/1/frame_{n}.jpg" },
+    { "id": 3, "frameCount": 121, "framePath": "/frames/3/frame_{n}.jpg" },
+    { "id": 5, "frameCount": 121, "framePath": "/frames/5/frame_{n}.jpg" },
+    { "id": 6, "frameCount": 121, "framePath": "/frames/6/frame_{n}.jpg" },
+    { "id": 8, "frameCount": 121, "framePath": "/frames/8/frame_{n}.jpg" }
+  ],
+  "sections": [
+    {
+      "id": "opening",
+      "segments": [1],
+      "layout": "side-by-side",
+      "wordCount": 213
+    },
+    {
+      "id": "the-stopping",
+      "segments": [3],
+      "layout": "side-by-side",
+      "wordCount": 178
+    },
+    {
+      "id": "architecture-of-erasure",
+      "segments": [5],
+      "layout": "side-by-side",
+      "wordCount": 179
+    },
+    {
+      "id": "yearning-for-the-sea",
+      "segments": [6],
+      "layout": "side-by-side",
+      "wordCount": 210
+    },
+    {
+      "id": "introducing-downstream",
+      "segments": [8],
+      "layout": "side-by-side",
+      "wordCount": 185
+    }
+  ],
+  "theme": {
+    "colors": {
+      "background": "#0a2540",
+      "text": "#f4e8d1",
+      "accent": "#d4956a",
+      "muted": "#8b6914"
+    },
+    "fonts": {
+      "heading": "Georgia, serif",
+      "body": "Georgia, serif"
+    }
+  }
+}

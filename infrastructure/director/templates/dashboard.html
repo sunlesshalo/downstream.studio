@@ -1,0 +1,459 @@
+{% extends "base.html" %}
+
+{% block title %}Streams{% endblock %}
+
+{% block content %}
+<div class="flex justify-between items-center" style="margin-bottom: 2rem;">
+    <h1 style="margin: 0;">Your Streams</h1>
+    <button class="btn btn-primary" onclick="openCreateModal()">+ New Stream</button>
+</div>
+
+{% if not streams %}
+<div class="card">
+    <p class="text-muted">No streams found in the pipeline directory.</p>
+</div>
+{% else %}
+<div style="display: grid; gap: 1rem;">
+    {% for stream in streams %}
+    <div class="card" style="padding: 1rem;">
+        <div class="flex justify-between items-center">
+            <div style="flex: 1;">
+                <h3 style="font-size: 1.125rem; margin-bottom: 0.5rem;">
+                    <a href="/streams/{{ stream.id }}" style="color: var(--text-primary); text-decoration: none;">
+                        {{ stream.title }}
+                    </a>
+                </h3>
+                <div class="flex gap-2 items-center text-sm text-muted">
+                    <span>{{ stream.id }}</span>
+                    <span>•</span>
+                    <span class="status status-{{ stream.status }}">
+                        {% if stream.status == 'deployed' %}Deployed
+                        {% elif stream.status == 'ready' %}Ready to Deploy
+                        {% elif stream.status == 'videos_done' %}Videos Complete
+                        {% elif stream.status == 'keyframes_done' %}Keyframes Complete
+                        {% elif stream.status == 'spec_ready' %}Spec Ready
+                        {% elif stream.status == 'new' %}New Order
+                        {% else %}{{ stream.status }}
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+            <div class="flex gap-1">
+                <a href="/streams/{{ stream.id }}" class="btn btn-sm btn-primary">Open</a>
+                {% if stream.status == 'deployed' %}
+                <a href="/streams/{{ stream.id }}/preview" class="btn btn-sm btn-secondary" target="_blank">View</a>
+                {% endif %}
+                <button class="btn btn-sm btn-danger" onclick="deleteStream('{{ stream.id }}', '{{ stream.title }}')" title="Delete stream">×</button>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<!-- Create Stream Modal -->
+<div id="create-modal" class="modal" style="display: none;">
+    <div class="modal-content" style="max-width: 600px;">
+        <div class="modal-header">
+            <h2>Create New Stream</h2>
+            <button class="modal-close" onclick="closeCreateModal()">&times;</button>
+        </div>
+        <form id="create-form" onsubmit="submitCreateForm(event)">
+            <div class="modal-body">
+                <!-- Template Selection -->
+                <div class="form-group">
+                    <label>Template</label>
+                    <div class="template-buttons">
+                        <button type="button" class="template-btn" data-template="blank" onclick="selectTemplate('blank')">
+                            <span class="template-icon">📄</span>
+                            <span class="template-name">Blank</span>
+                        </button>
+                        <button type="button" class="template-btn active" data-template="literature" onclick="selectTemplate('literature')">
+                            <span class="template-icon">📚</span>
+                            <span class="template-name">Literature Demo</span>
+                            <span class="template-desc">3 segments, author credit, CTA</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Author field (literature template) -->
+                <div class="form-group template-field literature-field">
+                    <label for="stream-author">Author Name <span class="text-muted">(required)</span></label>
+                    <input type="text" id="stream-author" name="author" placeholder="e.g. Moskát Anita">
+                </div>
+
+                <div class="form-group">
+                    <label for="stream-title">Title <span class="text-muted">(required)</span></label>
+                    <input type="text" id="stream-title" name="title" required
+                           placeholder="My Story Title"
+                           oninput="generateStreamId()">
+                </div>
+
+                <div class="form-group">
+                    <label for="stream-id">Stream ID <span class="text-muted">(URL-safe, auto-generated)</span></label>
+                    <input type="text" id="stream-id" name="stream_id" required
+                           pattern="^[a-zA-Z0-9_-]+$"
+                           placeholder="my-story-title">
+                    <small class="text-muted">Only letters, numbers, hyphens, and underscores</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="stream-language">Language</label>
+                    <select id="stream-language" name="language">
+                        <option value="en">English</option>
+                        <option value="hu">Hungarian</option>
+                        <option value="ro">Romanian</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="stream-story">Story Text <span class="text-muted">(required)</span></label>
+                    <textarea id="stream-story" name="story" rows="10" required
+                              placeholder="Paste your story here..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="stream-notes">Brief Notes <span class="text-muted">(optional)</span></label>
+                    <textarea id="stream-notes" name="notes" rows="3"
+                              placeholder="Visual style hints, tone, references..."></textarea>
+                </div>
+
+                <div class="form-group template-field blank-field">
+                    <label for="stream-segments">Number of Segments <span class="text-muted">(optional)</span></label>
+                    <input type="number" id="stream-segments" name="segment_count"
+                           min="3" max="12" placeholder="Auto (based on text length)"
+                           style="width: auto; min-width: 180px;">
+                    <small class="text-muted">3-12 segments. Leave empty for automatic calculation based on text length.</small>
+                </div>
+
+                <!-- Literature template info -->
+                <div class="form-group template-field literature-field">
+                    <div class="template-info">
+                        <strong>Literature Demo Settings:</strong>
+                        <ul>
+                            <li>3 video segments (fixed)</li>
+                            <li>Author name + title + (részlet)</li>
+                            <li>Standard CTA: Beszéljünk róla? + Cal.com + email</li>
+                            <li>downstream.studio footer link</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="create-error" class="error-message" style="display: none;"></div>
+            </div>
+            <div class="modal-footer" style="justify-content: flex-end;">
+                <button type="button" class="btn btn-secondary" onclick="closeCreateModal()">Cancel</button>
+                <button type="submit" class="btn btn-primary" id="create-submit-btn">Create Stream</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+.modal-content {
+    background: var(--surface);
+    border-radius: 0.5rem;
+    max-height: 90vh;
+    overflow-y: auto;
+    width: 100%;
+    margin: 1rem;
+}
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+}
+.modal-header h2 {
+    margin: 0;
+    font-size: 1.25rem;
+}
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-muted);
+    padding: 0;
+    line-height: 1;
+}
+.modal-close:hover {
+    color: var(--text-primary);
+}
+.modal-body {
+    padding: 1.5rem;
+}
+.modal-footer {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    gap: 0.5rem;
+}
+.form-group {
+    margin-bottom: 1rem;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 0.25rem;
+    background: var(--background);
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 0.875rem;
+}
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+.form-group small {
+    display: block;
+    margin-top: 0.25rem;
+}
+.error-message {
+    background: #3d1a1a;
+    border: 1px solid #6b2c2c;
+    color: #ff6b6b;
+    padding: 0.75rem;
+    border-radius: 0.25rem;
+    margin-top: 1rem;
+}
+.btn-danger {
+    background: #6b2c2c;
+    color: #ff6b6b;
+    border: 1px solid #8b3c3c;
+}
+.btn-danger:hover {
+    background: #8b3c3c;
+}
+/* Template selection styles */
+.template-buttons {
+    display: flex;
+    gap: 0.75rem;
+}
+.template-btn {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    border: 2px solid var(--border);
+    border-radius: 0.5rem;
+    background: var(--background);
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+}
+.template-btn:hover {
+    border-color: var(--text-muted);
+}
+.template-btn.active {
+    border-color: var(--primary);
+    background: rgba(99, 102, 241, 0.1);
+}
+.template-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+}
+.template-name {
+    font-weight: 500;
+    color: var(--text-primary);
+}
+.template-desc {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 0.25rem;
+}
+.template-info {
+    background: rgba(99, 102, 241, 0.1);
+    border: 1px solid var(--primary);
+    border-radius: 0.25rem;
+    padding: 0.75rem;
+    font-size: 0.875rem;
+}
+.template-info ul {
+    margin: 0.5rem 0 0 1.25rem;
+    padding: 0;
+}
+.template-info li {
+    margin: 0.25rem 0;
+    color: var(--text-muted);
+}
+/* Template field visibility */
+.template-field {
+    display: none;
+}
+.template-field.visible {
+    display: block;
+}
+</style>
+
+<script>
+// Current selected template
+let currentTemplate = 'literature';
+
+function openCreateModal() {
+    document.getElementById('create-modal').style.display = 'flex';
+    selectTemplate('literature');  // Default to literature template
+    document.getElementById('stream-title').focus();
+}
+
+function selectTemplate(template) {
+    currentTemplate = template;
+
+    // Update button states
+    document.querySelectorAll('.template-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.template === template);
+    });
+
+    // Show/hide template-specific fields
+    document.querySelectorAll('.literature-field').forEach(el => {
+        el.classList.toggle('visible', template === 'literature');
+    });
+    document.querySelectorAll('.blank-field').forEach(el => {
+        el.classList.toggle('visible', template === 'blank');
+    });
+
+    // Update author field required state
+    const authorField = document.getElementById('stream-author');
+    if (authorField) {
+        authorField.required = (template === 'literature');
+    }
+}
+
+function closeCreateModal() {
+    document.getElementById('create-modal').style.display = 'none';
+    document.getElementById('create-form').reset();
+    document.getElementById('create-error').style.display = 'none';
+    selectTemplate('literature');  // Reset to default template
+}
+
+function generateStreamId() {
+    const title = document.getElementById('stream-title').value;
+    const id = title
+        .toLowerCase()
+        .trim()
+        .replace(/[^a-z0-9\s-]/g, '')
+        .replace(/\s+/g, '-')
+        .replace(/-+/g, '-')
+        .substring(0, 50);
+    document.getElementById('stream-id').value = id;
+}
+
+async function submitCreateForm(event) {
+    event.preventDefault();
+
+    const submitBtn = document.getElementById('create-submit-btn');
+    const errorDiv = document.getElementById('create-error');
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Creating...';
+    errorDiv.style.display = 'none';
+
+    const formData = new FormData(event.target);
+    const segmentCount = formData.get('segment_count');
+
+    // Build data object based on template
+    const data = {
+        stream_id: formData.get('stream_id'),
+        title: formData.get('title'),
+        language: formData.get('language'),
+        story: formData.get('story'),
+        notes: formData.get('notes'),
+        template: currentTemplate
+    };
+
+    // Template-specific fields
+    if (currentTemplate === 'literature') {
+        data.author = formData.get('author');
+        data.segment_count = 3;  // Fixed for literature demos
+    } else {
+        data.segment_count = segmentCount ? parseInt(segmentCount) : null;
+    }
+
+    try {
+        const response = await fetch('/streams/create', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+
+        if (response.ok && result.status === 'success') {
+            // Redirect to the new stream
+            window.location.href = '/streams/' + result.stream_id;
+        } else {
+            errorDiv.textContent = result.error || 'Failed to create stream';
+            errorDiv.style.display = 'block';
+        }
+    } catch (err) {
+        errorDiv.textContent = 'Network error: ' + err.message;
+        errorDiv.style.display = 'block';
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Create Stream';
+    }
+}
+
+// Close modal on Escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeCreateModal();
+    }
+});
+
+// Close modal when clicking backdrop
+document.getElementById('create-modal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeCreateModal();
+    }
+});
+
+// Delete stream
+async function deleteStream(streamId, title) {
+    if (!confirm(`Delete stream "${title}"?\n\nThis will permanently delete all assets (keyframes, videos, frames).`)) {
+        return;
+    }
+
+    try {
+        const response = await fetch(`/streams/${streamId}`, {
+            method: 'DELETE'
+        });
+
+        const result = await response.json();
+
+        if (response.ok && result.status === 'success') {
+            window.location.reload();
+        } else {
+            alert(result.error || 'Failed to delete stream');
+        }
+    } catch (err) {
+        alert('Network error: ' + err.message);
+    }
+}
+</script>
+{% endblock %}

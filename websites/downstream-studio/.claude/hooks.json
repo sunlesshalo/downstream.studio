@@ -1,0 +1,13 @@
+{
+  "hooks": [
+    {
+      "event": "user-prompt-submit",
+      "command": "echo \"Project: downstream-landing | Focus: $(jq -r '.current_focus' memory/STATE.json 2>/dev/null || echo 'not set') | Active: $(jq -r '[.features[] | select(.status != \"passing\")] | length' memory/STATE.json 2>/dev/null || echo '?') features\""
+    },
+    {
+      "event": "PostToolUse",
+      "tools": ["Bash"],
+      "command": "bash scripts/auto-log-error.sh"
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "project": "downstream-landing",
+  "description": "Landing page for Downstream Studio - scroll-driven visual storytelling platform",
+  "created": "2026-01-09",
+  "updated": "2026-01-14",
+  "current_focus": "Scroll behavior refinement",
+  "features": [
+    {
+      "id": 1,
+      "feature": "Hero section with CTA",
+      "status": "passing",
+      "verified": true,
+      "notes": "Responsive hero with scroll hint"
+    },
+    {
+      "id": 2,
+      "feature": "Demo section with iframe embed",
+      "status": "passing",
+      "verified": true,
+      "notes": "Shows Founding Story stream demo"
+    },
+    {
+      "id": 3,
+      "feature": "Mobile responsiveness",
+      "status": "passing",
+      "verified": true,
+      "notes": "Tested, working"
+    },
+    {
+      "id": 4,
+      "feature": "Scroll snap behavior",
+      "status": "passing",
+      "verified": true,
+      "notes": "Uses proximity snap, works from CTA button area only"
+    },
+    {
+      "id": 5,
+      "feature": "Floating scroll button",
+      "status": "passing",
+      "verified": true,
+      "notes": "Toggles between up/down arrows, deployed"
+    }
+  ],
+  "known_issues": [
+    {
+      "issue": "Iframe scroll trapping",
+      "status": "workaround",
+      "notes": "Can only scroll out via CTA button area, not from within stream iframe content"
+    }
+  ],
+  "next_session": "Consider investigating postMessage communication between iframe and parent for better scroll handoff"
+}

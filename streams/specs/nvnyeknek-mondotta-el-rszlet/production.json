@@ -1,0 +1,115 @@
+{
+  "stream": {
+    "id": "nvnyeknek-mondotta-el-rszlet",
+    "title": "Növényeknek mondotta el (részlet)",
+    "type": "story"
+  },
+  "visual_direction": {
+    "aesthetic": "colorful papercraft, organic textures, layered paper cut-out style, soft shadows, warm natural palette, folk art sensibility",
+    "color_palette": {
+      "primary": "#5B8C5A",
+      "background": "#F5F0E6",
+      "accent": "#E8A87C"
+    },
+    "mood": "nostalgic, magical-pastoral, contemplative warmth with undertones of gentle melancholy",
+    "style_notes": "Scenes from the perspective of someone peeking in. Organic forms like plants growing. Paper texture visible on all elements."
+  },
+  "segments": [
+    {
+      "id": 1,
+      "title": "Dawn Awakening",
+      "motion_type": "SUBJECT_ANIMATION",
+      "image_prompt": "elderly hedgehog witch Goja stirring awake under layered paper quilts, silhouette emerging from blanket cocoon, soft dawn light through cottage window, warm amber and cream palette, colorful papercraft style with visible paper texture, folk art sensibility, dried herbs hanging from rafters as paper cutouts, viewed through window frame",
+      "negative_prompt": "photorealistic, 3D render, modern, sharp edges, detailed faces, anime, cartoon, digital",
+      "motion_prompt": "Camera slowly dollies in through window frame. Hedgehog figure stirs beneath quilts, spiny silhouette emerging. Colorful magical particles spiral upward from cauldron in amber and green swirls. Golden dust motes dance in dawn light. Dried herbs sway gently. Intimate, magical awakening.",
+      "frame_count": 140
+    },
+    {
+      "id": 2,
+      "title": "Memory Chest",
+      "motion_type": "ATMOSPHERIC_HOLD",
+      "image_prompt": "silhouette of elderly hedgehog witch seated beside glowing wooden chest, paper scrolls and story fragments floating upward from the light, warm amber glow illuminating her spiny profile, cold grey-blue shadows in corners, layered papercraft depth, nostalgic contemplative mood, paper texture on all elements",
+      "negative_prompt": "photorealistic, modern, digital, detailed faces, sharp metallic, anime, bright colors",
+      "motion_prompt": "Camera holds steady on contemplative scene. Paper scrolls and story fragments rise slowly from glowing chest like memories escaping. Amber light pulses gently, casting shifting shadows. Cold blue shadows breathe in corners. Meditative, dreamlike rhythm.",
+      "frame_count": 140
+    },
+    {
+      "id": 3,
+      "title": "The Peach Tree",
+      "motion_type": "SUBTLE_ZOOM",
+      "image_prompt": "single perfect peach hanging from ancient paper tree on small hill, rose-gold fruit glowing against pale green paper leaves, stone golems as small silhouettes guarding below, morning light catching dew drops, warm pink and green palette, papercraft layers creating depth, the fruit as clear focal point center frame, folk art texture",
+      "negative_prompt": "photorealistic, 3D, modern, human figures, anime, harsh lighting, cluttered",
+      "motion_prompt": "Slow, reverent camera push toward the luminous peach. Paper leaves flutter in gentle breeze, casting dancing shadows. Morning dew catches light like tiny stars. Stone golem silhouettes stand vigilant below. The fruit glows warmer as camera approaches. Sacred, precious atmosphere.",
+      "frame_count": 140
+    },
+    {
+      "id": 4,
+      "title": "Forest Harvest",
+      "motion_type": "ATMOSPHERIC_HOLD",
+      "image_prompt": "hedgehog witch Goja crouched low among green spear-like herb shoots, her curved knife mid-cut, layered paper autumn leaves below, misty forest depths behind in paper layers, warm morning light filtering through, her seven-layered skirt spread around her, cold blue-grey mist contrasting warm browns, papercraft texture throughout",
+      "negative_prompt": "photorealistic, modern, detailed hands, anime, cartoon, sharp focus, digital",
+      "motion_prompt": "Camera holds low angle on Goja harvesting. Blue-grey mist drifts between layered paper trees, revealing and concealing forest depths. Her knife glints mid-cut. Morning light filters through, warming her seven-layered skirt. Particles float in shafts of light. Quiet, purposeful atmosphere.",
+      "frame_count": 140
+    },
+    {
+      "id": 5,
+      "title": "The Call",
+      "motion_type": "PARALLAX",
+      "image_prompt": "hedgehog witch silhouette standing on hillside calling out, sound waves as layered paper ripples spreading across valley, distant mountain peaks in receding paper layers, tiny sunbirds silhouettes near far peak, warm golden light, epic scale, her small figure against vast landscape, rooster silhouette in foreground corner, papercraft depth and texture",
+      "negative_prompt": "photorealistic, modern, digital effects, harsh colors, detailed faces, anime, cluttered",
+      "motion_prompt": "Epic parallax with layered depth. Foreground rooster and grass drift right. Middle mountain layers move slower. Distant peaks nearly frozen. Paper sound-wave ripples expand outward from Goja's small silhouette across the vast valley. Golden light intensifies. Triumphant, expansive atmosphere.",
+      "frame_count": 140
+    }
+  ],
+  "sections": [
+    {
+      "id": "section-1",
+      "segment_ids": [1],
+      "text_content": "Goja hajnal előtt ébredt, amikor az éjszakai portyáról hazatérő nyestek karmai végigkopogtak a háztetőn, és egy rövid időre még a puhára nyűtt takaró melegébe burkolózott, azt képzelve, száraz és védelmező avarhalom veszi körül. A téli álomból ezek a sóvárgó sünálmok maradtak csak meg neki. A teste, ez a gyarló, egyre jobban recsegő-ropogó test az árulója volt: nem hagyta aludni, a nyugtalanság mostanában még a tyúkok előtt felverte.\n\nGyakran ébredt arra az érzésre, hogy valami kicsúszik a kezéből, de mire utánakapott volna, az szertefoszlott, és soha nem tudta meg, mi volt az.",
+      "layout": "side-by-side",
+      "word_count": 105
+    },
+    {
+      "id": "section-2",
+      "segment_ids": [2],
+      "text_content": "Feküdt még egy darabig, és felidézte egy régi hősköltmény első két énekét. Elméje, mint limlomos komód, zsúfolásig telt az emberek korának kacatjaival: történetekkel, mesékkel, dalokkal, amelyeket időről időre elővett, hogy gyönyörködjön bennük. Még emlékezett a hanyatlás éveire; akkor még születtek új siratók, de azóta egyre inkább halott papírtekercsekre, könyvekre kellett hagyatkoznia, vagy Rangánnal, a Kecske-hegy boszorkánymesterével cserberélt verseket, az emberi képzelet gyümölcseit pedig úgy tűzte emlékezete tüskéire, mint sünként a száraz leveleket. Most az emberek eltünedeztek, őbenne pedig egyre halványodott a sün: boszorkány lett, a letűnő korszak új örököse.\n\nDe nem heverészhetett addig, amíg a hősköltmény végére ér: minden meleg fuvallat új munkát hozott még most, az emberiség alkonyán is. A tavasz zöld leheletére kidugták hajtásaikat az epedvények – ilyenkor kell gyűjteni őket, mielőtt a nedvük megkeseredne, hogy a völgyben élő vének meghűlését enyhítsék. Amíg ők éltek, addig Gojának is volt feladata. Egyre kevesebb feladat egy változó világban.\n\nDe még fontos feladat, nyugtatta magát – bár, ha fontos, akkor miért nem siet le a völgybe? Amikor a botját és kosarát magához veszi, miért nem a falu felé nyíló kapuhoz siet?",
+      "layout": "side-by-side",
+      "word_count": 198
+    },
+    {
+      "id": "section-3",
+      "segment_ids": [3],
+      "text_content": "A kapuban gubbasztó, folyami kövekből összerakott gólemek csikorogva fölemelkedtek a közelségére, de Goja leintette őket. Nem volt szüksége sem testőrökre, sem hordárokra. Az övébe tűzve ott volt a görbe boszorkánykés, a kezében a botja, ez pedig az ő hegye volt.\n\nGoja hátranézett a gólemekre, és lesimította fején a felmeredt tüskéket.\n\n– Ti vigyázzatok a fára! – mondta.\n\nA kertje tele volt gyümölcsfákkal, de ő és a gólemek is arra az egyre gondoltak: a barackfára a kis dombocska tetején, amelynek rügyei még őrizték a halványzöld levélcsipkéket. A többi barackfán a kertben már rózsaszín gyöngyökként sorakoztak a bimbók, de ez itt a domb tetején nem virágzott száz esztendeje. Évről évre csak lombot hozott, levelei pedig befogták a napsugarakat, édes cukorrá kotyvasztották, táplálták az egyik oldalágon esztendők óta himbálózó barackot. Rózsás és hamvas volt a héja, mintha már nyár lenne, de nem volt illata. Egyelőre.\n\nAligha lopózna be érte tolvaj, amíg éretlen, de Goja megértette volna azt is. Az elmúlástól való félelem a szellemekben és emberekben közös.\n\nAz öregasszony becsukta a kaput, és a zár kígyópecsétje önnön farkába harapott.",
+      "layout": "side-by-side",
+      "word_count": 186
+    },
+    {
+      "id": "section-4",
+      "segment_ids": [4],
+      "text_content": "Az erdőben mindent harmat lepett, Goja hétrétű szoknyája elázott, ahogy az aljnövényzetben gázolt. Mikor már a lába szárán érezte a nyirkot, mordult-fordult egyet, és ruhája ugyanolyan száraz lett, mint amikor felvette.\n\nAz epedvények hajtásai úgy meredeztek a tavalyi avarban, mint megannyi zöld lándzsahegy. Goja lehajolva rendet vágott közöttük görbe késével, és a levegőt megtöltötte az édes-csípős illat.\n\n– Jó fű, gyógyfű – mormolta, és az egyik hajtást a nyelvére vette, elrágcsálta, mint a nyulak. A torka szinte kitágult az epedvény illóolajától, és ahogy a szájában tartott falaton keresztül beszívta a levegőt, úgy érezte, az egész hegységet be tudná zengeni a hangja. Eljutna talán a Rózsahegy csúcsára is, ahol a napmadarak laknak, és ahová Goja fiatalkorában mindig el akart menni; de túl sok volt a dolog, aztán jött a vész, és még inkább szükség lett rá a völgyekben, a Rangánnal együtt nevelt antroparionok is egyre több idejét kötötték le, közös terveik lettek, ahogyan közössé vált az ágyuk és az életük is egy-egy évtizedre – nagy, az emberek megmentéséről szőtt tervek – , a hegymászásról szőtt álmokat pedig maga alá temette az idő, akárcsak az őszi avar a kis kavicsot. Néha kitapintotta a rétegek alatt a régi vágyát, megvan-e még, de már letett róla, hogy valaha is felhágjon a hegytetőre, és meglesse a napmadarak fészkét.",
+      "layout": "side-by-side",
+      "word_count": 224
+    },
+    {
+      "id": "section-5",
+      "segment_ids": [5],
+      "text_content": "De a hangját el tudta küldeni. Felkiáltott, mert ez az ő hegye volt, a Sün-hegy, és mert szégyenkező boldogsággal szerette azt játszani, hogy fiatal és a hatalma határtalan, mint régen az emberek birodalmai, aztán felkuncogott, miközben visszhangja még ott rezgett a fák között, mert maga mögött hagyott kertjében válaszul – zavartan, amiért megelőzték – kukorékolni kezdett fekete-fehér pettyes kakasa.",
+      "layout": "side-by-side",
+      "word_count": 59
+    }
+  ],
+  "production_settings": {
+    "text_type": "prose",
+    "sync_mode": "word-count",
+    "scroll_config": {
+      "default_scroll_height": 700,
+      "min_scroll_height": 400,
+      "px_per_word": 4
+    },
+    "frame_targets": {
+      "high": 140,
+      "performance": 40
+    },
+    "quality_tiers": ["high", "performance"]
+  }
+}

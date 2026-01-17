@@ -1,0 +1,65 @@
+{
+  "stream": {
+    "id": "fotoszintezis-demo",
+    "title": "Jöjjön el a fotoszintézis országa",
+    "author": "Moskát Anita",
+    "type": "story-excerpt"
+  },
+  "visual_direction": {
+    "aesthetic": "Beksiński meets Annihilation — surreal organic horror, dreamlike, terrible beauty, mutation as transcendence",
+    "color_palette": {
+      "primary": "#722F37",
+      "secondary": "#228B22",
+      "background": "#1a1a1a",
+      "accent": "#D4A574"
+    },
+    "mood": "Sacred dread. The violence of growth. Bodies becoming forests. Horror that is also worship.",
+    "lens_effect": "Dirty, grimy glass with scratches, smudges, organic residue — degrading across frames as the growth contaminates the observer"
+  },
+  "segments": [
+    {
+      "id": 1,
+      "title": "Breach",
+      "image_prompt": "In the style of Zdzisław Beksiński meets the Annihilation film aesthetic — surreal organic horror, dreamlike, terrible beauty. A biological structure viewed through a dirty, scratched glass lens with smudges and grime at the edges. At the center, something organic is splitting open — a seed germinating or a cell dividing or an organ rupturing. Scale is impossible to determine. Wet, glistening tendrils emerge from the breach, reaching into surrounding tissue that could be soil or flesh. Warm amber light from within. Deep in the dark center, barely visible, a faint network of branching structures waits. Burgundy, forest green, bone white, amber. Painterly, film grain, sacred dread.",
+      "negative_prompt": "text, words, letters, logos, watermarks, cartoon, anime, bright clean colors, sterile, sharp digital, clinical, gore, blood splatter",
+      "motion_prompt": "Slow drift inward toward the breach center, subtle pulsing of the organic material, particles floating in amber light",
+      "frame_count": 120
+    },
+    {
+      "id": 2,
+      "title": "Invasion",
+      "image_prompt": "In the style of Zdzisław Beksiński meets the Annihilation film aesthetic — surreal organic horror, dreamlike, terrible beauty. A dense network of branching structures filling the frame, viewed through increasingly dirty glass with organic residue and scratches. The structures could be roots in intestinal walls or blood vessels in soil — scale unknowable. Villi or root hairs everywhere. Amber light filtered through layers of growth. Tiny spheres caught in the tangle — cells or spores or seeds. The negative spaces form a canopy pattern. One gap larger, brighter — a window. Wet, alive, relentless, transcendent. Burgundy, forest green, bone white, amber. Painterly, film grain, visceral beauty.",
+      "negative_prompt": "text, words, letters, logos, watermarks, cartoon, anime, bright clean colors, sterile, sharp digital, clinical, gore, blood splatter",
+      "motion_prompt": "Slow expansion of the network, tendrils growing and branching, drifting toward the bright gap/window",
+      "frame_count": 120
+    },
+    {
+      "id": 3,
+      "title": "Breathe",
+      "image_prompt": "In the style of Zdzisław Beksiński meets the Annihilation film aesthetic — surreal organic horror, dreamlike, terrible beauty. A cathedral-like organic space viewed through glass covered with organic residue, a tiny root tendril creeping across one corner. Above: a canopy or membrane with light filtering through — leaves or lung tissue, impossible to tell. Stomata or pores breathing, opening and closing. The violence is over. At center, suspended in amber light: a single dark seed. Or a closed eye. Peaceful, endless, sacred. Burgundy, forest green, bone white, amber. Painterly, film grain, transcendence achieved.",
+      "negative_prompt": "text, words, letters, logos, watermarks, cartoon, anime, bright clean colors, sterile, sharp digital, clinical, gore, blood splatter",
+      "motion_prompt": "Gentle breathing motion of the stomata/pores, light slowly shifting, the seed/eye barely pulsing",
+      "frame_count": 120
+    }
+  ],
+  "sections": [
+    {
+      "id": "section-1",
+      "segment_ids": [1],
+      "text_content": "– Hát nem gyönyörű? – súgja oda Babér.\n\nA golfpályára tekint, a végtelen, folyton öntözött, pazarló gyepre, és tudom, hogy ő már nem öltönyös férfiakat lát egyre részegebben beszélgetni, hanem dús koronájú, ökológiai körforgásba illő, valódi erdőt. Le se kell hunynom a szemem, én is látom a kérgek göcsörtjeit, tenyerem összemérhetem a levelekkel.\n\n– De, az – felelem.\n\nApám fái ezért nem tudtak elég gyorsan nőni: nem a megfelelő táptalajt választotta. A növekedéshez rengeteg energia kell. Drüasz lányainak magvai már úgy használják fel a húst és a vért, mint más növények a szikleveleket.",
+      "layout": "side-by-side"
+    },
+    {
+      "id": "section-2",
+      "segment_ids": [2],
+      "text_content": "Miután a gyomorsav feloldja a védőburkot, a gyököcske a bélbolyhok közé ereszti ágait, megkapaszkodik a hasizomsejtek rostjai közt. A rügyecske ellenirányban nyújtózik, míg utat talál a hashártyáig és átdöfi azt. Növekvő hámsejtjei pihések, akár a megborzongó emberi bőr, szállítószövetei egybeforrnak az erekkel, egyetlen csepp vért sem hagynak a gyepre folyni, és végül minden csontgerenda, minden csigolyaív göcsörtté és tömör gesztté alakul, ahogy az mesterséges DNS-ében írva van. Sztómák nyílnak és csukódnak, mintha emberi tüdejét szívná tele az erdő a golfpálya helyén – tele lesz vele a sajtó, csodájára járnak a világ minden táján.\n\nTudtad-e? A leggyorsabb fa akár öt óra alatt is képes elérni a kívánt törzsmagasságot.\n\n…hisz te, a jóságos, nem csak a talajból, hanem szolgáid húsából, a bőr alól is megtalálod az utat…",
+      "layout": "side-by-side"
+    },
+    {
+      "id": "section-3",
+      "segment_ids": [3],
+      "text_content": "Bekapcsolom a fülhallgatóm. Nem sikolyokat akarok hallani, öklendezést, vagy hasfalba döfött késeket, mintha még ki lehetne tépni a gyökerek szövedékét, akár a gyomot. A nyúló növényi sejtek cellulózropogására vágyom, mint apám laborjában, mintha még ott ülnék vele.\n\nHiszen már hallom is. Olyan, akár a tábortűz.\n\nLenyelem a számban tartogatott magot.",
+      "layout": "side-by-side"
+    }
+  ]
+}

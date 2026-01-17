@@ -1,0 +1,224 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://downstream.app/schemas/production.json",
+  "title": "DownStream Production Spec",
+  "description": "Complete production specification for generating a stream - created by agent from input.json",
+  "type": "object",
+
+  "required": ["stream", "input", "visual_direction", "segments", "sections", "output"],
+
+  "properties": {
+    "stream": {
+      "type": "object",
+      "required": ["id", "title"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "title": {
+          "type": "string"
+        },
+        "interpretation_scale": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10,
+          "description": "1 = literal visualization, 10 = abstract interpretation"
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+
+    "input": {
+      "type": "object",
+      "description": "Original input data (preserved from input.json)",
+      "required": ["language", "original_text"],
+      "properties": {
+        "language": {
+          "type": "string",
+          "pattern": "^[a-z]{2}$"
+        },
+        "word_count": {
+          "type": "integer"
+        },
+        "original_text": {
+          "type": "string",
+          "description": "Full original text (preserved, never modified)"
+        },
+        "brief": {
+          "type": "object",
+          "properties": {
+            "tone": { "type": "string" },
+            "style_hints": { "type": "array", "items": { "type": "string" } },
+            "references": { "type": "array", "items": { "type": "string" } },
+            "target_audience": { "type": "string" },
+            "notes": { "type": "string" }
+          }
+        }
+      }
+    },
+
+    "visual_direction": {
+      "type": "object",
+      "description": "Creative direction developed by agent",
+      "required": ["aesthetic", "color_palette"],
+      "properties": {
+        "aesthetic": {
+          "type": "string",
+          "description": "Overall visual style description"
+        },
+        "color_palette": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string",
+            "pattern": "^#[0-9a-fA-F]{6}$"
+          },
+          "description": "Named colors with hex values"
+        },
+        "texture": {
+          "type": "string"
+        },
+        "references": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "unifying_elements": {
+          "type": "string",
+          "description": "What ties all segments together visually"
+        }
+      }
+    },
+
+    "composition_rules": {
+      "type": "object",
+      "properties": {
+        "safe_zone": { "type": "string" },
+        "reason": { "type": "string" },
+        "prompt_suffix": {
+          "type": "string",
+          "description": "Added to all image prompts"
+        }
+      }
+    },
+
+    "segments": {
+      "type": "array",
+      "description": "Visual segments - each becomes keyframe + video + frames",
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "image_prompt", "motion_prompt"],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "title": {
+            "type": "string"
+          },
+          "frame_count": {
+            "type": "integer",
+            "description": "Expected frame count (updated after extraction)"
+          },
+          "narrative": {
+            "type": "string",
+            "description": "What this segment represents in the story"
+          },
+          "image_prompt": {
+            "type": "string",
+            "description": "Full prompt for keyframe generation"
+          },
+          "negative_prompt": {
+            "type": "string",
+            "description": "Things to avoid in generation"
+          },
+          "motion_prompt": {
+            "type": "string",
+            "description": "Motion/animation description for video generation"
+          },
+          "motion_type": {
+            "type": "string",
+            "enum": ["rotation-vortex", "parallax-drift", "zoom-sweep", "swing-pulse", "zoom-consume", "static", "breathing", "custom"]
+          },
+          "motion_intensity": {
+            "type": "string",
+            "enum": ["low", "medium", "high"]
+          }
+        }
+      }
+    },
+
+    "sections": {
+      "type": "array",
+      "description": "Content sections - maps text to segment groups",
+      "items": {
+        "type": "object",
+        "required": ["id", "segment_ids", "text_content"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Section identifier"
+          },
+          "title": {
+            "type": "string",
+            "description": "Section title (for heading if applicable)"
+          },
+          "segment_ids": {
+            "type": "array",
+            "items": { "type": "integer" },
+            "description": "Which segments play during this section"
+          },
+          "layout": {
+            "type": "string",
+            "enum": ["side-by-side", "fullscreen", "text-only", "animation-only"],
+            "default": "side-by-side"
+          },
+          "text_content": {
+            "type": "string",
+            "description": "Exact text for this section (from original)"
+          },
+          "text_type": {
+            "type": "string",
+            "enum": ["prose", "prose_with_dialogue", "poetry", "list"],
+            "description": "Affects rendering (dialogue gets special styling)"
+          },
+          "heading": {
+            "type": "string",
+            "enum": ["h1", "h2", "h3", "none"],
+            "description": "Heading level for section title"
+          },
+          "dialogue_markers": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Patterns that indicate dialogue lines",
+            "examples": [["– "], ["\""], ["-"]]
+          },
+          "footer": {
+            "type": "object",
+            "properties": {
+              "text": { "type": "string" },
+              "style": { "type": "string", "enum": ["muted", "normal", "accent"] }
+            }
+          }
+        }
+      }
+    },
+
+    "output": {
+      "type": "object",
+      "properties": {
+        "frame_format": {
+          "type": "string",
+          "enum": ["webp", "png", "jpg"],
+          "default": "webp"
+        },
+        "dimensions": {
+          "type": "string",
+          "pattern": "^[0-9]+x[0-9]+$",
+          "default": "1920x1080"
+        }
+      }
+    }
+  }
+}

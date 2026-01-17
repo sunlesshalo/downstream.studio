@@ -1,0 +1,56 @@
+{
+  "hero": {
+    "title1": "A torteneted,",
+    "title2": "downstream.",
+    "subtitle": "Kuldd be az irasodat. Kapj egy elo weboldalt, ahol minden gorgetes vizualis kepekkel es mozgassal tarja fel a narrativadat.",
+    "cta": "Keszittess egyet 49 EUR-ert"
+  },
+  "howItWorks": {
+    "title": "Hogyan mukodik",
+    "step1Title": "Bekuldod a torteneted",
+    "step1Text": "Illeszd be a szovegedet - novellat, verset, memoartoredeked. Barmilyen narrativa mukodik. A tobbit mi intezzuk.",
+    "step2Title": "Atalakitjuk",
+    "step2Text": "A szoveged jelenetekre bontjuk. Minden jelenet vizualis pillanatta valik - generalt kepek, amik gorgetesre aramlanak. Nincs stock foto. Nincs sablon. A te szavaidhoz keszult.",
+    "step3Title": "Kapsz egy elo oldalt",
+    "step3Text": "24 oran belul kuldunk egy egyedi URL-t. A torteneted, most mar gorgetesvezeret elmenykenat, amit barhol megoszthatosz."
+  },
+  "demo": {
+    "label": "Lasd mukodes kozben",
+    "title": "A Hurok - tortenet az onallosagrol",
+    "cta": "Tapasztald meg a teljes tortenetet"
+  },
+  "pricing": {
+    "title": "Egyszeru arazas",
+    "price": "49 EUR",
+    "perStory": "tortenetenkent",
+    "feature1": "Egyedi, allando URL",
+    "feature2": "Teljes vizualis atalakitas",
+    "feature3": "24 oran beluli szallitas",
+    "feature4": "Egy modositas benne van"
+  },
+  "form": {
+    "title": "Keszen allsz?",
+    "subtitle": "Kuldd be a tortenetedet alabb. Atiranyitunk a fizeteshez, majd 24 oran belul megkapod az elo oldaladat.",
+    "emailLabel": "E-mail cimed",
+    "emailPlaceholder": "te@pelda.com",
+    "titleLabel": "Tortenet cime",
+    "titlePlaceholder": "A torteneted cime",
+    "storyLabel": "A torteneted",
+    "storyPlaceholder": "Illeszd be a tortenetedet ide...",
+    "storyHint": "Ajanlott: 500-3000 szo a legjobb eredmenyhez.",
+    "styleLabel": "Vizualis stilus",
+    "styleArtFilm": "Art Film - hangulatos, atmoszferikus (ajanlott)",
+    "styleStorybook": "Mesekonyv - illusztralt, meleg tonusok",
+    "styleDocumentary": "Dokumentum - foldhozragadt, megfigyelo",
+    "styleDream": "Alomsorozat - szurrealis, aramlo",
+    "submitButton": "Tovabb a fizeteshez - 49 EUR",
+    "submitting": "Atiranyitas a fizeteshez..."
+  },
+  "footer": {
+    "questions": "Kerdesed van?"
+  },
+  "meta": {
+    "title": "DownStream - A torteneted, downstream",
+    "description": "Alakitsd at az irasodat gorgetesvezeret vizualis elmennyé"
+  }
+}

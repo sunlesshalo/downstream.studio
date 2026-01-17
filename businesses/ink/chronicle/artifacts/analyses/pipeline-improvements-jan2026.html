@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Production Pipeline Improvements - January 2026</title>
+    <style>
+        :root {
+            --bg: #0a0a0f;
+            --surface: #1a1a24;
+            --text: #e8e6e3;
+            --muted: #8a8a8a;
+            --accent: #d4a056;
+            --success: #4a9a6a;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            padding: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+        }
+
+        h2 {
+            font-size: 1.4rem;
+            margin: 2.5rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--surface);
+            color: var(--accent);
+        }
+
+        .meta {
+            color: var(--muted);
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+        }
+
+        .improvement {
+            background: var(--surface);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            border-left: 4px solid var(--accent);
+        }
+
+        .improvement h3 {
+            color: var(--accent);
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .improvement h3 .number {
+            background: var(--accent);
+            color: var(--bg);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        .improvement p {
+            margin: 0.75rem 0;
+        }
+
+        .improvement .problem {
+            color: var(--muted);
+            font-style: italic;
+        }
+
+        .improvement .solution {
+            background: rgba(212, 160, 86, 0.1);
+            padding: 1rem;
+            border-radius: 6px;
+            margin-top: 1rem;
+        }
+
+        .improvement .solution strong {
+            color: var(--accent);
+        }
+
+        .code-block {
+            background: #0d0d12;
+            padding: 1rem;
+            border-radius: 6px;
+            font-family: 'Monaco', 'Consolas', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+            white-space: pre-wrap;
+        }
+
+        .files-affected {
+            margin-top: 1rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+
+        .files-affected code {
+            background: rgba(255,255,255,0.1);
+            padding: 0.1rem 0.4rem;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+
+        .summary-box {
+            background: var(--surface);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        ul {
+            margin: 0.75rem 0;
+            padding-left: 1.25rem;
+        }
+
+        li {
+            margin: 0.4rem 0;
+        }
+
+        .footer {
+            margin-top: 3rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--surface);
+            color: var(--muted);
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>Production Pipeline Improvements</h1>
+    <p class="meta">
+        Based on: Competitive analysis of Hollók röpte vs Capsules<br>
+        Date: January 2026 | Author: Claude
+    </p>
+
+    <div class="summary-box">
+        <h3 style="color: var(--accent); margin-bottom: 0.75rem;">Overview</h3>
+        <p>10 practical improvements to the production pipeline and artistic-director skill, addressing motion quality, opening hooks, bookend resonance, and atmospheric consistency identified in competitive analysis.</p>
+    </div>
+
+    <h2>Motion Quality Improvements</h2>
+
+    <div class="improvement">
+        <h3><span class="number">1</span> Mandatory Camera Instruction Field</h3>
+        <p class="problem">Problem: Video prompts lack explicit camera direction, resulting in static "living photographs" that don't move.</p>
+        <div class="solution">
+            <strong>Solution:</strong> Add required <code>camera_instruction</code> field to each segment in production.json. Production skill should reject specs without this field.
+        </div>
+        <div class="code-block">{
+  "id": 1,
+  "name": "THE VOID",
+  "camera_instruction": "slow push in toward center",  // NEW - REQUIRED
+  "motion_prompt": "fog drifting left to right, particles floating",
+  ...
+}</div>
+        <p>Valid camera instructions: <code>slow push in</code>, <code>gentle drift [direction]</code>, <code>parallax layers</code>, <code>slow zoom out</code>, <code>static with subject motion</code></p>
+        <div class="files-affected">Files: <code>pipeline/skills/artistic-director/SKILL.md</code>, <code>pipeline/skills/create-production-spec/</code></div>
+    </div>
+
+    <div class="improvement">
+        <h3><span class="number">2</span> Motion Intensity Calibration</h3>
+        <p class="problem">Problem: "Subtle" motion often results in imperceptible movement. We need clearer definitions.</p>
+        <div class="solution">
+            <strong>Solution:</strong> Redefine motion intensity levels with measurable criteria:
+        </div>
+        <ul>
+            <li><strong>Minimal:</strong> Atmospheric only (particles, light flicker). Camera static. ~2-5% frame change.</li>
+            <li><strong>Subtle:</strong> Slow camera movement OR subject micro-motion. ~5-10% frame change.</li>
+            <li><strong>Moderate:</strong> Visible camera movement AND subject motion. ~10-20% frame change.</li>
+        </ul>
+        <p>Add to video generation script: frame difference check. If average frame-to-frame change is &lt;3%, flag for review.</p>
+        <div class="files-affected">Files: <code>pipeline/execution/generate_video.py</code>, <code>pipeline/skills/artistic-director/SKILL.md</code></div>
+    </div>
+
+    <div class="improvement">
+        <h3><span class="number">3</span> Video Quality Gate</h3>
+        <p class="problem">Problem: Static videos pass through pipeline without review, resulting in slideshows.</p>
+        <div class="solution">
+            <strong>Solution:</strong> Add automated motion check after video generation. Calculate optical flow or frame difference metrics. Videos below threshold get flagged for regeneration.
+        </div>
+        <div class="code-block"># In generate_video.py, after video download:
+motion_score = calculate_motion_score(video_path)
+if motion_score < MOTION_THRESHOLD:
+    log_warning(f"Low motion detected: {motion_score}. Consider regenerating.")
+    # Don't auto-fail, but flag for review</div>
+        <div class="files-affected">Files: <code>pipeline/execution/generate_video.py</code></div>
+    </div>
+
+    <h2>Opening Hook Improvements</h2>
+
+    <div class="improvement">
+        <h3><span class="number">4</span> Opening Scene Protocol</h3>
+        <p class="problem">Problem: Opening scenes with dark subjects on dark backgrounds fail to capture attention.</p>
+        <div class="solution">
+            <strong>Solution:</strong> Add "Opening Scene Checklist" to artistic-director skill. First segment MUST meet at least one criterion:
+        </div>
+        <ul>
+            <li><strong>Color contrast:</strong> Subject has distinct color from background (not dark-on-dark)</li>
+            <li><strong>Motion emphasis:</strong> Subject or camera has visible movement in first 2 seconds</li>
+            <li><strong>Light source:</strong> Scene contains visible light source creating focal point</li>
+        </ul>
+        <div class="code-block">// In production.json, segment 1 should include:
+{
+  "id": 1,
+  "opening_hook_check": {
+    "has_color_contrast": true,   // Subject distinct from bg
+    "has_early_motion": true,      // Movement in first 2 sec
+    "has_light_source": false      // Optional
+  }
+}</div>
+        <div class="files-affected">Files: <code>pipeline/skills/artistic-director/SKILL.md</code>, <code>pipeline/skills/create-production-spec/</code></div>
+    </div>
+
+    <div class="improvement">
+        <h3><span class="number">5</span> Keyframe 1 Pre-Review</h3>
+        <p class="problem">Problem: Weak opening keyframes make it through to video generation, wasting budget.</p>
+        <div class="solution">
+            <strong>Solution:</strong> After generating keyframe 1, run explicit review against opening hook criteria BEFORE proceeding. If keyframe fails opening test, regenerate with adjusted prompt before continuing pipeline.
+        </div>
+        <p>Add to production checklist: "Keyframe 1 passes opening hook check" as gate before video generation phase.</p>
+        <div class="files-affected">Files: <code>pipeline/skills/stream-production/SKILL.md</code></div>
+    </div>
+
+    <h2>Bookend & Structure Improvements</h2>
+
+    <div class="improvement">
+        <h3><span class="number">6</span> Bookend Strategy Specification</h3>
+        <p class="problem">Problem: Bookend strategy (echo/contrast/evolution) not explicitly specified, leading to disconnected openings and closings.</p>
+        <div class="solution">
+            <strong>Solution:</strong> Make bookend_strategy required in visual_direction, with explicit notes on HOW the callback will manifest:
+        </div>
+        <div class="code-block">"visual_direction": {
+  "bookend_strategy": "echo",
+  "bookend_method": "color_callback",  // NEW: How will it echo?
+  "bookend_notes": "Opening uses amber light emerging from void.
+                    Closing returns to amber tones after cold blue journey.
+                    Same warmth, different context."
+}</div>
+        <p>Valid bookend methods: <code>color_callback</code>, <code>compositional_parallel</code>, <code>motion_echo</code>, <code>symbolic_rhyme</code>, <code>subject_return</code></p>
+        <p><em>Note: Subtle references preferred over literal repetition. The goal is resonance, not repetition.</em></p>
+        <div class="files-affected">Files: <code>pipeline/skills/artistic-director/SKILL.md</code>, <code>pipeline/skills/create-production-spec/</code></div>
+    </div>
+
+    <div class="improvement">
+        <h3><span class="number">7</span> Final Scene Review Against Opening</h3>
+        <p class="problem">Problem: Final keyframe generated without reference to opening, missing bookend opportunity.</p>
+        <div class="solution">
+            <strong>Solution:</strong> Before generating final keyframe, re-read opening keyframe and explicitly incorporate bookend method into final prompt. Add comparison step to production flow.
+        </div>
+        <p>Production checklist addition: "Final keyframe reviewed against opening for bookend resonance"</p>
+        <div class="files-affected">Files: <code>pipeline/skills/stream-production/SKILL.md</code></div>
+    </div>
+
+    <h2>Atmospheric & Technical Improvements</h2>
+
+    <div class="improvement">
+        <h3><span class="number">8</span> Atmospheric Element Library</h3>
+        <p class="problem">Problem: Atmospheric elements (fog, particles, grain) applied inconsistently across scenes.</p>
+        <div class="solution">
+            <strong>Solution:</strong> Create reusable atmospheric prompt fragments in artistic-director skill. Production spec should reference these by name:
+        </div>
+        <div class="code-block">ATMOSPHERIC_LIBRARY = {
+  "fog_light": "gentle fog wisps, atmospheric haze, soft diffusion",
+  "fog_heavy": "thick rolling fog, obscuring depth, layered mist",
+  "particles_dust": "dust motes floating in light beams, suspended particles",
+  "particles_embers": "floating embers, sparks drifting upward",
+  "grain_subtle": "subtle film grain, organic texture",
+  "grain_heavy": "pronounced film grain, 35mm aesthetic"
+}
+
+// In production.json:
+{
+  "atmospheric": ["fog_light", "grain_subtle"]  // Reference by name
+}</div>
+        <div class="files-affected">Files: <code>pipeline/skills/artistic-director/SKILL.md</code></div>
+    </div>
+
+    <div class="improvement">
+        <h3><span class="number">9</span> Color Arc Visualization</h3>
+        <p class="problem">Problem: Color temperature arc exists in methodology but not enforced in production spec.</p>
+        <div class="solution">
+            <strong>Solution:</strong> Add explicit color_arc field to production.json that maps emotional journey to temperature. Review during spec creation.
+        </div>
+        <div class="code-block">"color_arc": {
+  "segments": [
+    {"id": 1, "temperature": "neutral", "note": "establishing"},
+    {"id": 2, "temperature": "cold", "note": "tension building"},
+    {"id": 3, "temperature": "cold", "note": "peak tension"},
+    {"id": 4, "temperature": "warm", "note": "revelation"},
+    {"id": 5, "temperature": "warm", "note": "resolution"}
+  ],
+  "shifts": ["3→4: cold to warm transition within scene"]
+}</div>
+        <p>This makes the emotional arc explicit and reviewable before production begins.</p>
+        <div class="files-affected">Files: <code>pipeline/skills/create-production-spec/</code>, <code>pipeline/skills/artistic-director/SKILL.md</code></div>
+    </div>
+
+    <div class="improvement">
+        <h3><span class="number">10</span> Production Checklist Enforcement</h3>
+        <p class="problem">Problem: Methodology checklist exists but isn't enforced during production.</p>
+        <div class="solution">
+            <strong>Solution:</strong> Create explicit gate checks at each production phase. Stream cannot proceed to next phase without checklist confirmation.
+        </div>
+        <div class="code-block">PRODUCTION_GATES = {
+  "pre_keyframe": [
+    "Opening hook criteria met for segment 1",
+    "Bookend strategy specified with method",
+    "Color arc mapped to segments",
+    "Camera instruction specified for all segments"
+  ],
+  "post_keyframe": [
+    "Keyframe 1 passes opening hook check",
+    "Final keyframe reviewed against opening for bookend",
+    "Style consistency verified across keyframes"
+  ],
+  "post_video": [
+    "Motion quality check passed for all videos",
+    "No static videos (>3% frame change minimum)"
+  ]
+}</div>
+        <p>Add to stream-production skill: explicit phase gates with checklist confirmation before proceeding.</p>
+        <div class="files-affected">Files: <code>pipeline/skills/stream-production/SKILL.md</code></div>
+    </div>
+
+    <h2>Implementation Priority</h2>
+
+    <div class="summary-box">
+        <ul>
+            <li><strong>High Priority (Do First):</strong> #1 Camera Instruction, #4 Opening Protocol, #10 Checklist Enforcement</li>
+            <li><strong>Medium Priority:</strong> #3 Video Quality Gate, #6 Bookend Specification, #9 Color Arc</li>
+            <li><strong>Lower Priority:</strong> #2 Motion Calibration, #5 Keyframe Pre-Review, #7 Final Scene Review, #8 Atmospheric Library</li>
+        </ul>
+    </div>
+
+    <div class="footer">
+        <p>Generated by Claude for DownStream production pipeline improvement.<br>
+        Date: 2026-01-09 | Based on competitive analysis of Hollók röpte stream</p>
+    </div>
+</body>
+</html>

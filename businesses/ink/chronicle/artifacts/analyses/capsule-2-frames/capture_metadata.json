@@ -1,0 +1,1077 @@
+{
+  "url": "https://capsules.thirdroom.studio/2/",
+  "total_height": 21914,
+  "interval": 100,
+  "viewport": {
+    "width": 1280,
+    "height": 800
+  },
+  "screenshots": [
+    {
+      "position": 0,
+      "filename": "00000.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/00000.png"
+    },
+    {
+      "position": 100,
+      "filename": "00100.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/00100.png"
+    },
+    {
+      "position": 200,
+      "filename": "00200.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/00200.png"
+    },
+    {
+      "position": 300,
+      "filename": "00300.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/00300.png"
+    },
+    {
+      "position": 400,
+      "filename": "00400.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/00400.png"
+    },
+    {
+      "position": 500,
+      "filename": "00500.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/00500.png"
+    },
+    {
+      "position": 600,
+      "filename": "00600.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/00600.png"
+    },
+    {
+      "position": 700,
+      "filename": "00700.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/00700.png"
+    },
+    {
+      "position": 800,
+      "filename": "00800.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/00800.png"
+    },
+    {
+      "position": 900,
+      "filename": "00900.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/00900.png"
+    },
+    {
+      "position": 1000,
+      "filename": "01000.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/01000.png"
+    },
+    {
+      "position": 1100,
+      "filename": "01100.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/01100.png"
+    },
+    {
+      "position": 1200,
+      "filename": "01200.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/01200.png"
+    },
+    {
+      "position": 1300,
+      "filename": "01300.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/01300.png"
+    },
+    {
+      "position": 1400,
+      "filename": "01400.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/01400.png"
+    },
+    {
+      "position": 1500,
+      "filename": "01500.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/01500.png"
+    },
+    {
+      "position": 1600,
+      "filename": "01600.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/01600.png"
+    },
+    {
+      "position": 1700,
+      "filename": "01700.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/01700.png"
+    },
+    {
+      "position": 1800,
+      "filename": "01800.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/01800.png"
+    },
+    {
+      "position": 1900,
+      "filename": "01900.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/01900.png"
+    },
+    {
+      "position": 2000,
+      "filename": "02000.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/02000.png"
+    },
+    {
+      "position": 2100,
+      "filename": "02100.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/02100.png"
+    },
+    {
+      "position": 2200,
+      "filename": "02200.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/02200.png"
+    },
+    {
+      "position": 2300,
+      "filename": "02300.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/02300.png"
+    },
+    {
+      "position": 2400,
+      "filename": "02400.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/02400.png"
+    },
+    {
+      "position": 2500,
+      "filename": "02500.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/02500.png"
+    },
+    {
+      "position": 2600,
+      "filename": "02600.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/02600.png"
+    },
+    {
+      "position": 2700,
+      "filename": "02700.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/02700.png"
+    },
+    {
+      "position": 2800,
+      "filename": "02800.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/02800.png"
+    },
+    {
+      "position": 2900,
+      "filename": "02900.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/02900.png"
+    },
+    {
+      "position": 3000,
+      "filename": "03000.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/03000.png"
+    },
+    {
+      "position": 3100,
+      "filename": "03100.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/03100.png"
+    },
+    {
+      "position": 3200,
+      "filename": "03200.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/03200.png"
+    },
+    {
+      "position": 3300,
+      "filename": "03300.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/03300.png"
+    },
+    {
+      "position": 3400,
+      "filename": "03400.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/03400.png"
+    },
+    {
+      "position": 3500,
+      "filename": "03500.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/03500.png"
+    },
+    {
+      "position": 3600,
+      "filename": "03600.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/03600.png"
+    },
+    {
+      "position": 3700,
+      "filename": "03700.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/03700.png"
+    },
+    {
+      "position": 3800,
+      "filename": "03800.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/03800.png"
+    },
+    {
+      "position": 3900,
+      "filename": "03900.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/03900.png"
+    },
+    {
+      "position": 4000,
+      "filename": "04000.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/04000.png"
+    },
+    {
+      "position": 4100,
+      "filename": "04100.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/04100.png"
+    },
+    {
+      "position": 4200,
+      "filename": "04200.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/04200.png"
+    },
+    {
+      "position": 4300,
+      "filename": "04300.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/04300.png"
+    },
+    {
+      "position": 4400,
+      "filename": "04400.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/04400.png"
+    },
+    {
+      "position": 4500,
+      "filename": "04500.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/04500.png"
+    },
+    {
+      "position": 4600,
+      "filename": "04600.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/04600.png"
+    },
+    {
+      "position": 4700,
+      "filename": "04700.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/04700.png"
+    },
+    {
+      "position": 4800,
+      "filename": "04800.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/04800.png"
+    },
+    {
+      "position": 4900,
+      "filename": "04900.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/04900.png"
+    },
+    {
+      "position": 5000,
+      "filename": "05000.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/05000.png"
+    },
+    {
+      "position": 5100,
+      "filename": "05100.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/05100.png"
+    },
+    {
+      "position": 5200,
+      "filename": "05200.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/05200.png"
+    },
+    {
+      "position": 5300,
+      "filename": "05300.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/05300.png"
+    },
+    {
+      "position": 5400,
+      "filename": "05400.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/05400.png"
+    },
+    {
+      "position": 5500,
+      "filename": "05500.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/05500.png"
+    },
+    {
+      "position": 5600,
+      "filename": "05600.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/05600.png"
+    },
+    {
+      "position": 5700,
+      "filename": "05700.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/05700.png"
+    },
+    {
+      "position": 5800,
+      "filename": "05800.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/05800.png"
+    },
+    {
+      "position": 5900,
+      "filename": "05900.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/05900.png"
+    },
+    {
+      "position": 6000,
+      "filename": "06000.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/06000.png"
+    },
+    {
+      "position": 6100,
+      "filename": "06100.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/06100.png"
+    },
+    {
+      "position": 6200,
+      "filename": "06200.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/06200.png"
+    },
+    {
+      "position": 6300,
+      "filename": "06300.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/06300.png"
+    },
+    {
+      "position": 6400,
+      "filename": "06400.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/06400.png"
+    },
+    {
+      "position": 6500,
+      "filename": "06500.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/06500.png"
+    },
+    {
+      "position": 6600,
+      "filename": "06600.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/06600.png"
+    },
+    {
+      "position": 6700,
+      "filename": "06700.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/06700.png"
+    },
+    {
+      "position": 6800,
+      "filename": "06800.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/06800.png"
+    },
+    {
+      "position": 6900,
+      "filename": "06900.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/06900.png"
+    },
+    {
+      "position": 7000,
+      "filename": "07000.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/07000.png"
+    },
+    {
+      "position": 7100,
+      "filename": "07100.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/07100.png"
+    },
+    {
+      "position": 7200,
+      "filename": "07200.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/07200.png"
+    },
+    {
+      "position": 7300,
+      "filename": "07300.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/07300.png"
+    },
+    {
+      "position": 7400,
+      "filename": "07400.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/07400.png"
+    },
+    {
+      "position": 7500,
+      "filename": "07500.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/07500.png"
+    },
+    {
+      "position": 7600,
+      "filename": "07600.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/07600.png"
+    },
+    {
+      "position": 7700,
+      "filename": "07700.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/07700.png"
+    },
+    {
+      "position": 7800,
+      "filename": "07800.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/07800.png"
+    },
+    {
+      "position": 7900,
+      "filename": "07900.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/07900.png"
+    },
+    {
+      "position": 8000,
+      "filename": "08000.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/08000.png"
+    },
+    {
+      "position": 8100,
+      "filename": "08100.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/08100.png"
+    },
+    {
+      "position": 8200,
+      "filename": "08200.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/08200.png"
+    },
+    {
+      "position": 8300,
+      "filename": "08300.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/08300.png"
+    },
+    {
+      "position": 8400,
+      "filename": "08400.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/08400.png"
+    },
+    {
+      "position": 8500,
+      "filename": "08500.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/08500.png"
+    },
+    {
+      "position": 8600,
+      "filename": "08600.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/08600.png"
+    },
+    {
+      "position": 8700,
+      "filename": "08700.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/08700.png"
+    },
+    {
+      "position": 8800,
+      "filename": "08800.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/08800.png"
+    },
+    {
+      "position": 8900,
+      "filename": "08900.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/08900.png"
+    },
+    {
+      "position": 9000,
+      "filename": "09000.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/09000.png"
+    },
+    {
+      "position": 9100,
+      "filename": "09100.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/09100.png"
+    },
+    {
+      "position": 9200,
+      "filename": "09200.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/09200.png"
+    },
+    {
+      "position": 9300,
+      "filename": "09300.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/09300.png"
+    },
+    {
+      "position": 9400,
+      "filename": "09400.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/09400.png"
+    },
+    {
+      "position": 9500,
+      "filename": "09500.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/09500.png"
+    },
+    {
+      "position": 9600,
+      "filename": "09600.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/09600.png"
+    },
+    {
+      "position": 9700,
+      "filename": "09700.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/09700.png"
+    },
+    {
+      "position": 9800,
+      "filename": "09800.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/09800.png"
+    },
+    {
+      "position": 9900,
+      "filename": "09900.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/09900.png"
+    },
+    {
+      "position": 10000,
+      "filename": "10000.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/10000.png"
+    },
+    {
+      "position": 10100,
+      "filename": "10100.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/10100.png"
+    },
+    {
+      "position": 10200,
+      "filename": "10200.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/10200.png"
+    },
+    {
+      "position": 10300,
+      "filename": "10300.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/10300.png"
+    },
+    {
+      "position": 10400,
+      "filename": "10400.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/10400.png"
+    },
+    {
+      "position": 10500,
+      "filename": "10500.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/10500.png"
+    },
+    {
+      "position": 10600,
+      "filename": "10600.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/10600.png"
+    },
+    {
+      "position": 10700,
+      "filename": "10700.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/10700.png"
+    },
+    {
+      "position": 10800,
+      "filename": "10800.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/10800.png"
+    },
+    {
+      "position": 10900,
+      "filename": "10900.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/10900.png"
+    },
+    {
+      "position": 11000,
+      "filename": "11000.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/11000.png"
+    },
+    {
+      "position": 11100,
+      "filename": "11100.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/11100.png"
+    },
+    {
+      "position": 11200,
+      "filename": "11200.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/11200.png"
+    },
+    {
+      "position": 11300,
+      "filename": "11300.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/11300.png"
+    },
+    {
+      "position": 11400,
+      "filename": "11400.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/11400.png"
+    },
+    {
+      "position": 11500,
+      "filename": "11500.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/11500.png"
+    },
+    {
+      "position": 11600,
+      "filename": "11600.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/11600.png"
+    },
+    {
+      "position": 11700,
+      "filename": "11700.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/11700.png"
+    },
+    {
+      "position": 11800,
+      "filename": "11800.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/11800.png"
+    },
+    {
+      "position": 11900,
+      "filename": "11900.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/11900.png"
+    },
+    {
+      "position": 12000,
+      "filename": "12000.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/12000.png"
+    },
+    {
+      "position": 12100,
+      "filename": "12100.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/12100.png"
+    },
+    {
+      "position": 12200,
+      "filename": "12200.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/12200.png"
+    },
+    {
+      "position": 12300,
+      "filename": "12300.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/12300.png"
+    },
+    {
+      "position": 12400,
+      "filename": "12400.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/12400.png"
+    },
+    {
+      "position": 12500,
+      "filename": "12500.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/12500.png"
+    },
+    {
+      "position": 12600,
+      "filename": "12600.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/12600.png"
+    },
+    {
+      "position": 12700,
+      "filename": "12700.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/12700.png"
+    },
+    {
+      "position": 12800,
+      "filename": "12800.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/12800.png"
+    },
+    {
+      "position": 12900,
+      "filename": "12900.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/12900.png"
+    },
+    {
+      "position": 13000,
+      "filename": "13000.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/13000.png"
+    },
+    {
+      "position": 13100,
+      "filename": "13100.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/13100.png"
+    },
+    {
+      "position": 13200,
+      "filename": "13200.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/13200.png"
+    },
+    {
+      "position": 13300,
+      "filename": "13300.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/13300.png"
+    },
+    {
+      "position": 13400,
+      "filename": "13400.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/13400.png"
+    },
+    {
+      "position": 13500,
+      "filename": "13500.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/13500.png"
+    },
+    {
+      "position": 13600,
+      "filename": "13600.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/13600.png"
+    },
+    {
+      "position": 13700,
+      "filename": "13700.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/13700.png"
+    },
+    {
+      "position": 13800,
+      "filename": "13800.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/13800.png"
+    },
+    {
+      "position": 13900,
+      "filename": "13900.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/13900.png"
+    },
+    {
+      "position": 14000,
+      "filename": "14000.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/14000.png"
+    },
+    {
+      "position": 14100,
+      "filename": "14100.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/14100.png"
+    },
+    {
+      "position": 14200,
+      "filename": "14200.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/14200.png"
+    },
+    {
+      "position": 14300,
+      "filename": "14300.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/14300.png"
+    },
+    {
+      "position": 14400,
+      "filename": "14400.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/14400.png"
+    },
+    {
+      "position": 14500,
+      "filename": "14500.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/14500.png"
+    },
+    {
+      "position": 14600,
+      "filename": "14600.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/14600.png"
+    },
+    {
+      "position": 14700,
+      "filename": "14700.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/14700.png"
+    },
+    {
+      "position": 14800,
+      "filename": "14800.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/14800.png"
+    },
+    {
+      "position": 14900,
+      "filename": "14900.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/14900.png"
+    },
+    {
+      "position": 15000,
+      "filename": "15000.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/15000.png"
+    },
+    {
+      "position": 15100,
+      "filename": "15100.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/15100.png"
+    },
+    {
+      "position": 15200,
+      "filename": "15200.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/15200.png"
+    },
+    {
+      "position": 15300,
+      "filename": "15300.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/15300.png"
+    },
+    {
+      "position": 15400,
+      "filename": "15400.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/15400.png"
+    },
+    {
+      "position": 15500,
+      "filename": "15500.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/15500.png"
+    },
+    {
+      "position": 15600,
+      "filename": "15600.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/15600.png"
+    },
+    {
+      "position": 15700,
+      "filename": "15700.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/15700.png"
+    },
+    {
+      "position": 15800,
+      "filename": "15800.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/15800.png"
+    },
+    {
+      "position": 15900,
+      "filename": "15900.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/15900.png"
+    },
+    {
+      "position": 16000,
+      "filename": "16000.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/16000.png"
+    },
+    {
+      "position": 16100,
+      "filename": "16100.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/16100.png"
+    },
+    {
+      "position": 16200,
+      "filename": "16200.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/16200.png"
+    },
+    {
+      "position": 16300,
+      "filename": "16300.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/16300.png"
+    },
+    {
+      "position": 16400,
+      "filename": "16400.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/16400.png"
+    },
+    {
+      "position": 16500,
+      "filename": "16500.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/16500.png"
+    },
+    {
+      "position": 16600,
+      "filename": "16600.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/16600.png"
+    },
+    {
+      "position": 16700,
+      "filename": "16700.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/16700.png"
+    },
+    {
+      "position": 16800,
+      "filename": "16800.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/16800.png"
+    },
+    {
+      "position": 16900,
+      "filename": "16900.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/16900.png"
+    },
+    {
+      "position": 17000,
+      "filename": "17000.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/17000.png"
+    },
+    {
+      "position": 17100,
+      "filename": "17100.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/17100.png"
+    },
+    {
+      "position": 17200,
+      "filename": "17200.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/17200.png"
+    },
+    {
+      "position": 17300,
+      "filename": "17300.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/17300.png"
+    },
+    {
+      "position": 17400,
+      "filename": "17400.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/17400.png"
+    },
+    {
+      "position": 17500,
+      "filename": "17500.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/17500.png"
+    },
+    {
+      "position": 17600,
+      "filename": "17600.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/17600.png"
+    },
+    {
+      "position": 17700,
+      "filename": "17700.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/17700.png"
+    },
+    {
+      "position": 17800,
+      "filename": "17800.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/17800.png"
+    },
+    {
+      "position": 17900,
+      "filename": "17900.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/17900.png"
+    },
+    {
+      "position": 18000,
+      "filename": "18000.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/18000.png"
+    },
+    {
+      "position": 18100,
+      "filename": "18100.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/18100.png"
+    },
+    {
+      "position": 18200,
+      "filename": "18200.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/18200.png"
+    },
+    {
+      "position": 18300,
+      "filename": "18300.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/18300.png"
+    },
+    {
+      "position": 18400,
+      "filename": "18400.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/18400.png"
+    },
+    {
+      "position": 18500,
+      "filename": "18500.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/18500.png"
+    },
+    {
+      "position": 18600,
+      "filename": "18600.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/18600.png"
+    },
+    {
+      "position": 18700,
+      "filename": "18700.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/18700.png"
+    },
+    {
+      "position": 18800,
+      "filename": "18800.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/18800.png"
+    },
+    {
+      "position": 18900,
+      "filename": "18900.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/18900.png"
+    },
+    {
+      "position": 19000,
+      "filename": "19000.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/19000.png"
+    },
+    {
+      "position": 19100,
+      "filename": "19100.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/19100.png"
+    },
+    {
+      "position": 19200,
+      "filename": "19200.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/19200.png"
+    },
+    {
+      "position": 19300,
+      "filename": "19300.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/19300.png"
+    },
+    {
+      "position": 19400,
+      "filename": "19400.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/19400.png"
+    },
+    {
+      "position": 19500,
+      "filename": "19500.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/19500.png"
+    },
+    {
+      "position": 19600,
+      "filename": "19600.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/19600.png"
+    },
+    {
+      "position": 19700,
+      "filename": "19700.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/19700.png"
+    },
+    {
+      "position": 19800,
+      "filename": "19800.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/19800.png"
+    },
+    {
+      "position": 19900,
+      "filename": "19900.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/19900.png"
+    },
+    {
+      "position": 20000,
+      "filename": "20000.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/20000.png"
+    },
+    {
+      "position": 20100,
+      "filename": "20100.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/20100.png"
+    },
+    {
+      "position": 20200,
+      "filename": "20200.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/20200.png"
+    },
+    {
+      "position": 20300,
+      "filename": "20300.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/20300.png"
+    },
+    {
+      "position": 20400,
+      "filename": "20400.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/20400.png"
+    },
+    {
+      "position": 20500,
+      "filename": "20500.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/20500.png"
+    },
+    {
+      "position": 20600,
+      "filename": "20600.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/20600.png"
+    },
+    {
+      "position": 20700,
+      "filename": "20700.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/20700.png"
+    },
+    {
+      "position": 20800,
+      "filename": "20800.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/20800.png"
+    },
+    {
+      "position": 20900,
+      "filename": "20900.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/20900.png"
+    },
+    {
+      "position": 21000,
+      "filename": "21000.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/21000.png"
+    },
+    {
+      "position": 21100,
+      "filename": "21100.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/21100.png"
+    },
+    {
+      "position": 21114,
+      "filename": "21114.png",
+      "filepath": "chronicle/artifacts/analyses/capsule-2-frames/21114.png"
+    }
+  ],
+  "count": 213
+}

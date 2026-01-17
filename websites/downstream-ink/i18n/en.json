@@ -1,0 +1,56 @@
+{
+  "hero": {
+    "title1": "Your story,",
+    "title2": "downstream.",
+    "subtitle": "Submit your writing. Receive a living webpage where every scroll reveals your narrative through generated imagery and motion.",
+    "cta": "Create yours for €49"
+  },
+  "howItWorks": {
+    "title": "How it works",
+    "step1Title": "You submit your story",
+    "step1Text": "Paste your text — a short story, a poem, a memoir fragment. Any narrative works. We'll handle the rest.",
+    "step2Title": "We transform it",
+    "step2Text": "Your text is broken into scenes. Each scene becomes a visual moment — generated imagery that flows as you scroll. No stock photos. No templates. Made for your words.",
+    "step3Title": "You receive a living page",
+    "step3Text": "Within 24 hours, we send you a unique URL. Your story, now a scroll-driven experience you can share anywhere."
+  },
+  "demo": {
+    "label": "See it in action",
+    "title": "\"The Loop\" — a story about autonomy",
+    "cta": "Experience the full story →"
+  },
+  "pricing": {
+    "title": "Simple pricing",
+    "price": "€49",
+    "perStory": "per story",
+    "feature1": "Your unique, permanent URL",
+    "feature2": "Full visual transformation",
+    "feature3": "Delivered within 24 hours",
+    "feature4": "One revision included"
+  },
+  "form": {
+    "title": "Ready to flow?",
+    "subtitle": "Submit your story below. You'll be directed to payment, then receive your live page within 24 hours.",
+    "emailLabel": "Your email",
+    "emailPlaceholder": "you@example.com",
+    "titleLabel": "Story title",
+    "titlePlaceholder": "The title of your story",
+    "storyLabel": "Your story",
+    "storyPlaceholder": "Paste your story here...",
+    "storyHint": "Recommended: 500–3000 words for best results.",
+    "styleLabel": "Visual style",
+    "styleArtFilm": "Art Film — moody, atmospheric (recommended)",
+    "styleStorybook": "Storybook — illustrated, warm tones",
+    "styleDocumentary": "Documentary — grounded, observational",
+    "styleDream": "Dream Sequence — surreal, flowing",
+    "submitButton": "Continue to payment — €49",
+    "submitting": "Redirecting to payment..."
+  },
+  "footer": {
+    "questions": "Questions?"
+  },
+  "meta": {
+    "title": "DownStream — Your story, downstream",
+    "description": "Transform your writing into a scroll-driven visual experience"
+  }
+}

@@ -1,0 +1,140 @@
+.page {
+  min-height: 100vh;
+  background: var(--ds-color-background);
+  color: var(--ds-color-text);
+  padding: 4rem 1.5rem;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.page h1 {
+  font-size: 2.5rem;
+  font-weight: normal;
+  margin-bottom: 0.5rem;
+}
+
+.updated {
+  opacity: 0.6;
+  font-size: 0.9rem;
+  margin-bottom: 3rem;
+}
+
+.page section {
+  margin-bottom: 2.5rem;
+}
+
+.page h2 {
+  font-size: 1.5rem;
+  font-weight: normal;
+  color: var(--ds-color-accent);
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--ds-color-border);
+}
+
+.page h3 {
+  font-size: 1.1rem;
+  font-weight: normal;
+  margin: 1.5rem 0 0.75rem;
+  opacity: 0.9;
+}
+
+.page p {
+  line-height: 1.7;
+  margin-bottom: 1rem;
+  opacity: 0.85;
+}
+
+.page ul {
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+}
+
+.page li {
+  line-height: 1.7;
+  margin-bottom: 0.5rem;
+  opacity: 0.85;
+}
+
+.page li strong {
+  color: var(--ds-color-text);
+}
+
+.page a {
+  color: var(--ds-color-accent);
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.page a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.page table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+}
+
+.page th,
+.page td {
+  text-align: left;
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--ds-color-border);
+}
+
+.page th {
+  font-weight: normal;
+  color: var(--ds-color-accent);
+  font-size: 0.9rem;
+}
+
+.page td {
+  opacity: 0.85;
+}
+
+.backLink {
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--ds-color-border);
+}
+
+.backLink a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--ds-color-accent);
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.backLink a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .page {
+    padding: 2rem 1rem;
+  }
+
+  .page h1 {
+    font-size: 2rem;
+  }
+
+  .page h2 {
+    font-size: 1.25rem;
+  }
+
+  .page table {
+    font-size: 0.9rem;
+  }
+
+  .page th,
+  .page td {
+    padding: 0.5rem;
+  }
+}

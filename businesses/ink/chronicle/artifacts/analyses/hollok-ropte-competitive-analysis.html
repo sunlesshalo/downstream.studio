@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Competitive Analysis: Hollók röpte (Flight of Ravens)</title>
+    <style>
+        :root {
+            --bg: #0a0a0f;
+            --surface: #1a1a24;
+            --text: #e8e6e3;
+            --muted: #8a8a8a;
+            --accent: #d4a056;
+            --success: #4a9a6a;
+            --warning: #d49a56;
+            --danger: #d45656;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            padding: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+        }
+
+        h2 {
+            font-size: 1.4rem;
+            margin: 2rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--surface);
+            color: var(--accent);
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            margin: 1.5rem 0 0.75rem;
+            color: var(--text);
+        }
+
+        .meta {
+            color: var(--muted);
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+        }
+
+        .summary-box {
+            background: var(--surface);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        .summary-box h3 {
+            margin-top: 0;
+            color: var(--accent);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--surface);
+        }
+
+        th {
+            background: var(--surface);
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .status-good { color: var(--success); }
+        .status-partial { color: var(--warning); }
+        .status-weak { color: var(--danger); }
+
+        ul, ol {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin: 0.5rem 0;
+        }
+
+        .scene-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .scene-card {
+            background: var(--surface);
+            padding: 1rem;
+            border-radius: 6px;
+        }
+
+        .scene-card strong {
+            color: var(--accent);
+        }
+
+        .recommendation {
+            background: var(--surface);
+            padding: 1rem 1.5rem;
+            border-left: 3px solid var(--accent);
+            margin: 1rem 0;
+        }
+
+        .recommendation h4 {
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+
+        .tag-strength { background: var(--success); color: white; }
+        .tag-improvement { background: var(--warning); color: white; }
+        .tag-critical { background: var(--danger); color: white; }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--surface);
+            margin: 2rem 0;
+        }
+
+        .footer {
+            margin-top: 3rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--surface);
+            color: var(--muted);
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>Competitive Analysis: Hollók röpte</h1>
+    <p class="meta">
+        Stream: Flight of Ravens | Analyzed: 2026-01-09 | Analyst: Claude<br>
+        URL: stream-stream-1767890796051-fhmnte.vercel.app<br>
+        Method: 50+ scroll captures at 150px intervals across 8045px total height
+    </p>
+
+    <div class="summary-box">
+        <h3>Executive Summary</h3>
+        <p>Hollók röpte demonstrates strong symbolic imagery and effective color temperature techniques. Primary improvement areas are <strong>motion quality within scenes</strong> and <strong>opening hook strength</strong>. The stream successfully uses emotional visual accompaniment rather than literal illustration, aligning with our methodology.</p>
+    </div>
+
+    <h2>Stream Overview</h2>
+
+    <table>
+        <tr>
+            <th>Metric</th>
+            <th>Value</th>
+        </tr>
+        <tr>
+            <td>Word Count</td>
+            <td>~2125 words (Hungarian)</td>
+        </tr>
+        <tr>
+            <td>Total Scroll Height</td>
+            <td>8045px</td>
+        </tr>
+        <tr>
+            <td>Distinct Visual Scenes</td>
+            <td>10</td>
+        </tr>
+        <tr>
+            <td>Words per Scene</td>
+            <td>~212 (within 200-250 target)</td>
+        </tr>
+        <tr>
+            <td>Visual Style</td>
+            <td>Mixed: Gothic illustration, surrealism, atmospheric realism</td>
+        </tr>
+    </table>
+
+    <h2>Scene-by-Scene Analysis</h2>
+
+    <div class="scene-grid">
+        <div class="scene-card">
+            <strong>Scene 1: Opening</strong><br>
+            Raven flying over gothic cityscape. Atmospheric, moody entry. Dark palette.
+        </div>
+        <div class="scene-card">
+            <strong>Scene 2: Desolation</strong><br>
+            Silhouette figure in post-apocalyptic landscape with dead trees.
+        </div>
+        <div class="scene-card">
+            <strong>Scene 3: Skeleton</strong><br>
+            Ravens flying through ribcage. Strong symbolic imagery.
+        </div>
+        <div class="scene-card">
+            <strong>Scene 4: Teeth/Smile</strong><br>
+            Abstract golden curves on black. Surreal, menacing mood.
+        </div>
+        <div class="scene-card">
+            <strong>Scene 5: Window</strong><br>
+            Silhouette at circular opening with backlight. Beautiful composition.
+        </div>
+        <div class="scene-card">
+            <strong>Scene 6: Beast</strong><br>
+            Large creature with scales of justice. Beksiński-style surrealism.
+        </div>
+        <div class="scene-card">
+            <strong>Scene 7: Harbor</strong><br>
+            Hooded figure on misty dock. Blue-grey atmospheric tones.
+        </div>
+        <div class="scene-card">
+            <strong>Scene 8: Tavern (Warm)</strong><br>
+            People gathered around table. Amber candlelight.
+        </div>
+        <div class="scene-card">
+            <strong>Scene 9: Tavern (Cold)</strong><br>
+            Same composition, shifted to cold blue. Effective technique!
+        </div>
+        <div class="scene-card">
+            <strong>Scene 10: Theater</strong><br>
+            Shadow puppet aesthetic. Silhouettes watching performer.
+        </div>
+    </div>
+
+    <h2>Comparison vs Capsules Benchmark</h2>
+
+    <table>
+        <tr>
+            <th>Criterion</th>
+            <th>Capsules</th>
+            <th>Hollók röpte</th>
+            <th>Assessment</th>
+        </tr>
+        <tr>
+            <td>Words per Scene</td>
+            <td>200-250</td>
+            <td>~212</td>
+            <td class="status-good">Good match</td>
+        </tr>
+        <tr>
+            <td>Symbolic vs Literal</td>
+            <td>70% symbolic</td>
+            <td>~70% symbolic</td>
+            <td class="status-good">Aligned</td>
+        </tr>
+        <tr>
+            <td>Color Temperature Arcs</td>
+            <td>Warm↔Cold shifts</td>
+            <td>Present (Scenes 8-9)</td>
+            <td class="status-good">Technique used</td>
+        </tr>
+        <tr>
+            <td>Motion Quality</td>
+            <td>Subtle but visible</td>
+            <td>Very minimal</td>
+            <td class="status-partial">Needs improvement</td>
+        </tr>
+        <tr>
+            <td>Opening Hook</td>
+            <td>Colorful + moving</td>
+            <td>Dark on dark</td>
+            <td class="status-weak">Weak</td>
+        </tr>
+        <tr>
+            <td>Atmospheric Elements</td>
+            <td>Heavy use</td>
+            <td>Present but varies</td>
+            <td class="status-partial">Partial</td>
+        </tr>
+        <tr>
+            <td>Bookend Strategy</td>
+            <td>Clear echo/contrast</td>
+            <td>Thematic (not visual)</td>
+            <td class="status-partial">Could be subtler</td>
+        </tr>
+    </table>
+
+    <h2>Strengths Identified</h2>
+
+    <div class="recommendation">
+        <span class="tag tag-strength">STRENGTH</span>
+        <h4>Symbolic Imagery</h4>
+        <p>The skeleton with ravens (Scene 3) and silhouette at circular window (Scene 5) demonstrate excellent emotional visual accompaniment. We're successfully showing what the story FEELS like rather than what happens.</p>
+    </div>
+
+    <div class="recommendation">
+        <span class="tag tag-strength">STRENGTH</span>
+        <h4>Color Temperature Technique</h4>
+        <p>Scenes 8-9 show the same composition shifting from warm amber to cold blue. This is exactly the technique we learned from competitor analysis. The emotional shift is palpable.</p>
+    </div>
+
+    <div class="recommendation">
+        <span class="tag tag-strength">STRENGTH</span>
+        <h4>Scene Variety</h4>
+        <p>10 distinct visual environments maintain reader interest across 8000px of scroll. No scene overstays its welcome, and each offers something visually different.</p>
+    </div>
+
+    <h2>Areas for Improvement</h2>
+
+    <div class="recommendation">
+        <span class="tag tag-critical">CRITICAL</span>
+        <h4>Motion Quality</h4>
+        <p>Final captures (7500px, 7800px, 8045px) showed nearly identical frames. The animation within scenes is too static—closer to still images than "living photographs." Capsules maintains visible fog drift, gentle camera movement, and particle effects throughout.</p>
+        <p><strong>Fix:</strong> Add explicit camera instructions to all video prompts. Implement motion quality gate in production pipeline.</p>
+    </div>
+
+    <div class="recommendation">
+        <span class="tag tag-improvement">IMPROVEMENT</span>
+        <h4>Opening Hook</h4>
+        <p>Scene 1 shows a dark raven against a dark sky—low contrast, low attention capture. Capsules opens with a RED bird (colorful) MOVING against static grey clouds for maximum scroll-stopping power.</p>
+        <p><strong>Fix:</strong> Opening scenes must have either colorful subject OR visible motion (ideally both). No dark-on-dark openings.</p>
+    </div>
+
+    <div class="recommendation">
+        <span class="tag tag-improvement">IMPROVEMENT</span>
+        <h4>Bookend Resonance</h4>
+        <p>Opening (raven over city) and closing (shadow puppet theater) have thematic connection but the visual resonance is subtle. This isn't necessarily wrong—subtle callbacks through color, composition, or motion can be more elegant than literal repetition.</p>
+        <p><strong>Note:</strong> The goal is emotional/thematic echo, not didactic visual matching. Subtle references (color callback, compositional parallel, motion echo) are preferable to obvious repetition.</p>
+    </div>
+
+    <hr>
+
+    <h2>Key Takeaways</h2>
+
+    <ol>
+        <li><strong>Motion is our biggest gap.</strong> This single issue makes the difference between "slideshow" and "experience."</li>
+        <li><strong>We understand the methodology.</strong> Symbolic imagery, color temperature—we're executing correctly.</li>
+        <li><strong>Opening needs more punch.</strong> First impression determines scroll engagement.</li>
+        <li><strong>Color shift technique is working.</strong> The warm→cold tavern transition proves we can do this.</li>
+    </ol>
+
+    <div class="footer">
+        <p>Generated by Claude for DownStream competitive analysis.<br>
+        Date: 2026-01-09 | Stream: Hollók röpte (Flight of Ravens)</p>
+    </div>
+</body>
+</html>
