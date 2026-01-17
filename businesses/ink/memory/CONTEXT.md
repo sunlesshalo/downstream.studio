@@ -1608,3 +1608,11 @@ Analytics is now production-ready. Every future stream deployment will:
 3. Collect scroll depth, engagement, completion metrics
 4. Display in analytics dashboard immediately
 
+
+**Analytics Cleanup:**
+- Added az-ehseg-v2 (https://downstream-stream-az-ehseg-v2-ferenczs-projects-a1c1d3b4.vercel.app)
+- Deleted the-loop-ro (Romanian variant - not needed)
+- Deleted founding-story-hu (Hungarian variant - not needed)
+
+**Current: 12 streams registered**
+
