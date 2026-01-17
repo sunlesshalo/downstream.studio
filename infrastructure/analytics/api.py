@@ -145,8 +145,18 @@ async def record_pageview(request: Request, data: PageViewRequest):
 
 
 @app.post("/events")
-async def record_events(data: EventBatch):
-    """Record a batch of events."""
+async def record_events(request: Request):
+    """Record a batch of events.
+
+    Note: sendBeacon may send as text/plain, so we parse body manually.
+    """
+    try:
+        body = await request.body()
+        raw_data = json.loads(body)
+        data = EventBatch(**raw_data)
+    except (json.JSONDecodeError, Exception) as e:
+        return {"status": "error", "message": f"Invalid JSON: {str(e)}"}
+
     if not data.page_view_id:
         return {"status": "ok", "message": "no page_view_id, events dropped"}
 
