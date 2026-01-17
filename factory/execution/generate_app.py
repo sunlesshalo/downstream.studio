@@ -335,7 +335,8 @@ def generate_layout_tsx(spec: dict, stream_id: str) -> str:
         # Basic minification (remove comments and extra whitespace)
         import re
         tracker_code = re.sub(r'/\*\*[\s\S]*?\*/', '', tracker_code)  # Remove block comments
-        tracker_code = re.sub(r'//.*$', '', tracker_code, flags=re.MULTILINE)  # Remove line comments
+        # Remove line comments, but NOT URLs (don't match :// patterns)
+        tracker_code = re.sub(r'(?<!:)//.*$', '', tracker_code, flags=re.MULTILINE)
         tracker_code = re.sub(r'\n\s*\n', '\n', tracker_code)  # Remove empty lines
         tracker_code = tracker_code.strip()
     else:
