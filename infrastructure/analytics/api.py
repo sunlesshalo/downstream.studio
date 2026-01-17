@@ -503,6 +503,209 @@ async def get_email_stats(stream_id: str):
     }
 
 
+@app.get("/stream/{stream_id}/daily-views")
+async def stream_daily_views(stream_id: str, days: int = 7):
+    """Daily view counts for a specific stream."""
+    db = get_db()
+    cursor = db.cursor()
+
+    try:
+        cursor.execute("""
+            SELECT
+                date(started_at) as date,
+                COUNT(*) as views,
+                COUNT(DISTINCT visitor_id) as unique_visitors
+            FROM page_views
+            WHERE stream_id = ?
+            AND started_at >= datetime('now', ?)
+            GROUP BY date(started_at)
+            ORDER BY date ASC
+        """, (stream_id, f'-{days} days'))
+        daily = [dict(row) for row in cursor.fetchall()]
+        return {"stream_id": stream_id, "period_days": days, "daily": daily}
+    finally:
+        db.close()
+
+
+@app.get("/stream/{stream_id}/scroll-funnel")
+async def stream_scroll_funnel(stream_id: str, days: int = 7):
+    """Scroll milestone funnel for a specific stream."""
+    db = get_db()
+    cursor = db.cursor()
+
+    try:
+        cursor.execute("""
+            SELECT COUNT(*) as total
+            FROM page_views
+            WHERE stream_id = ?
+            AND started_at >= datetime('now', ?)
+        """, (stream_id, f'-{days} days'))
+        total = cursor.fetchone()[0] or 0
+
+        milestones = {}
+        for milestone in [25, 50, 75, 100]:
+            cursor.execute("""
+                SELECT COUNT(DISTINCT page_view_id) as reached
+                FROM scroll_milestones sm
+                JOIN page_views pv ON sm.page_view_id = pv.id
+                WHERE pv.stream_id = ?
+                AND sm.milestone >= ?
+                AND pv.started_at >= datetime('now', ?)
+            """, (stream_id, milestone, f'-{days} days'))
+            milestones[milestone] = cursor.fetchone()[0] or 0
+
+        return {
+            "stream_id": stream_id,
+            "period_days": days,
+            "total_views": total,
+            "milestones": milestones
+        }
+    finally:
+        db.close()
+
+
+@app.get("/stream/{stream_id}/devices")
+async def stream_devices(stream_id: str, days: int = 7):
+    """Device breakdown for a specific stream."""
+    db = get_db()
+    cursor = db.cursor()
+
+    try:
+        cursor.execute("""
+            SELECT
+                COALESCE(device_type, 'unknown') as device,
+                COUNT(*) as count
+            FROM page_views
+            WHERE stream_id = ?
+            AND started_at >= datetime('now', ?)
+            GROUP BY device_type
+            ORDER BY count DESC
+        """, (stream_id, f'-{days} days'))
+        devices = [dict(row) for row in cursor.fetchall()]
+        return {"stream_id": stream_id, "period_days": days, "devices": devices}
+    finally:
+        db.close()
+
+
+@app.get("/stream/{stream_id}/geography")
+async def stream_geography(stream_id: str, days: int = 7):
+    """Geographic distribution for a specific stream."""
+    db = get_db()
+    cursor = db.cursor()
+
+    try:
+        cursor.execute("""
+            SELECT
+                COALESCE(country_code, 'Unknown') as country,
+                COUNT(*) as count
+            FROM page_views
+            WHERE stream_id = ?
+            AND started_at >= datetime('now', ?)
+            GROUP BY country_code
+            ORDER BY count DESC
+            LIMIT 15
+        """, (stream_id, f'-{days} days'))
+        countries = [dict(row) for row in cursor.fetchall()]
+        return {"stream_id": stream_id, "period_days": days, "countries": countries}
+    finally:
+        db.close()
+
+
+@app.get("/stream/{stream_id}/peak-hours")
+async def stream_peak_hours(stream_id: str, days: int = 7):
+    """Hourly distribution for a specific stream."""
+    db = get_db()
+    cursor = db.cursor()
+
+    try:
+        cursor.execute("""
+            SELECT
+                CAST(strftime('%H', started_at) AS INTEGER) as hour,
+                COUNT(*) as count
+            FROM page_views
+            WHERE stream_id = ?
+            AND started_at >= datetime('now', ?)
+            GROUP BY hour
+            ORDER BY hour ASC
+        """, (stream_id, f'-{days} days'))
+        hours = {row['hour']: row['count'] for row in cursor.fetchall()}
+        hourly = [hours.get(h, 0) for h in range(24)]
+        return {"stream_id": stream_id, "period_days": days, "hourly": hourly}
+    finally:
+        db.close()
+
+
+@app.get("/stream/{stream_id}/sections")
+async def stream_sections(stream_id: str, days: int = 7):
+    """Section engagement for a specific stream."""
+    db = get_db()
+    cursor = db.cursor()
+
+    try:
+        cursor.execute("""
+            SELECT
+                se.section_id,
+                se.section_index,
+                COUNT(*) as views,
+                AVG(se.dwell_time_ms) as avg_dwell_ms
+            FROM section_events se
+            JOIN page_views pv ON se.page_view_id = pv.id
+            WHERE pv.stream_id = ?
+            AND pv.started_at >= datetime('now', ?)
+            GROUP BY se.section_id, se.section_index
+            ORDER BY se.section_index
+        """, (stream_id, f'-{days} days'))
+        sections = [dict(row) for row in cursor.fetchall()]
+        return {"stream_id": stream_id, "period_days": days, "sections": sections}
+    finally:
+        db.close()
+
+
+@app.get("/stream/{stream_id}/referrers")
+async def stream_referrers(stream_id: str, days: int = 7):
+    """Top referrers for a specific stream."""
+    db = get_db()
+    cursor = db.cursor()
+
+    try:
+        cursor.execute("""
+            SELECT
+                COALESCE(referrer, 'Direct') as referrer,
+                COUNT(*) as count
+            FROM page_views
+            WHERE stream_id = ?
+            AND started_at >= datetime('now', ?)
+            GROUP BY referrer
+            ORDER BY count DESC
+            LIMIT 10
+        """, (stream_id, f'-{days} days'))
+        referrers = [dict(row) for row in cursor.fetchall()]
+        return {"stream_id": stream_id, "period_days": days, "referrers": referrers}
+    finally:
+        db.close()
+
+
+@app.get("/stream/{stream_id}/info")
+async def stream_info(stream_id: str):
+    """Get stream metadata."""
+    db = get_db()
+    cursor = db.cursor()
+
+    try:
+        cursor.execute("""
+            SELECT id, title, customer_email, deployed_at, deployment_url,
+                   total_sections, total_frames
+            FROM streams
+            WHERE id = ?
+        """, (stream_id,))
+        row = cursor.fetchone()
+        if row:
+            return dict(row)
+        return {"id": stream_id, "title": stream_id, "deployment_url": None}
+    finally:
+        db.close()
+
+
 @app.get("/dashboard/daily-views")
 async def dashboard_daily_views(days: int = 7):
     """Daily view counts for chart."""
@@ -735,6 +938,15 @@ async def serve_dashboard():
     if os.path.exists(dashboard_path):
         return FileResponse(dashboard_path)
     return {"error": "Dashboard not found"}
+
+
+@app.get("/dashboard/stream/{stream_id}")
+async def serve_stream_dashboard(stream_id: str):
+    """Serve the stream detail dashboard HTML."""
+    detail_path = os.path.join(os.path.dirname(__file__), "stream-detail.html")
+    if os.path.exists(detail_path):
+        return FileResponse(detail_path)
+    return {"error": "Stream dashboard not found"}
 
 
 @app.get("/health")

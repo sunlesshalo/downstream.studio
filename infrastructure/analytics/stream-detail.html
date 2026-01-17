@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DownStream Analytics</title>
+  <title>Stream Analytics</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <style>
     * {
@@ -19,11 +19,8 @@
       --text: #e5e5e5;
       --text-muted: #888;
       --accent: #d4a056;
-      --accent-dim: rgba(212, 160, 86, 0.2);
       --success: #4ade80;
-      --success-dim: rgba(74, 222, 128, 0.2);
       --info: #60a5fa;
-      --info-dim: rgba(96, 165, 250, 0.2);
       --warning: #fbbf24;
       --border: #2a2a35;
     }
@@ -43,18 +40,66 @@
     }
 
     header {
+      margin-bottom: 32px;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+
+    .back-link:hover {
+      color: var(--text);
+    }
+
+    .header-row {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      margin-bottom: 32px;
+      align-items: flex-start;
       flex-wrap: wrap;
       gap: 16px;
     }
 
+    .stream-header {
+      flex: 1;
+    }
+
     h1 {
-      font-size: 24px;
+      font-size: 28px;
       font-weight: 600;
       color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .stream-meta {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .stream-id {
+      font-family: monospace;
+      font-size: 13px;
+      color: var(--text-muted);
+      background: var(--bg-hover);
+      padding: 4px 8px;
+      border-radius: 4px;
+    }
+
+    .stream-link {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .stream-link:hover {
+      text-decoration: underline;
     }
 
     .header-controls {
@@ -95,7 +140,7 @@
     /* Stats Grid */
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
       gap: 16px;
       margin-bottom: 32px;
     }
@@ -121,12 +166,6 @@
       letter-spacing: 0.5px;
     }
 
-    .stat-delta {
-      font-size: 12px;
-      margin-top: 8px;
-      color: var(--success);
-    }
-
     /* Charts Grid */
     .charts-grid {
       display: grid;
@@ -145,14 +184,12 @@
     .chart-card.span-8 { grid-column: span 8; }
     .chart-card.span-6 { grid-column: span 6; }
     .chart-card.span-4 { grid-column: span 4; }
-    .chart-card.span-3 { grid-column: span 3; }
     .chart-card.span-12 { grid-column: span 12; }
 
     @media (max-width: 1024px) {
       .chart-card.span-8,
       .chart-card.span-6,
-      .chart-card.span-4,
-      .chart-card.span-3 {
+      .chart-card.span-4 {
         grid-column: span 12;
       }
     }
@@ -162,184 +199,15 @@
       font-weight: 600;
       color: var(--text);
       margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
     }
 
     .chart-container {
       position: relative;
-      height: 200px;
+      height: 220px;
     }
 
     .chart-container.tall {
-      height: 280px;
-    }
-
-    /* Streams Table */
-    .section-title {
-      font-size: 18px;
-      font-weight: 600;
-      margin-bottom: 16px;
-      color: var(--text);
-    }
-
-    .streams-table {
-      width: 100%;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      overflow: hidden;
-      margin-bottom: 32px;
-    }
-
-    .streams-table table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    .streams-table th {
-      text-align: left;
-      padding: 14px 20px;
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: var(--text-muted);
-      background: var(--bg-hover);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .streams-table td {
-      padding: 14px 20px;
-      font-size: 14px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .streams-table tr:last-child td {
-      border-bottom: none;
-    }
-
-    .streams-table tr:hover td {
-      background: var(--bg-hover);
-    }
-
-    .stream-title {
-      font-weight: 500;
-      color: var(--text);
-    }
-
-    .stream-id {
-      font-size: 11px;
-      color: var(--text-muted);
-      font-family: monospace;
-    }
-
-    .stream-link {
-      color: var(--accent);
-      text-decoration: none;
-      font-size: 13px;
-    }
-
-    .stream-link:hover {
-      text-decoration: underline;
-    }
-
-    /* Country list */
-    .country-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .country-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 8px 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .country-item:last-child {
-      border-bottom: none;
-    }
-
-    .country-name {
-      font-size: 14px;
-      color: var(--text);
-    }
-
-    .country-count {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--accent);
-    }
-
-    /* Health indicator */
-    .health-indicator {
-      display: inline-block;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      margin-right: 8px;
-    }
-
-    .health-indicator.healthy {
-      background: var(--success);
-      box-shadow: 0 0 8px var(--success);
-    }
-
-    .health-indicator.unhealthy {
-      background: #f87171;
-      box-shadow: 0 0 8px #f87171;
-    }
-
-    /* Loading & Error states */
-    .loading {
-      text-align: center;
-      padding: 40px;
-      color: var(--text-muted);
-    }
-
-    .error {
-      background: #3b1c1c;
-      border: 1px solid #5c2a2a;
-      color: #f87171;
-      padding: 16px 20px;
-      border-radius: 8px;
-      margin-bottom: 20px;
-    }
-
-    .empty {
-      text-align: center;
-      padding: 40px;
-      color: var(--text-muted);
-    }
-
-    .refresh-btn {
-      padding: 8px 16px;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      color: var(--text-muted);
-      cursor: pointer;
-      font-size: 14px;
-      transition: all 0.2s;
-    }
-
-    .refresh-btn:hover {
-      background: var(--bg-hover);
-      color: var(--text);
-    }
-
-    footer {
-      margin-top: 40px;
-      padding-top: 20px;
-      border-top: 1px solid var(--border);
-      color: var(--text-muted);
-      font-size: 12px;
-      display: flex;
-      justify-content: space-between;
+      height: 300px;
     }
 
     /* Funnel styles */
@@ -394,59 +262,171 @@
       color: var(--text-muted);
       text-align: left;
     }
+
+    /* List styles */
+    .list-container {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 280px;
+      overflow-y: auto;
+    }
+
+    .list-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .list-item:last-child {
+      border-bottom: none;
+    }
+
+    .list-name {
+      font-size: 14px;
+      color: var(--text);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 200px;
+    }
+
+    .list-count {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    /* Section bars */
+    .section-bars {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .section-bar-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-label {
+      width: 100px;
+      font-size: 13px;
+      color: var(--text-muted);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .section-bar-bg {
+      flex: 1;
+      height: 24px;
+      background: var(--bg-hover);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .section-bar-fill {
+      height: 100%;
+      background: var(--info);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      padding-left: 8px;
+      min-width: 30px;
+    }
+
+    .section-bar-value {
+      font-size: 11px;
+      font-weight: 600;
+      color: white;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 40px;
+      color: var(--text-muted);
+    }
+
+    .empty {
+      text-align: center;
+      padding: 40px;
+      color: var(--text-muted);
+    }
+
+    footer {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 12px;
+      display: flex;
+      justify-content: space-between;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <header>
-      <h1>
-        <span class="health-indicator" id="health-indicator"></span>
-        DownStream Analytics
-      </h1>
-      <div class="header-controls">
-        <div class="period-select">
-          <button class="period-btn" data-days="1">24h</button>
-          <button class="period-btn active" data-days="7">7d</button>
-          <button class="period-btn" data-days="30">30d</button>
+      <a href="/dashboard" class="back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Back to Dashboard
+      </a>
+      <div class="header-row">
+        <div class="stream-header">
+          <h1 id="stream-title">Loading...</h1>
+          <div class="stream-meta">
+            <span class="stream-id" id="stream-id"></span>
+            <a href="#" class="stream-link" id="stream-url" target="_blank">View Stream</a>
+          </div>
         </div>
-        <button class="refresh-btn" onclick="loadAll()">Refresh</button>
+        <div class="header-controls">
+          <div class="period-select">
+            <button class="period-btn" data-days="1">24h</button>
+            <button class="period-btn active" data-days="7">7d</button>
+            <button class="period-btn" data-days="30">30d</button>
+          </div>
+        </div>
       </div>
     </header>
 
-    <div id="error-container"></div>
-
     <!-- Key Stats -->
-    <div class="stats-grid" id="stats-grid">
+    <div class="stats-grid">
       <div class="stat-card">
         <div class="stat-value" id="total-views">-</div>
         <div class="stat-label">Total Views</div>
-        <div class="stat-delta" id="views-24h"></div>
       </div>
       <div class="stat-card">
         <div class="stat-value" id="unique-visitors">-</div>
         <div class="stat-label">Unique Visitors</div>
       </div>
       <div class="stat-card">
-        <div class="stat-value" id="active-streams">-</div>
-        <div class="stat-label">Active Streams</div>
-      </div>
-      <div class="stat-card">
         <div class="stat-value" id="completion-rate">-</div>
         <div class="stat-label">Completion Rate</div>
       </div>
+      <div class="stat-card">
+        <div class="stat-value" id="avg-time">-</div>
+        <div class="stat-label">Avg Time</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="avg-depth">-</div>
+        <div class="stat-label">Avg Scroll Depth</div>
+      </div>
     </div>
 
-    <!-- Charts Row 1 -->
+    <!-- Row 1: Views + Devices -->
     <div class="charts-grid">
-      <!-- Views Timeline -->
       <div class="chart-card span-8">
         <div class="chart-title">Views Over Time</div>
         <div class="chart-container tall">
           <canvas id="views-chart"></canvas>
         </div>
       </div>
-
-      <!-- Device Breakdown -->
       <div class="chart-card span-4">
         <div class="chart-title">Devices</div>
         <div class="chart-container tall">
@@ -455,17 +435,14 @@
       </div>
     </div>
 
-    <!-- Charts Row 2 -->
+    <!-- Row 2: Funnel + Hours -->
     <div class="charts-grid">
-      <!-- Scroll Funnel -->
       <div class="chart-card span-6">
         <div class="chart-title">Scroll Depth Funnel</div>
         <div class="funnel-container" id="funnel-container">
           <div class="loading">Loading...</div>
         </div>
       </div>
-
-      <!-- Peak Hours -->
       <div class="chart-card span-6">
         <div class="chart-title">Peak Hours (UTC)</div>
         <div class="chart-container">
@@ -474,52 +451,43 @@
       </div>
     </div>
 
-    <!-- Charts Row 3 -->
+    <!-- Row 3: Sections -->
     <div class="charts-grid">
-      <!-- Geographic Distribution -->
-      <div class="chart-card span-4">
-        <div class="chart-title">Top Countries</div>
-        <div class="country-list" id="country-list">
-          <div class="loading">Loading...</div>
-        </div>
-      </div>
-
-      <!-- Section Engagement -->
-      <div class="chart-card span-8">
+      <div class="chart-card span-12">
         <div class="chart-title">Section Engagement (Avg Dwell Time)</div>
-        <div class="chart-container tall">
-          <canvas id="sections-chart"></canvas>
+        <div class="section-bars" id="sections-container">
+          <div class="loading">Loading...</div>
         </div>
       </div>
     </div>
 
-    <!-- Streams Table -->
-    <h2 class="section-title">All Streams</h2>
-    <div class="streams-table">
-      <table>
-        <thead>
-          <tr>
-            <th>Stream</th>
-            <th>Views</th>
-            <th>Unique</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody id="streams-tbody">
-          <tr>
-            <td colspan="4" class="loading">Loading...</td>
-          </tr>
-        </tbody>
-      </table>
+    <!-- Row 4: Referrers + Geography -->
+    <div class="charts-grid">
+      <div class="chart-card span-6">
+        <div class="chart-title">Top Referrers</div>
+        <div class="list-container" id="referrers-list">
+          <div class="loading">Loading...</div>
+        </div>
+      </div>
+      <div class="chart-card span-6">
+        <div class="chart-title">Top Countries</div>
+        <div class="list-container" id="countries-list">
+          <div class="loading">Loading...</div>
+        </div>
+      </div>
     </div>
 
     <footer>
       <span>Last updated: <span id="last-updated">-</span></span>
-      <span>DownStream Analytics v2.0</span>
+      <span>DownStream Analytics</span>
     </footer>
   </div>
 
   <script>
+    // Get stream ID from URL
+    const pathParts = window.location.pathname.split('/');
+    const streamId = pathParts[pathParts.length - 1] || pathParts[pathParts.length - 2];
+
     let currentDays = 7;
     let charts = {};
 
@@ -538,63 +506,54 @@
       });
     });
 
-    async function checkHealth() {
-      const indicator = document.getElementById('health-indicator');
+    async function loadStreamInfo() {
       try {
-        const res = await fetch('/health');
+        const res = await fetch(`/stream/${streamId}/info`);
         const data = await res.json();
-        indicator.className = 'health-indicator ' + (data.status === 'healthy' ? 'healthy' : 'unhealthy');
+
+        document.getElementById('stream-title').textContent = data.title || streamId;
+        document.getElementById('stream-id').textContent = data.id || streamId;
+
+        const urlEl = document.getElementById('stream-url');
+        if (data.deployment_url) {
+          urlEl.href = data.deployment_url;
+          urlEl.style.display = 'inline';
+        } else {
+          urlEl.style.display = 'none';
+        }
+
+        document.title = `${data.title || streamId} - Analytics`;
       } catch (e) {
-        indicator.className = 'health-indicator unhealthy';
+        console.error('Stream info error:', e);
+        document.getElementById('stream-title').textContent = streamId;
       }
     }
 
-    async function loadSummary() {
+    async function loadStats() {
       try {
-        const res = await fetch(`/dashboard/summary?days=${currentDays}`);
+        const res = await fetch(`/stats/${streamId}?days=${currentDays}`);
         const data = await res.json();
 
-        document.getElementById('total-views').textContent = formatNumber(data.totals.total_views);
-        document.getElementById('unique-visitors').textContent = formatNumber(data.totals.unique_visitors);
-        document.getElementById('active-streams').textContent = formatNumber(data.totals.active_streams);
-        document.getElementById('completion-rate').textContent = data.totals.completion_rate + '%';
+        document.getElementById('total-views').textContent = formatNumber(data.total_views);
+        document.getElementById('unique-visitors').textContent = formatNumber(data.unique_visitors);
+        document.getElementById('completion-rate').textContent = data.completion_rate + '%';
+        document.getElementById('avg-depth').textContent = Math.round(data.avg_scroll_depth) + '%';
 
-        if (data.totals.views_24h) {
-          document.getElementById('views-24h').textContent = `+${data.totals.views_24h} in 24h`;
-        }
-
-        // Streams table
-        const tbody = document.getElementById('streams-tbody');
-        if (data.streams.length === 0) {
-          tbody.innerHTML = '<tr><td colspan="4" class="empty">No data yet</td></tr>';
-        } else {
-          tbody.innerHTML = data.streams.map(stream => `
-            <tr>
-              <td>
-                <div class="stream-title">${escapeHtml(stream.title || 'Untitled')}</div>
-                <div class="stream-id">${escapeHtml(stream.stream_id)}</div>
-              </td>
-              <td>${formatNumber(stream.views)}</td>
-              <td>${formatNumber(stream.unique_visitors)}</td>
-              <td>
-                ${stream.deployment_url ? `<a href="${escapeHtml(stream.deployment_url)}" target="_blank" class="stream-link">View</a>` : '-'}
-                <a href="/dashboard/stream/${escapeHtml(stream.stream_id)}" class="stream-link" style="margin-left: 12px;">Analytics</a>
-              </td>
-            </tr>
-          `).join('');
-        }
+        const avgTime = data.avg_time_seconds || 0;
+        const mins = Math.floor(avgTime / 60);
+        const secs = Math.round(avgTime % 60);
+        document.getElementById('avg-time').textContent = mins > 0 ? `${mins}m ${secs}s` : `${secs}s`;
       } catch (e) {
-        console.error('Summary error:', e);
+        console.error('Stats error:', e);
       }
     }
 
     async function loadViewsChart() {
       try {
-        const res = await fetch(`/dashboard/daily-views?days=${currentDays}`);
+        const res = await fetch(`/stream/${streamId}/daily-views?days=${currentDays}`);
         const data = await res.json();
 
         const ctx = document.getElementById('views-chart').getContext('2d');
-
         if (charts.views) charts.views.destroy();
 
         charts.views = new Chart(ctx, {
@@ -609,8 +568,7 @@
                 backgroundColor: 'rgba(212, 160, 86, 0.1)',
                 fill: true,
                 tension: 0.3,
-                pointRadius: 4,
-                pointHoverRadius: 6
+                pointRadius: 4
               },
               {
                 label: 'Unique',
@@ -619,28 +577,17 @@
                 backgroundColor: 'rgba(96, 165, 250, 0.1)',
                 fill: true,
                 tension: 0.3,
-                pointRadius: 4,
-                pointHoverRadius: 6
+                pointRadius: 4
               }
             ]
           },
           options: {
             responsive: true,
             maintainAspectRatio: false,
-            plugins: {
-              legend: {
-                position: 'top',
-                align: 'end'
-              }
-            },
+            plugins: { legend: { position: 'top', align: 'end' } },
             scales: {
-              y: {
-                beginAtZero: true,
-                grid: { color: '#2a2a35' }
-              },
-              x: {
-                grid: { display: false }
-              }
+              y: { beginAtZero: true, grid: { color: '#2a2a35' } },
+              x: { grid: { display: false } }
             }
           }
         });
@@ -651,19 +598,13 @@
 
     async function loadDevicesChart() {
       try {
-        const res = await fetch(`/dashboard/devices?days=${currentDays}`);
+        const res = await fetch(`/stream/${streamId}/devices?days=${currentDays}`);
         const data = await res.json();
 
         const ctx = document.getElementById('devices-chart').getContext('2d');
-
         if (charts.devices) charts.devices.destroy();
 
-        const colors = {
-          'mobile': '#d4a056',
-          'desktop': '#60a5fa',
-          'tablet': '#4ade80',
-          'unknown': '#888'
-        };
+        const colors = { 'mobile': '#d4a056', 'desktop': '#60a5fa', 'tablet': '#4ade80', 'unknown': '#888' };
 
         charts.devices = new Chart(ctx, {
           type: 'doughnut',
@@ -679,11 +620,7 @@
             responsive: true,
             maintainAspectRatio: false,
             cutout: '65%',
-            plugins: {
-              legend: {
-                position: 'bottom'
-              }
-            }
+            plugins: { legend: { position: 'bottom' } }
           }
         });
       } catch (e) {
@@ -693,7 +630,7 @@
 
     async function loadScrollFunnel() {
       try {
-        const res = await fetch(`/dashboard/scroll-funnel?days=${currentDays}`);
+        const res = await fetch(`/stream/${streamId}/scroll-funnel?days=${currentDays}`);
         const data = await res.json();
 
         const container = document.getElementById('funnel-container');
@@ -726,11 +663,10 @@
 
     async function loadPeakHours() {
       try {
-        const res = await fetch(`/dashboard/peak-hours?days=${currentDays}`);
+        const res = await fetch(`/stream/${streamId}/peak-hours?days=${currentDays}`);
         const data = await res.json();
 
         const ctx = document.getElementById('hours-chart').getContext('2d');
-
         if (charts.hours) charts.hours.destroy();
 
         charts.hours = new Chart(ctx, {
@@ -738,7 +674,6 @@
           data: {
             labels: Array.from({length: 24}, (_, i) => `${i}:00`),
             datasets: [{
-              label: 'Views',
               data: data.hourly,
               backgroundColor: 'rgba(212, 160, 86, 0.6)',
               borderRadius: 4
@@ -747,20 +682,10 @@
           options: {
             responsive: true,
             maintainAspectRatio: false,
-            plugins: {
-              legend: { display: false }
-            },
+            plugins: { legend: { display: false } },
             scales: {
-              y: {
-                beginAtZero: true,
-                grid: { color: '#2a2a35' }
-              },
-              x: {
-                grid: { display: false },
-                ticks: {
-                  maxTicksLimit: 12
-                }
-              }
+              y: { beginAtZero: true, grid: { color: '#2a2a35' } },
+              x: { grid: { display: false }, ticks: { maxTicksLimit: 12 } }
             }
           }
         });
@@ -769,22 +694,78 @@
       }
     }
 
-    async function loadGeography() {
+    async function loadSections() {
       try {
-        const res = await fetch(`/dashboard/geography?days=${currentDays}`);
+        const res = await fetch(`/stream/${streamId}/sections?days=${currentDays}`);
         const data = await res.json();
 
-        const container = document.getElementById('country-list');
+        const container = document.getElementById('sections-container');
 
-        if (data.countries.length === 0) {
+        if (!data.sections || data.sections.length === 0) {
+          container.innerHTML = '<div class="empty">No section data</div>';
+          return;
+        }
+
+        const maxDwell = Math.max(...data.sections.map(s => s.avg_dwell_ms || 0));
+
+        container.innerHTML = data.sections.map(s => {
+          const dwellSec = Math.round((s.avg_dwell_ms || 0) / 1000);
+          const pct = maxDwell > 0 ? Math.round((s.avg_dwell_ms || 0) / maxDwell * 100) : 0;
+          return `
+            <div class="section-bar-item">
+              <div class="section-label">${s.section_id || `Section ${s.section_index + 1}`}</div>
+              <div class="section-bar-bg">
+                <div class="section-bar-fill" style="width: ${Math.max(pct, 5)}%">
+                  <span class="section-bar-value">${dwellSec}s</span>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+      } catch (e) {
+        console.error('Sections error:', e);
+      }
+    }
+
+    async function loadReferrers() {
+      try {
+        const res = await fetch(`/stream/${streamId}/referrers?days=${currentDays}`);
+        const data = await res.json();
+
+        const container = document.getElementById('referrers-list');
+
+        if (!data.referrers || data.referrers.length === 0) {
+          container.innerHTML = '<div class="empty">No referrer data</div>';
+          return;
+        }
+
+        container.innerHTML = data.referrers.map(r => `
+          <div class="list-item">
+            <span class="list-name" title="${escapeHtml(r.referrer)}">${escapeHtml(r.referrer)}</span>
+            <span class="list-count">${formatNumber(r.count)}</span>
+          </div>
+        `).join('');
+      } catch (e) {
+        console.error('Referrers error:', e);
+      }
+    }
+
+    async function loadGeography() {
+      try {
+        const res = await fetch(`/stream/${streamId}/geography?days=${currentDays}`);
+        const data = await res.json();
+
+        const container = document.getElementById('countries-list');
+
+        if (!data.countries || data.countries.length === 0) {
           container.innerHTML = '<div class="empty">No data</div>';
           return;
         }
 
-        container.innerHTML = data.countries.slice(0, 10).map(c => `
-          <div class="country-item">
-            <span class="country-name">${getCountryFlag(c.country)} ${c.country}</span>
-            <span class="country-count">${formatNumber(c.count)}</span>
+        container.innerHTML = data.countries.map(c => `
+          <div class="list-item">
+            <span class="list-name">${getCountryFlag(c.country)} ${c.country}</span>
+            <span class="list-count">${formatNumber(c.count)}</span>
           </div>
         `).join('');
       } catch (e) {
@@ -792,71 +773,18 @@
       }
     }
 
-    async function loadSections() {
-      try {
-        const res = await fetch(`/dashboard/sections?days=${currentDays}`);
-        const data = await res.json();
-
-        const ctx = document.getElementById('sections-chart').getContext('2d');
-
-        if (charts.sections) charts.sections.destroy();
-
-        // Group by stream and show top sections
-        const sectionData = data.sections
-          .filter(s => s.avg_dwell_ms)
-          .sort((a, b) => (b.avg_dwell_ms || 0) - (a.avg_dwell_ms || 0))
-          .slice(0, 12);
-
-        charts.sections = new Chart(ctx, {
-          type: 'bar',
-          data: {
-            labels: sectionData.map(s => `${s.stream_id?.substring(0, 15) || ''}... #${s.section_index + 1}`),
-            datasets: [{
-              label: 'Avg Dwell (sec)',
-              data: sectionData.map(s => Math.round((s.avg_dwell_ms || 0) / 1000)),
-              backgroundColor: 'rgba(96, 165, 250, 0.6)',
-              borderRadius: 4
-            }]
-          },
-          options: {
-            indexAxis: 'y',
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-              legend: { display: false }
-            },
-            scales: {
-              x: {
-                beginAtZero: true,
-                grid: { color: '#2a2a35' },
-                title: {
-                  display: true,
-                  text: 'seconds'
-                }
-              },
-              y: {
-                grid: { display: false }
-              }
-            }
-          }
-        });
-      } catch (e) {
-        console.error('Sections error:', e);
-      }
-    }
-
     function loadAll() {
       document.getElementById('last-updated').textContent = 'Loading...';
 
       Promise.all([
-        checkHealth(),
-        loadSummary(),
+        loadStats(),
         loadViewsChart(),
         loadDevicesChart(),
         loadScrollFunnel(),
         loadPeakHours(),
-        loadGeography(),
-        loadSections()
+        loadSections(),
+        loadReferrers(),
+        loadGeography()
       ]).then(() => {
         document.getElementById('last-updated').textContent = new Date().toLocaleTimeString();
       });
@@ -887,14 +815,12 @@
 
     function getCountryFlag(code) {
       if (!code || code === 'Unknown') return '';
-      const codePoints = code
-        .toUpperCase()
-        .split('')
-        .map(char => 127397 + char.charCodeAt(0));
+      const codePoints = code.toUpperCase().split('').map(char => 127397 + char.charCodeAt(0));
       return String.fromCodePoint(...codePoints);
     }
 
     // Initial load
+    loadStreamInfo();
     loadAll();
 
     // Auto-refresh every 60 seconds
