@@ -51,7 +51,7 @@ export default function RootLayout({
             __html: `(function() {
   'use strict';
   var DS_ANALYTICS_ENDPOINT = 'https://analytics.downstream.ink';
-  var DS_STREAM_ID = 'demo-club-promo';
+  var DS_STREAM_ID = 'demo-club-promo-perf';
   if (DS_ANALYTICS_ENDPOINT.indexOf('__') === 0) {
     console.warn('[DS Analytics] Not configured');
     return;
