@@ -37,6 +37,46 @@ This is the business diary. Every session (human-initiated, cron-triggered, webh
 
 ## Operations Log
 
+### 2026-01-17 — Human Session (Session 45)
+
+**Trigger:** human (Ferenc)
+**Duration:** ~25 minutes
+
+### What Happened
+
+**Social Media Preview Support**
+
+User requested social media preview images and SEO benefits for deployed streams.
+
+1. **Updated App Generator**
+   - Added `generate_social_preview_image()` to generate_app.py
+   - Auto-creates 1200x630 og-image.jpg from first keyframe
+   - Added comprehensive metadata (OG, Twitter Cards, metadataBase)
+
+2. **Created Batch Update Script**
+   - `factory/execution/add_social_metadata.py`
+   - Supports --dry-run and --stream-id options
+
+3. **Applied to All 16 Streams**
+   - Generated og-image.jpg for each app
+   - Updated layout.tsx with new metadata
+
+4. **Deployed & Verified**
+   - bolyai, the-loop-demo, founding-story deployed
+   - Meta tags and images verified accessible
+
+### Outcomes
+- ✅ All 16 streams have og-image.jpg (1200x630)
+- ✅ Full Open Graph + Twitter Card metadata
+- ✅ 3 streams deployed to Vercel and verified
+- ✅ Future apps will auto-generate social previews
+
+### Flags
+- [x] Completed successfully
+- [ ] Remaining 13 streams need redeployment to activate previews
+
+---
+
 ### 2026-01-17 — Human Session (Session 44)
 
 **Trigger:** human (Ferenc)

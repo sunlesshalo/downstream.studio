@@ -7,6 +7,54 @@
 
 # Session Log
 
+## 2026-01-17 (Session 45)
+**Social Media Preview Support for All Streams**
+
+Added comprehensive social sharing support to all 16 stream apps.
+
+### What Was Done
+
+1. **Updated generate_app.py**
+   - Added `generate_social_preview_image()` function
+   - Auto-creates og-image.jpg (1200x630) from first keyframe using ffmpeg
+   - Falls back to copying original if ffmpeg unavailable
+   - Searches multiple locations: keyframes/, frames/, existing apps
+
+2. **Enhanced Layout Metadata**
+   - Full Open Graph: title, description, type, siteName, images
+   - Twitter Cards: summary_large_image with images
+   - Dynamic metadataBase for Vercel URL resolution
+   - Keywords and robots directives
+
+3. **Created Batch Update Utility**
+   - `factory/execution/add_social_metadata.py`
+   - Extracts title from config.tsx, description from content.tsx
+   - Preserves existing scripts (analytics, Telegram)
+   - Supports --dry-run and --stream-id filtering
+
+4. **Applied to All 16 Streams**
+   - Generated og-image.jpg for each (1200x630, ~80KB each)
+   - Updated all layout.tsx files with new metadata
+
+5. **Deployed & Verified**
+   - bolyai: https://stream-bolyai.vercel.app ✓
+   - the-loop-demo: https://the-loop-demo.vercel.app ✓
+   - founding-story: https://founding-story.vercel.app ✓
+   - Meta tags and og-image.jpg accessible
+
+### Files Created/Modified
+- `factory/execution/generate_app.py` — social preview generation + layout metadata
+- `factory/execution/add_social_metadata.py` — batch update utility (new)
+- All 16 stream `app/layout.tsx` files
+- All 16 stream `public/og-image.jpg` files (new)
+
+### Testing
+- Verified og-image.jpg is 1200x630 (optimal for Facebook/LinkedIn/Twitter)
+- Confirmed meta tags render correctly in HTML
+- Image accessible at /og-image.jpg on deployed sites
+
+---
+
 ## 2026-01-17 (Session 44)
 **Demo Streams Marketing Upgrade**
 

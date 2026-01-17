@@ -1,7 +1,7 @@
 {
   "project": "DownStream SaaS",
   "updated": "2026-01-17",
-  "current_focus": "Demo streams improved for marketing. Club promo has professional content, CTA button, background music, subtle audio player UI. Restaurant stream has professional menu layout and styling. Both deployed and ready for marketing use.",
+  "current_focus": "Social media preview support added to all 16 streams. Each stream now has og-image.jpg (1200x630) and full Open Graph + Twitter Card metadata. Demo streams ready for marketing.",
   "metrics": {
     "revenue_total": 0,
     "revenue_this_week": 0,
@@ -349,6 +349,15 @@
       "task": "Improve demo streams for marketing (club promo + restaurant)",
       "status": "completed",
       "notes": "Full marketing upgrade: (1) Professional copy with 20+ years hospitality marketing approach, (2) CTA buttons with proper styling, (3) Club promo: AudioPlayer with royalty-free electronic music, subtle white/grey UI, 'tap for sound' split into two lines, (4) Restaurant: Google Fonts (Playfair Display, Source Serif 4), Mediterranean color palette, (5) Fixed frame extraction from segment videos (121 frames each), (6) Removed ugly colors (magenta→cyan→white). Both deployed to Vercel.",
+      "blocked_by": "",
+      "created": "2026-01-17",
+      "completed": "2026-01-17"
+    },
+    {
+      "id": 39,
+      "task": "Add social media preview images and SEO metadata to all streams",
+      "status": "completed",
+      "notes": "Added comprehensive social sharing support: (1) generate_app.py auto-creates og-image.jpg (1200x630) from first keyframe using ffmpeg, (2) Full Open Graph metadata (title, description, type, siteName, images), (3) Twitter Card metadata (summary_large_image), (4) Dynamic metadataBase for Vercel URL resolution, (5) Created add_social_metadata.py utility for batch updates. All 16 streams updated and 3 deployed (bolyai, the-loop-demo, founding-story).",
       "blocked_by": "",
       "created": "2026-01-17",
       "completed": "2026-01-17"
