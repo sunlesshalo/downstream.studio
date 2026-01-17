@@ -37,6 +37,37 @@ This is the business diary. Every session (human-initiated, cron-triggered, webh
 
 ## Operations Log
 
+### 2026-01-17 — Human Session (Session 37)
+
+**Trigger:** human (Ferenc)
+**Duration:** ~10 minutes
+
+### What Happened
+
+**Git Repository Migration**
+
+1. **Initialized Git Repository**
+   - Ran `git init` in `/Users/ferenczcsuszner/Coding/downstream/`
+   - Created initial commit with 16,968 files
+   - Added remote: https://github.com/sunlesshalo/downstream.studio.git
+   - Pushed to GitHub successfully
+
+2. **Updated Documentation**
+   - CLAUDE.md: Added repo URL and legacy server path note
+   - CONTEXT.md: Updated repo URL, added Session 37 entry
+   - STATE.json: Updated date and current focus
+
+### Outcomes
+
+- Repository live at https://github.com/sunlesshalo/downstream.studio
+- All documentation reflects new repo location
+- Server directory `/root/downstream.ink` noted as legacy name (git remote is correct)
+
+### Flags
+- [ ] Server git remote needs update: `git remote set-url origin https://github.com/sunlesshalo/downstream.studio.git`
+
+---
+
 ### 2026-01-16 — Human Session (Session 35)
 
 **Trigger:** human (Ferenc)
