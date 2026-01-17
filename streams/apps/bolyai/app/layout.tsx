@@ -31,7 +31,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
-                var DS_ANALYTICS_ENDPOINT = 'https://analytics.downstream.ink/event';
+                var DS_ANALYTICS_ENDPOINT = 'https://analytics.downstream.ink';
                 var DS_STREAM_ID = 'bolyai';
                 var sessionId = crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2);
                 var visitorId = localStorage.getItem('ds_vid') || (function() { var id = crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2); localStorage.setItem('ds_vid', id); return id; })();

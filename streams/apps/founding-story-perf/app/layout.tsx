@@ -21,7 +21,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: `(function() {
   'use strict';
-  var DS_ANALYTICS_ENDPOINT = 'https:
+  var DS_ANALYTICS_ENDPOINT = 'https://analytics.downstream.ink';
   var DS_STREAM_ID = 'founding-story';
   if (DS_ANALYTICS_ENDPOINT.indexOf('__') === 0) {
     console.warn('[DS Analytics] Not configured');
