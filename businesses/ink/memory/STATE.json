@@ -1,7 +1,7 @@
 {
   "project": "DownStream SaaS",
   "updated": "2026-01-17",
-  "current_focus": "Analytics tracking fully operational with engagement metrics. All 16 streams have canonical full tracker. Engagement summaries confirmed working (bolyai, the-loop-demo). Historical data shows zeros (expected). System ready for production use.",
+  "current_focus": "Demo streams improved for marketing. Club promo has professional content, CTA button, background music, subtle audio player UI. Restaurant stream has professional menu layout and styling. Both deployed and ready for marketing use.",
   "metrics": {
     "revenue_total": 0,
     "revenue_this_week": 0,
@@ -340,6 +340,15 @@
       "task": "Fix analytics tracking across all 16 streams",
       "status": "completed",
       "notes": "Fixed: (1) sendBeacon Content-Type via Blob wrapper, (2) Wrong stream IDs in multiple apps (were 'flight-of-ravens'), (3) Old tracker code in bolyai (sent to / instead of /pageview), (4) Analytics service using wrong DB. Added pre-deployment check rule to finalize-stream skill. All 16 streams now have correct tracker.",
+      "blocked_by": "",
+      "created": "2026-01-17",
+      "completed": "2026-01-17"
+    },
+    {
+      "id": 38,
+      "task": "Improve demo streams for marketing (club promo + restaurant)",
+      "status": "completed",
+      "notes": "Full marketing upgrade: (1) Professional copy with 20+ years hospitality marketing approach, (2) CTA buttons with proper styling, (3) Club promo: AudioPlayer with royalty-free electronic music, subtle white/grey UI, 'tap for sound' split into two lines, (4) Restaurant: Google Fonts (Playfair Display, Source Serif 4), Mediterranean color palette, (5) Fixed frame extraction from segment videos (121 frames each), (6) Removed ugly colors (magenta→cyan→white). Both deployed to Vercel.",
       "blocked_by": "",
       "created": "2026-01-17",
       "completed": "2026-01-17"

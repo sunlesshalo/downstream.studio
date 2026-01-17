@@ -7,6 +7,62 @@
 
 # Session Log
 
+## 2026-01-17 (Session 44)
+**Demo Streams Marketing Upgrade**
+
+Improved club promo and restaurant demo streams for marketing use cases.
+
+### What Was Done
+
+1. **Marketing Content Overhaul**
+   - Rewrote both content.tsx files with professional hospitality marketing copy
+   - Added CTA buttons ("GET ON THE LIST" for club, "MAKE A RESERVATION" for restaurant)
+   - Applied 20+ years hospitality marketing perspective per user request
+
+2. **Club Promo Stream Enhancements**
+   - Created AudioPlayer.tsx component with royalty-free electronic music
+   - Initial Pixabay CDN URLs failed (403), downloaded working track via download URL format
+   - Iteratively refined colors: removed magenta (#ff00ff), then cyan (#00d4ff), final white/grey
+   - Fixed "tap for sound" styling: split into two lines, positioned beside button, muted white color
+   - Final theme: background #0a0a0a, text/accent #ffffff, muted rgba(255, 255, 255, 0.55)
+
+3. **Restaurant Stream Enhancements**
+   - Added Google Fonts (Playfair Display, Source Serif 4) to layout.tsx
+   - Mediterranean color palette: cream background, olive text, warm brown accent
+
+4. **Critical Bug Fixes**
+   - Frames were missing from public folders → copied from specs folders
+   - Wrong frame counts in configs (said 141, actual 121) → corrected
+   - Restaurant was using single video for all 3 sections → extracted frames from 3 separate segment videos using ffmpeg
+
+5. **Deployments**
+   - Both apps deployed to Vercel with `vercel --prod`
+   - Club: https://demo-club-promo-perf.vercel.app
+   - Restaurant: https://demo-restaurant-mediterranean-perf.vercel.app
+
+### Technical Details
+
+**Frame extraction command:**
+```bash
+ffmpeg -i segment_X.mp4 -c:v libwebp -pix_fmt yuva420p -q:v 80 frame_%04d.webp
+```
+
+**AudioPlayer final styling:**
+- Button: 44px circle, 1px white border, translucent black background
+- Hint text: 0.65rem, muted white, "tap for<br />sound" split into two lines
+- Positioned: fixed bottom-left (24px from edges)
+
+### Learnings
+- Pixabay CDN direct links blocked (403), but download URLs with filename parameter work
+- Color choices matter significantly for club aesthetic (neon colors feel tacky, white/grey feels premium)
+- Frame extraction needs `-c:v libwebp` flag for individual frames (not animated webp)
+
+### Next
+- Demo streams ready for marketing use
+- Both have professional copy and CTAs
+
+---
+
 ## 2026-01-17 (Session 39)
 **Hetzner Migration Complete + System Testing**
 

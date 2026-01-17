@@ -37,6 +37,78 @@ This is the business diary. Every session (human-initiated, cron-triggered, webh
 
 ## Operations Log
 
+### 2026-01-17 — Human Session (Session 44)
+
+**Trigger:** human (Ferenc)
+**Duration:** ~60 minutes
+
+### What Happened
+
+**Demo Streams Marketing Upgrade**
+
+User requested improvements to restaurant and club promo demo streams for marketing purposes:
+- Make text look more professional
+- Add more content
+- Add CTA buttons
+- Approach as marketing task (20+ years hospitality experience)
+
+1. **Content Rewrite**
+   - Rewrote both content.tsx files with professional marketing copy
+   - Club promo: Event details, DJ lineup, VIP pricing, atmosphere description
+   - Restaurant: Menu layout with seasonal dishes, Mediterranean ambiance
+
+2. **CTA Buttons Added**
+   - Club: "GET ON THE LIST" button
+   - Restaurant: "MAKE A RESERVATION" button
+   - Both styled with proper padding, hover states
+
+3. **Club Promo Audio**
+   - Created AudioPlayer.tsx component
+   - Downloaded royalty-free electronic track from Pixabay (3.5MB, ~2 min)
+   - Initial CDN URLs failed (403), used download URL format instead
+
+4. **Color Iterations (Club)**
+   - Initial: Used magenta accent → User: "remove that shitty magenta"
+   - Changed to cyan (#00d4ff) → User: "remove that fucking cyan"
+   - Final: All white/grey (accent #ffffff, muted rgba(255,255,255,0.55))
+
+5. **Audio Player Styling**
+   - User: "Tap 4 sound text looks like shit"
+   - Fixed: Subtle white button, split "tap for<br />sound" into two lines
+   - Positioned beside button, muted white color (0.65rem, 0.5 opacity)
+
+6. **Critical Bug Fixes**
+   - Frames missing from public folders → copied from specs
+   - Wrong frame counts (141 vs 121) → corrected in configs
+   - Restaurant: Extracted frames from 3 separate segment videos
+
+7. **Deployments**
+   - Club: https://demo-club-promo-perf.vercel.app
+   - Restaurant: https://demo-restaurant-mediterranean-perf.vercel.app
+
+### Outcomes
+- ✅ Both demo streams have professional marketing content
+- ✅ CTA buttons working
+- ✅ Club promo has background music with subtle player UI
+- ✅ Restaurant has Google Fonts (Playfair Display, Source Serif 4)
+- ✅ Both deployed to Vercel
+
+### Files Modified
+- streams/apps/demo-club-promo-perf/content.tsx
+- streams/apps/demo-club-promo-perf/config.tsx
+- streams/apps/demo-club-promo-perf/components/AudioPlayer.tsx (new)
+- streams/apps/demo-club-promo-perf/app/page.tsx
+- streams/apps/demo-club-promo-perf/public/audio.mp3 (new)
+- streams/apps/demo-restaurant-mediterranean-perf/content.tsx
+- streams/apps/demo-restaurant-mediterranean-perf/config.tsx
+- streams/apps/demo-restaurant-mediterranean-perf/app/layout.tsx
+
+### Flags
+- [x] Completed successfully
+- [x] Both demos ready for marketing use
+
+---
+
 ### 2026-01-17 — Human Session (Session 43)
 
 **Trigger:** human (Ferenc)

@@ -9,9 +9,9 @@ export const streamConfig: StreamConfig = {
   type: 'story',
 
   segments: [
-    { id: 1, frameCount: 141 },
-    { id: 2, frameCount: 141 },
-    { id: 3, frameCount: 141 },
+    { id: 1, frameCount: 121 },
+    { id: 2, frameCount: 121 },
+    { id: 3, frameCount: 121 },
   ],
 
   sections: [
@@ -44,13 +44,13 @@ export const streamConfig: StreamConfig = {
   theme: {
     colors: {
       background: '#0a0a0a',
-      text: '#00ffff',
-      accent: '#ff00ff',
-      muted: '#ffd700'
+      text: '#ffffff',
+      accent: '#ffffff',
+      muted: 'rgba(255, 255, 255, 0.55)'
     },
     fonts: {
-      heading: 'Georgia, serif',
-      body: 'Georgia, serif'
+      heading: '"SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+      body: '"SF Pro Text", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
     }
   }
 }

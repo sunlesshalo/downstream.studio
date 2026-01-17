@@ -9,9 +9,9 @@ export const streamConfig: StreamConfig = {
   type: 'story',
 
   segments: [
-    { id: 1, frameCount: 141 },
-    { id: 2, frameCount: 141 },
-    { id: 3, frameCount: 141 },
+    { id: 1, frameCount: 121 },
+    { id: 2, frameCount: 121 },
+    { id: 3, frameCount: 121 },
   ],
 
   sections: [
@@ -44,13 +44,13 @@ export const streamConfig: StreamConfig = {
   theme: {
     colors: {
       background: '#faf8f5',
-      text: '#2d4a3e',
-      accent: '#c4a77d',
-      muted: '#d4a574'
+      text: '#2d3a35',
+      accent: '#8b7355',
+      muted: '#6b7d75'
     },
     fonts: {
-      heading: 'Georgia, serif',
-      body: 'Georgia, serif'
+      heading: '"Playfair Display", Georgia, "Times New Roman", serif',
+      body: '"Source Serif 4", Georgia, "Times New Roman", serif'
     }
   }
 }
