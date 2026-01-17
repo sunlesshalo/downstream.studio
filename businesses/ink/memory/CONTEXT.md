@@ -1616,3 +1616,22 @@ Analytics is now production-ready. Every future stream deployment will:
 
 **Current: 12 streams registered**
 
+---
+
+## Session 41 — 2026-01-17
+**Bolyai Stream Text Update**
+
+Quick content edit session.
+
+### What Was Done
+- Updated Bolyai stream text content with Ferenc's edited Hungarian text
+- Preserved JSX structure: `<strong>`, `<em>`, `<Dialogue>` components
+- Built and verified locally
+- Deployed to Vercel
+
+### Files Modified
+- `streams/apps/bolyai/content.tsx` — replaced all text content
+
+### Deployed
+- https://bolyai-kappa.vercel.app
+

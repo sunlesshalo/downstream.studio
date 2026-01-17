@@ -37,6 +37,31 @@ This is the business diary. Every session (human-initiated, cron-triggered, webh
 
 ## Operations Log
 
+### 2026-01-17 — Human Session (Session 41)
+
+**Trigger:** human (Ferenc)
+**Duration:** ~10 minutes
+
+### What Happened
+
+**Bolyai Stream Text Update**
+
+1. User provided edited Hungarian text via Google Docs → saved to `tmp/bolyai_new.md`
+2. Updated `streams/apps/bolyai/content.tsx` with new text
+3. Preserved formatting: `<strong>`, `<em>`, `<Dialogue>` components
+4. Built locally (successful)
+5. Deployed to Vercel
+
+### Outcomes
+- Bolyai stream text updated and live
+- Production URL: https://bolyai-kappa.vercel.app
+- No spending (text-only change)
+
+### Flags
+- [x] Completed successfully
+
+---
+
 ### 2026-01-17 — Human Session (Session 39)
 
 **Trigger:** human (Ferenc)
