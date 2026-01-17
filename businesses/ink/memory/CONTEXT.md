@@ -7,6 +7,32 @@
 
 # Session Log
 
+## 2026-01-17 (Session 37)
+**Git Repository Migration**
+
+Initialized git in the new unified `downstream/` directory and pushed to new repository.
+
+### What Was Done
+
+1. **Git Initialization**
+   - Initialized git in `/Users/ferenczcsuszner/Coding/downstream/`
+   - Created initial commit with 16,968 files
+   - Pushed to new repo: https://github.com/sunlesshalo/downstream.studio
+
+2. **Documentation Updates**
+   - Updated CLAUDE.md with repo URL and legacy path note
+   - Updated CONTEXT.md GitHub repo reference
+   - Noted that server directory `/root/downstream.ink` is legacy name (git remote is correct)
+
+### Files Modified
+- CLAUDE.md — Added repo URL and legacy path note
+- businesses/ink/memory/CONTEXT.md — Updated repo URL and server path note
+
+### Note
+Server directory on Hetzner is still `/root/downstream.ink`. This is a legacy name; the git remote points to the correct repo. Can be renamed later if desired.
+
+---
+
 ## 2026-01-16 (Session 36)
 **Bolyai Stream + Infrastructure Fixes**
 
@@ -1322,8 +1348,8 @@ Next session: Test high-movement stylized prompts, register domain if decided
 
 ## Business Context
 
-- **GitHub Repo:** https://github.com/sunlesshalo/downstream.ink
-- **Server:** cc-n8n (Hetzner), repo at ~/downstream.ink
+- **GitHub Repo:** https://github.com/sunlesshalo/downstream.studio
+- **Server:** cc-n8n (Hetzner), directory at ~/downstream.ink (legacy name, git remote points to correct repo)
 - **Skills:** All slash commands removed. Use skills via Skill tool (e.g., /start, /checkpoint)
 
 ### Architecture: Two Claude Instances, One Repo

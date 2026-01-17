@@ -79,6 +79,10 @@ Do NOT rely on memory. Do NOT guess. Read the file first.
 
 **Mac and Hetzner server share the SAME codebase via GitHub.**
 
+**Repository:** https://github.com/sunlesshalo/downstream.studio
+
+**Note:** Server directory is still `/root/downstream.ink` (legacy name). The git remote points to the correct repo.
+
 **Correct workflow for code changes:**
 1. Make changes locally on Mac
 2. `git add`, `git commit`, `git push`
