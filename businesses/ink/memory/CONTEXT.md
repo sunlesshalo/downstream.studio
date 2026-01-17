@@ -1527,3 +1527,84 @@ Next.js app generated (Python script, ~10 sec)
                    ↓
 Customer gets live URL
 ```
+
+## Session 40 — 2026-01-17
+
+**Analytics System Fixed — Full End-to-End Tracking Working**
+
+### Problem
+Analytics dashboard showed all metrics as 0 because:
+1. **CORS blocking**: nginx had no CORS headers → browser blocked all tracker→analytics requests
+2. **Missing trackers**: 3 streams deployed without analytics tracker in HTML
+
+### Solution
+**1. CORS Fix (CRITICAL)**
+- Added CORS headers to `/etc/nginx/sites-enabled/analytics.downstream.ink`
+- `Access-Control-Allow-Origin: *` allows requests from all Vercel domains
+- Handles OPTIONS preflight requests properly
+- Created `infrastructure/deploy/analytics.nginx.conf` for future deployments
+
+**2. Systemd Service for Analytics**
+- Created `infrastructure/deploy/analytics.service`
+- Fixed repeated crashes from port 8082 conflicts
+- Analytics now auto-starts on boot and auto-restarts on failure
+
+**3. Stream Registration Automation**
+- Created `infrastructure/analytics/register_stream.sh` — single stream registration
+- Created `infrastructure/analytics/register_all_deployed.sh` — bulk registration
+- Created `infrastructure/analytics/sync_from_vercel.sh` — auto-discover from Vercel API
+- Updated Director Dashboard to auto-register on deployment
+
+**4. Redeployed Streams Without Trackers**
+Rebuilt and deployed 3 streams that had traffic but no tracker:
+- `az-utols-iro` → https://az-utols-iro.vercel.app
+- `nvnyeknek-mondotta-el-rszlet` → https://nvnyeknek-mondotta-el-rszlet.vercel.app
+- `fotoszintezis-demo` → https://fotoszintezis-demo.vercel.app
+
+All now have analytics tracker injected and are collecting data.
+
+### Verification
+**Tested end-to-end analytics flow:**
+```
+1. POST /pageview → returns page_view_id
+2. POST /events with scroll milestones → stores in DB
+3. Query DB → milestones present
+4. GET /stats/stream-id → returns correct metrics
+```
+
+**Current Status:**
+- ✅ 13 streams registered with analytics
+- ✅ 6 streams with live traffic  
+- ✅ CORS enabled for cross-origin requests
+- ✅ All trackers working
+- ✅ Scroll depth, milestones, engagement tracking functional
+- ✅ Analytics API operational at analytics.downstream.ink
+
+**Architecture:**
+```
+Vercel Stream → Tracker (injected) → analytics.downstream.ink (CORS enabled)
+                                    → nginx → FastAPI → SQLite
+                                    → Dashboard at /dashboard
+```
+
+### Files Changed
+- `infrastructure/deploy/analytics.nginx.conf` — CORS-enabled nginx config
+- `infrastructure/deploy/analytics.service` — systemd service definition
+- `infrastructure/analytics/register_stream.sh` — single stream registration
+- `infrastructure/analytics/register_all_deployed.sh` — bulk registration  
+- `infrastructure/analytics/sync_from_vercel.sh` — Vercel API sync
+- `infrastructure/director/api.py` — auto-register on deployment
+
+### Commits
+- `7dc3cd2` Add automatic analytics registration for all streams
+- `ce14dcc` Add systemd service for analytics API
+- `29215f5` Register all 13 deployed Vercel streams with analytics
+- `e6f0127` Fix analytics CORS issue - enable cross-origin tracking
+
+### Next
+Analytics is now production-ready. Every future stream deployment will:
+1. Have tracker auto-injected by `generate_app.py`
+2. Auto-register with analytics via Director Dashboard
+3. Collect scroll depth, engagement, completion metrics
+4. Display in analytics dashboard immediately
+
