@@ -135,7 +135,7 @@ export default function RootLayout({
       events: events
     });
     if (navigator.sendBeacon) {
-      navigator.sendBeacon(DS_ANALYTICS_ENDPOINT + '/events', new Blob([payload], {type: 'application/json'}));
+      navigator.sendBeacon(DS_ANALYTICS_ENDPOINT + '/events', payload);
     } else {
       var xhr = new XMLHttpRequest();
       xhr.open('POST', DS_ANALYTICS_ENDPOINT + '/events', true);

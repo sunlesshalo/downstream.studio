@@ -19,9 +19,12 @@ from pathlib import Path
 app = FastAPI(title="DownStream Analytics API")
 
 # CORS for stream domains
+# Note: sendBeacon sends with credentials, so we can't use "*"
+# Using allow_origin_regex to match all Vercel and downstream domains
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # In production: restrict to *.vercel.app, *.downstream.ink
+    allow_origin_regex=r"https://.*\.(vercel\.app|downstream\.(ink|studio))$",
+    allow_credentials=True,
     allow_methods=["POST", "GET", "OPTIONS"],
     allow_headers=["Content-Type"],
 )
