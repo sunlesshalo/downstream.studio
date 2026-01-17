@@ -2135,6 +2135,23 @@ async def deploy_stream(
         with open(deployment_file, "w") as f:
             json.dump(deployment_data, f, indent=2)
 
+        # Register with analytics
+        try:
+            register_cmd = [
+                str(project_root / "infrastructure/analytics/register_stream.sh"),
+                stream_id,
+                deploy_url
+            ]
+            subprocess.run(
+                register_cmd,
+                capture_output=True,
+                text=True,
+                timeout=30
+            )
+            # Non-critical - don't fail deployment if registration fails
+        except Exception as e:
+            print(f"Warning: Analytics registration failed: {e}")
+
         return {"status": "success", "url": deploy_url}
 
     except subprocess.TimeoutExpired:
