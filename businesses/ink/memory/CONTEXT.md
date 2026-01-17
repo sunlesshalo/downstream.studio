@@ -7,6 +7,24 @@
 
 # Session Log
 
+## 2026-01-17 (Session 47)
+**Analytics Dashboard Visualizations**
+
+- Created 30-sec recording of The Loop demo (saved to assets/recordings/loop-demo.mp4)
+- Upgraded analytics dashboard with Chart.js visualizations:
+  - Views over time (line chart)
+  - Device breakdown (donut chart)
+  - Scroll depth funnel (custom HTML bars)
+  - Peak hours (bar chart, 24h UTC)
+  - Geographic distribution (list with flags)
+  - Section engagement (horizontal bar chart)
+- Added stream-specific detail dashboard at `/dashboard/stream/{stream_id}`
+- 8 new API endpoints for stream-specific chart data
+- Fixed nginx to forward CF-IPCountry header
+- **Action needed:** Enable Cloudflare proxy (orange cloud) on `analytics.downstream.ink` for geographic data
+
+---
+
 ## 2026-01-17 (Session 46)
 **Analytics Service Monitoring + Stream Verification**
 

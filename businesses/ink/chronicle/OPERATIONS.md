@@ -37,6 +37,47 @@ This is the business diary. Every session (human-initiated, cron-triggered, webh
 
 ## Operations Log
 
+### 2026-01-17 22:00 — Human Session (Session 47)
+
+**Trigger:** human (Ferenc)
+**Duration:** ~45 minutes
+
+### What Happened
+
+**Analytics Dashboard Upgrade**
+
+1. Created 30-second screen recording of The Loop demo stream
+   - Used Playwright + ffmpeg for capture
+   - Saved to assets/recordings/loop-demo.mp4
+
+2. Upgraded analytics dashboard with visualizations (Chart.js):
+   - Views over time (line chart with views + unique visitors)
+   - Device breakdown (donut chart)
+   - Scroll depth funnel (custom styled HTML)
+   - Peak hours (24-hour bar chart)
+   - Geographic distribution (list with country flags)
+   - Section engagement (horizontal bar chart)
+
+3. Added stream-specific detail dashboard:
+   - Route: /dashboard/stream/{stream_id}
+   - Same visualizations as main dashboard but per-stream
+   - 8 new API endpoints for stream-specific data
+
+4. Fixed geographic tracking:
+   - Updated nginx to forward CF-IPCountry header
+   - Discovered: analytics.downstream.ink not proxied through Cloudflare
+   - Action needed: Enable Cloudflare proxy for geo data
+
+### Outcomes
+- Dashboard v2.0 deployed to analytics.downstream.ink
+- Stream detail pages accessible via "Analytics" link in main dashboard
+- All endpoints tested and working
+
+### Flags
+- [ ] Enable Cloudflare proxy on analytics.downstream.ink for geographic data
+
+---
+
 ### 2026-01-17 16:00 — Human Session (Session 46)
 
 **Trigger:** human (Ferenc)
