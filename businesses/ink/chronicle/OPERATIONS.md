@@ -37,6 +37,48 @@ This is the business diary. Every session (human-initiated, cron-triggered, webh
 
 ## Operations Log
 
+### 2026-01-17 — Human Session (Session 42)
+
+**Trigger:** human (Ferenc)
+**Duration:** ~90 minutes
+
+### What Happened
+
+**Analytics Tracking Comprehensive Fix**
+
+1. **Diagnosed multiple issues:**
+   - sendBeacon returning 422 (missing Content-Type header)
+   - Multiple streams with wrong DS_STREAM_ID ('flight-of-ravens')
+   - Bolyai had legacy tracker (sent to `/` instead of `/pageview`)
+   - Analytics API using wrong database
+
+2. **Fixed all 16 streams:**
+   - Deployed sendBeacon Blob fix to all apps
+   - Corrected stream IDs in az-ehseg-v2, hollok-ropte, the-hunger variants, the-loop-demo
+   - Rewrote bolyai tracker completely (200+ line replacement)
+   - Restarted analytics with correct DB path
+
+3. **Fixed Vercel deployment issue:**
+   - Bolyai was creating duplicate projects
+   - Updated .vercel/project.json with correct project ID
+   - Deployed to https://stream-bolyai.vercel.app
+
+4. **Added enforcement rule:**
+   - Pre-deployment check rule in finalize-stream skill
+   - Must verify existing Vercel projects before deploying
+
+### Outcomes
+- All 16 streams have correct analytics tracker
+- Analytics API running with correct database
+- Pre-deployment check rule prevents future duplicate projects
+- Bolyai live at https://stream-bolyai.vercel.app
+
+### Flags
+- [x] Completed successfully
+- [ ] User should hard-refresh streams to get new JS (browser caching)
+
+---
+
 ### 2026-01-17 — Human Session (Session 41)
 
 **Trigger:** human (Ferenc)

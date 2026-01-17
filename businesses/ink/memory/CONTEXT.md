@@ -1618,6 +1618,43 @@ Analytics is now production-ready. Every future stream deployment will:
 
 ---
 
+## Session 42 — 2026-01-17
+**Analytics Tracking Fixed Across All 16 Streams**
+
+Comprehensive fix session for analytics tracking issues.
+
+### Problems Found
+1. **sendBeacon 422 errors**: Browser sending events without Content-Type header, Pydantic rejecting
+2. **Wrong stream IDs**: Multiple apps had `DS_STREAM_ID = 'flight-of-ravens'` hardcoded
+3. **Old tracker code**: Bolyai had legacy tracker sending to `/` instead of `/pageview` and `/events`
+4. **Analytics service**: Was using empty local DB instead of `/var/lib/downstream/analytics.db`
+5. **Duplicate Vercel projects**: Bolyai deploying to wrong project
+
+### Fixes Applied
+1. **sendBeacon**: Wrapped payload in `new Blob([payload], {type: 'application/json'})`
+2. **Stream IDs**: Fixed az-ehseg-v2, hollok-ropte, the-hunger, the-hunger-perf, the-loop-demo
+3. **Bolyai tracker**: Replaced entire layout.tsx with correct tracker (200+ lines)
+4. **Analytics DB**: Restarted service with `DS_ANALYTICS_DB=/var/lib/downstream/analytics.db`
+5. **Vercel projects**: Updated `.vercel/project.json` to use `stream-bolyai` project ID
+
+### Rule Added
+Added **PRE-DEPLOYMENT RULE** to `.claude/skills/finalize-stream/SKILL.md`:
+- Must check Vercel API for existing projects before deploying
+- Must link to existing project, never create duplicates
+
+### Verification
+All 16 streams verified with correct tracker:
+- `DS_ANALYTICS_ENDPOINT = 'https://analytics.downstream.ink'`
+- `DS_STREAM_ID` matches app folder name
+- Using `/pageview` and `/events` endpoints
+- sendBeacon with Blob wrapper for Content-Type
+
+### Commits
+- `6b7ab3b` Fix bolyai tracker to use /pageview and /events endpoints
+- `8cf47f5` Add pre-deployment check rule to finalize-stream skill
+
+---
+
 ## Session 41 — 2026-01-17
 **Bolyai Stream Text Update**
 
