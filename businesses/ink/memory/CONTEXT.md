@@ -7,6 +7,57 @@
 
 # Session Log
 
+## 2026-01-17 (Session 39)
+**Hetzner Migration Complete + System Testing**
+
+Mac and Hetzner now unified on same repository structure.
+
+### What Was Done
+
+1. **Local Testing**
+   - Tested Bolyai stream rebuild: `npm run build` successful
+   - Tested `produce_stream.py --help`: All options working
+   - Changed default video model: minimax → kling (50% cost savings)
+   - Tested Director Dashboard: Both dev and production modes working
+
+2. **Director Dashboard Fixes**
+   - Fixed `start.sh` import issue: Changed to run from director/ directory
+   - Updated to use `python3 -m uvicorn api:app` for correct module resolution
+   - Resolved FastAPI import errors
+
+3. **Hetzner Server Migration**
+   - Updated git remote: `https://github.com/sunlesshalo/downstream.studio`
+   - Hard reset to latest code (commit 2952fda)
+   - Renamed: `/root/downstream.ink` → `/root/downstream`
+   - Created Python venv at `/root/downstream/venv`
+   - Installed all Director dependencies
+   - Updated systemd service file (paths + port 8083)
+   - Updated crontab (all paths to `/root/downstream`)
+
+4. **Verification**
+   - All 9 verification checks passed
+   - Director service running successfully
+   - HTTP endpoint responding correctly (302 → /login)
+   - Database intact (5 tables)
+
+### Outcomes
+- **Mac:** `/Users/ferenczcsuszner/Coding/downstream/`
+- **Hetzner:** `/root/downstream/`
+- **Both synced to:** `github.com/sunlesshalo/downstream.studio`
+- **Director Dashboard:** Operational at 46.224.118.133:8083
+- **Cost optimization:** Default video model now kling ($0.25 vs $0.50)
+
+### Key Learnings
+- Migration went smoothly with automated scripts
+- No data loss, all services restarted successfully
+- Git ownership issue resolved with `git config --global --add safe.directory`
+
+### Next Steps
+- System ready for production stream generation
+- Both environments now operating from unified codebase
+
+---
+
 ## 2026-01-17 (Session 38)
 **Codebase Consolidation Complete**
 
