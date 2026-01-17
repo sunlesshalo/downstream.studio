@@ -41,10 +41,15 @@ def sanitize_stream_id(stream_id: str) -> str:
 def load_production_spec(stream_id: str) -> dict:
     """Load production.json for a stream."""
     stream_id = sanitize_stream_id(stream_id)
-    spec_path = project_root / f"pipeline/streams/{stream_id}/production.json"
+    # Try new path first, then fallback to old path
+    spec_path = project_root / f"streams/specs/{stream_id}/production.json"
     if not spec_path.exists():
-        print(f"Error: production.json not found at {spec_path}")
-        sys.exit(1)
+        spec_path = project_root / f"pipeline/streams/{stream_id}/production.json"
+        if not spec_path.exists():
+            print(f"Error: production.json not found for stream: {stream_id}")
+            print(f"  Tried: streams/specs/{stream_id}/production.json")
+            print(f"  Tried: pipeline/streams/{stream_id}/production.json")
+            sys.exit(1)
 
     with open(spec_path) as f:
         return json.load(f)
