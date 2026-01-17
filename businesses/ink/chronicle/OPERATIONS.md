@@ -37,6 +37,75 @@ This is the business diary. Every session (human-initiated, cron-triggered, webh
 
 ## Operations Log
 
+### 2026-01-17 — Human Session (Session 39)
+
+**Trigger:** human (Ferenc)
+**Duration:** ~60 minutes
+
+### What Happened
+
+**System Testing + Hetzner Migration**
+
+1. **Local Testing**
+   - Tested Bolyai stream rebuild: `npm run build` successful
+   - Tested `produce_stream.py --help`: All options working
+   - Changed default video model: minimax → kling (50% cost savings)
+   - Tested Director Dashboard locally: FastAPI app running on port 8083
+
+2. **Director Dashboard Fixes**
+   - Fixed `start.sh` import issue: Changed from running at project root to director directory
+   - Updated to use `python3 -m uvicorn api:app` for correct module resolution
+   - Tested both dev and production modes successfully
+
+3. **Hetzner Server Migration**
+   - Updated git remote: downstream.ink → downstream.studio
+   - Hard reset to latest code (commit 2952fda)
+   - Renamed: `/root/downstream.ink` → `/root/downstream`
+   - Created Python venv at `/root/downstream/venv`
+   - Installed Director dependencies (FastAPI, uvicorn, bcrypt, slowapi, etc.)
+   - Updated systemd service file: paths + port 8083
+   - Updated crontab: all paths changed to `/root/downstream`
+   - Reloaded systemd and started Director service
+
+4. **Verification**
+   - All 9 verification checks passed:
+     - ✓ Repository directory exists
+     - ✓ Python venv exists
+     - ✓ Git repository at commit 2952fda
+     - ✓ Director service running
+     - ✓ HTTP endpoint responding (302 → /login)
+     - ✓ Database exists (5 tables)
+     - ✓ Crontab paths updated
+     - ✓ Systemd service paths updated
+     - ✓ produce_stream.py exists with kling default
+
+### Outcomes
+- **Mac and Hetzner now unified** on same codebase structure
+- **Both pointing to same repo:** github.com/sunlesshalo/downstream.studio
+- **Director Dashboard operational** at 46.224.118.133:8083
+- **All scripts updated** to use new paths
+- **Cost reduction:** Default video model now kling ($0.25 vs $0.50)
+
+### Files Created
+- infrastructure/migrate_to_downstream.sh (automated migration script)
+- infrastructure/verify_migration.sh (9-check verification)
+
+### Files Modified
+- factory/execution/produce_stream.py (kling default)
+- infrastructure/director/start.sh (working directory fix)
+
+### Commits
+- 4b61a36: Fix Director start.sh and set Kling as default video model
+- 27add61: Add Hetzner migration scripts
+- 2952fda: Session 38 consolidation complete
+
+### Flags
+- [x] Hetzner migration complete
+- [x] All verification checks passed
+- [x] Director service running successfully
+
+---
+
 ### 2026-01-17 — Human Session (Session 38)
 
 **Trigger:** human (Ferenc)

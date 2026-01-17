@@ -1,7 +1,7 @@
 {
   "project": "DownStream SaaS",
   "updated": "2026-01-17",
-  "current_focus": "Codebase consolidated at /Coding/downstream/. Repo: github.com/sunlesshalo/downstream.studio. 16 stream apps, 9 specs. Next: rewire Hetzner to use new repo.",
+  "current_focus": "Unified codebase complete. Mac: /Coding/downstream/. Hetzner: /root/downstream. Both synced to github.com/sunlesshalo/downstream.studio. Migration verified, all systems operational.",
   "metrics": {
     "revenue_total": 0,
     "revenue_this_week": 0,
@@ -329,11 +329,11 @@
     {
       "id": 36,
       "task": "Rewire Hetzner server to use consolidated repo",
-      "status": "pending",
-      "notes": "Clone new repo to server, update cron paths, test job processing. Server currently uses /root/downstream.ink pointing to old repo.",
+      "status": "completed",
+      "notes": "Renamed /root/downstream.ink → /root/downstream. Updated git remote to github.com/sunlesshalo/downstream.studio. Python venv at /root/downstream/venv. Updated systemd service + crontab paths. Director running on port 8083. All 9 verification checks passed.",
       "blocked_by": "",
       "created": "2026-01-17",
-      "completed": ""
+      "completed": "2026-01-17"
     }
   ],
   "_schema": {
