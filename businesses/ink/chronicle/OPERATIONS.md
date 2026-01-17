@@ -37,6 +37,52 @@ This is the business diary. Every session (human-initiated, cron-triggered, webh
 
 ## Operations Log
 
+### 2026-01-17 — Human Session (Session 38)
+
+**Trigger:** human (Ferenc)
+**Duration:** ~90 minutes
+
+### What Happened
+
+**Codebase Consolidation**
+
+1. **Analytics Tracking Audit**
+   - Checked tracking across all deployed streams
+   - Added safeguard warning to generate_app.py when tracker.js is missing
+   - Fixed 3 streams missing analytics
+
+2. **Full Codebase Migration**
+   - Verified Hetzner and local AIrunBusiness are in sync (commit 96e05c8)
+   - Created target structure at /Coding/downstream/
+   - Migrated factory (execution + engine + templates + skills + schemas)
+   - Migrated infrastructure from AIrunBusiness
+   - Consolidated 17 stream apps from both sources
+   - Consolidated 15 specs from AIrunBusiness/pipeline/streams
+   - Migrated websites (downstream-ink, downstream-studio, intake)
+   - Copied business memory and chronicle to businesses/ink/
+   - Merged 21 Claude skills from both codebases
+
+3. **Stream Cleanup**
+   - Removed redundant apps: founding-story-hu, stream-1767890796051-fhmnte
+   - Removed redundant specs: demo-the-loop-hu, demo-the-loop-ro, the-loop-test, demo-between-stations, demo-first-light, stream-1767890796051-fhmnte
+   - Moved the-loop-demo from specs/demo-the-loop/app to streams/apps/
+
+4. **Documentation**
+   - Created README.md with project overview
+   - Created CLAUDE.md with unified instructions
+   - Updated repo URL to github.com/sunlesshalo/downstream.studio
+
+### Outcomes
+- Unified codebase at /Coding/downstream/ with 16 stream apps, 9 specs, 21 skills
+- Repository pushed to github.com/sunlesshalo/downstream.studio
+- Original codebases (AIrunBusiness, 2026/downstream) untouched
+- Ready for Hetzner rewiring
+
+### Flags
+- [ ] Hetzner needs to be rewired to use new repo
+
+---
+
 ### 2026-01-17 — Human Session (Session 37)
 
 **Trigger:** human (Ferenc)

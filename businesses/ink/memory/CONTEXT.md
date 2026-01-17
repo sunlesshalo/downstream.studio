@@ -7,6 +7,45 @@
 
 # Session Log
 
+## 2026-01-17 (Session 38)
+**Codebase Consolidation Complete**
+
+Merged two codebases into unified `/Coding/downstream/` project.
+
+### What Was Done
+
+1. **Consolidation Migration**
+   - Created target structure: factory/, infrastructure/, streams/, websites/, businesses/
+   - Copied factory/execution from AIrunBusiness (verified matches Hetzner)
+   - Copied factory/engine from 2026/downstream/packages/engine
+   - Merged 21 Claude skills from both sources
+   - Consolidated 17 stream apps → cleaned to 16 (removed founding-story-hu, test stream)
+   - Consolidated 15 specs → cleaned to 9 (removed Loop variants, unused specs)
+   - Added the-loop-demo app (was only in specs folder)
+
+2. **Stream Cleanup**
+   - Removed: founding-story-hu, stream-1767890796051-fhmnte
+   - Removed specs: demo-the-loop-hu, demo-the-loop-ro, the-loop-test, demo-between-stations, demo-first-light, stream-1767890796051-fhmnte
+   - Kept both quality tiers (high + perf) for all streams
+
+3. **Analytics Audit** (earlier in session)
+   - Added safeguard warning to generate_app.py when tracker.js missing
+   - Fixed 3 streams missing analytics
+
+### Final Inventory
+- 16 stream apps (including the-loop-demo)
+- 9 stream specs
+- 21 Claude skills
+- Both websites (downstream-ink, downstream-studio, intake)
+- Full business memory (ink) preserved
+
+### Next Steps
+- Rewire Hetzner server to use new repo
+- Clone new repo to server
+- Update cron paths and test
+
+---
+
 ## 2026-01-17 (Session 37)
 **Git Repository Migration**
 
