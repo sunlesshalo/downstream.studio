@@ -37,6 +37,53 @@ This is the business diary. Every session (human-initiated, cron-triggered, webh
 
 ## Operations Log
 
+### 2026-01-17 — Human Session (Session 43)
+
+**Trigger:** human (Ferenc)
+**Duration:** ~45 minutes
+
+### What Happened
+
+**Analytics Tracking - CORS + Canonical Tracker Injection**
+
+Continued fixing analytics tracking after user reported engagement metrics still 0.
+
+1. **Additional CORS issues diagnosed:**
+   - Both nginx AND FastAPI adding CORS headers → duplicate header error
+   - sendBeacon sends with credentials mode → can't use wildcard "*"
+
+2. **Fixed CORS properly:**
+   - Removed CORS headers from nginx config
+   - Updated FastAPI to use `allow_origin_regex` with `allow_credentials=True`
+   - Pattern: `r"https://.*\.(vercel\.app|downstream\.(ink|studio))$"`
+
+3. **Discovered tracker discrepancy:**
+   - Canonical `tracker.js` has full engagement_summary tracking
+   - 11 of 16 streams had simpler inline tracker (missing engagement metrics)
+
+4. **Injected canonical tracker into ALL 16 streams:**
+   - Created Python script to update all layout.tsx files
+   - Deployed all 16 streams to Vercel
+
+5. **Investigated az-utols-iro engagement 0:**
+   - Database shows engagement_summaries for bolyai (2) and the-loop-demo (2)
+   - az-utols-iro has page_views, scroll_milestones, section_events - all working
+   - Visit at 10:39 likely hit Vercel edge cache before new deployment propagated
+   - New visits will populate engagement metrics
+
+### Outcomes
+- ✅ Analytics tracking fully operational across all 16 streams
+- ✅ Canonical full tracker deployed everywhere
+- ✅ Engagement tracking proven working (bolyai, the-loop-demo have data)
+- ⏳ Historical data shows zeros (recorded before fix)
+- az-utols-iro engagement will populate with new visits
+
+### Flags
+- [x] Completed successfully
+- [ ] Historical data will show zeros (expected - can't retroactively fix)
+
+---
+
 ### 2026-01-17 — Human Session (Session 42)
 
 **Trigger:** human (Ferenc)

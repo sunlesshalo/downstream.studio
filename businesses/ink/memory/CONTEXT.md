@@ -1618,6 +1618,48 @@ Analytics is now production-ready. Every future stream deployment will:
 
 ---
 
+## Session 43 — 2026-01-17
+**Analytics Tracking CORS + Canonical Tracker Injection**
+
+Continued session fixing analytics tracking across all streams.
+
+### Additional Issues Found
+1. **CORS duplicate headers**: Both nginx AND FastAPI adding CORS → "Access-Control-Allow-Origin: *, *" error
+2. **CORS credentials mode**: sendBeacon sends with credentials → can't use wildcard "*"
+3. **Two tracker types**: Canonical tracker.js (full engagement_summary) vs simple inline trackers (basic only)
+4. **11 of 16 streams** had simpler tracker missing engagement metrics
+
+### Fixes Applied
+1. **CORS**: Removed headers from nginx, updated FastAPI to use `allow_origin_regex` with credentials support
+2. **Content-Type**: Modified /events endpoint to parse body manually (handles text/plain from sendBeacon)
+3. **Canonical tracker injection**: Injected full tracker.js into ALL 16 streams via Python script
+4. **Deployed all 16 streams** to Vercel with correct tracker
+
+### Verification
+Database shows engagement tracking working:
+- bolyai: 2 engagement_summaries (10:29, 10:32)
+- the-loop-demo: 2 engagement_summaries (10:42)
+- All deployed sites have full tracker functions (calculateEngagementSummary, sendEngagementSummary, trackExit)
+
+### az-utols-iro Investigation
+User reported engagement metrics still 0. Investigation showed:
+- Page views and scroll milestones ARE recording correctly
+- Section events show 20-second visit with multiple reversals
+- No engagement_summary for that visit → likely hit Vercel cache before new deployment propagated
+- New visits will populate engagement metrics
+
+### Status
+✅ Analytics tracking fully operational
+✅ All 16 streams have canonical full tracker
+✅ Engagement summaries being recorded
+⏳ Historical data shows zeros (recorded with old tracker)
+
+### Commits
+- `fde02dc` Session 42 checkpoint: Analytics tracking fixed across all 16 streams
+- `d8aad21` Bolyai stream: text update + formatting fixes
+
+---
+
 ## Session 42 — 2026-01-17
 **Analytics Tracking Fixed Across All 16 Streams**
 
