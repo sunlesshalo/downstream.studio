@@ -211,7 +211,7 @@ export default function BetaLandingPage() {
                 We're looking for 10 storytellers to test Downstream with real content.
               </p>
               <div className={styles.applyDeal}>
-                <p><strong>Founder Price:</strong> $497 <span className={styles.muted}>(future price: $1,497+)</span></p>
+                <p><strong>Founder Price Starts at $99</strong></p>
                 <p><strong>You bring:</strong> A story (1,000-2,000 words)</p>
                 <p><strong>We deliver:</strong> A complete stream</p>
                 <p><strong>In exchange for:</strong> Honest feedback</p>

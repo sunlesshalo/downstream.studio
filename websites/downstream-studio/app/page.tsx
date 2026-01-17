@@ -272,7 +272,7 @@ export default function BetaLandingPage() {
               <p className={styles.spotsLabel}>Only 10 spots available</p>
               <h2>Join the Founding Beta</h2>
               <div className={styles.applyDeal}>
-                <p><strong>Founder Price:</strong> $497 <span className={styles.muted}>(future price: $1,497+)</span></p>
+                <p><strong>Founder Price Starts at $99</strong></p>
                 <p><strong>You bring:</strong> A story (1,000-2,000 words)</p>
                 <p><strong>We deliver:</strong> A complete stream</p>
               </div>

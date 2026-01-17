@@ -29,10 +29,12 @@ export function Chapter1Content() {
       <Dialogue><p>„Persze, hogy nem találkoznak!" – vághatnád rá. „Éppen ez a párhuzamosság lényege."</p></Dialogue>
       <p>Végső soron, igazad is lenne, de azokat a matematikusokat, akikben a történelem folyamán felmerült ez a kérdés, nem olyan fából faragták, hogy megelégedtek volna egy ilyen válasszal. Ők ugyanis a végső bizonyítékot keresték.</p>
       <p>Kétezer évvel ezelőtt egy görög tudós, Euklidész, lefektette a geometria alapszabályait. Öt egyszerű állítást (axiómát) fogalmazott meg, amelyeket minden körülmény között igaznak tekintett, és amelyekből minden más szabályszerűség levezethető. Az első négy axióma kristálytisztának bizonyult, és leegyszerűsítve így hangzanak:</p>
-      <p style={{ marginBottom: '0.25rem' }}><strong>1. Bármely két pontot össze lehet kötni egyenessel.</strong></p>
-      <p style={{ marginBottom: '0.25rem' }}><strong>2. Egy egyenes mindkét irányban végtelenül meghosszabbítható.</strong></p>
-      <p style={{ marginBottom: '0.25rem' }}><strong>3. Bármely pont körül bármekkora sugárral kört lehet rajzolni.</strong></p>
-      <p style={{ marginBottom: '1rem' }}><strong>4. Minden derékszög egyenlő.</strong></p>
+      <ol style={{ margin: '1rem 0', paddingLeft: '1.5rem', lineHeight: '1.4' }}>
+        <li style={{ marginBottom: '0.15rem' }}><strong>Bármely két pontot össze lehet kötni egyenessel.</strong></li>
+        <li style={{ marginBottom: '0.15rem' }}><strong>Egy egyenes mindkét irányban végtelenül meghosszabbítható.</strong></li>
+        <li style={{ marginBottom: '0.15rem' }}><strong>Bármely pont körül bármekkora sugárral kört lehet rajzolni.</strong></li>
+        <li><strong>Minden derékszög egyenlő.</strong></li>
+      </ol>
       <p>De az ötödik szabály... azaz <em>ha két, azonos síkban fekvő egyenes egy harmadik metsz, akkor a két egyenes a harmadiknak azon az oldalán metszi egymást, amelyiken a keletkezett belső szögek összege két derékszögnél kisebb</em>, kilógott a sorból.</p>
       <p>Bonyolultabbnak, nehézkesebbnek bizonyult a többi axiómánál. Ez a szabály mondja ki, hogy a párhuzamosok soha nem metszik egymást, de olyan bonyolultan, olyan körmönfont módon, hogy már-már gyanúsnak tűnt.</p>
       <p>A matematikusokat évszázadokon át mardosta a kétség: ha a többi négy szabály ilyen elegáns, miért ilyen nyakatekert az ötödik? Tényleg alapigazság, amit egyszerűen el kell hinni? Vagy levezethető a többi négyből? Arab, perzsa, olasz és német tudósok generációi próbálkoztak, és vallottak kudarcot. Aztán a rejtély egy erdélyi család figyelmének középpontjába került.</p>
@@ -58,7 +60,7 @@ export function Chapter3_4Content() {
   return (
     <>
       <h2>3. A probléma lényege</h2>
-      <p>Hogy megértsük János kutatásának lényegét, tegyünk egy próbát. Végy egy papírlapot. Húzz a lapra egy egyenest, az egyenes fölé rajzolj egy pontot, majd ezen a ponton keresztül rajzolj egy másik egyenest, ami párhuzamos az elsővel. Egyszerű, ugy-e? A két vonal sosem találkozik.</p>
+      <p>Hogy megértsük János kutatásának lényegét, tegyünk egy próbát. Végy egy papírlapot. Húzz a lapra egy egyenest, az egyenes fölé rajzolj egy pontot, majd ezen a ponton keresztül rajzolj egy másik egyenest, ami párhuzamos az elsővel. Egyszerű, ugye? A két vonal sosem találkozik.</p>
       <p><strong>De mi van akkor, ha a papír nem teljesen lapos?</strong> Képzeld el, hogy egy kosárlabda felszínére rajzolsz. Ha a labda „egyenlítőjétől" elkezdesz két párhuzamos vonalat húzni az északi pólus felé, azok a csúcson találkozni fognak. Pedig párhuzamosként indultak! Ezt hívjuk gömbgeometriának.</p>
       <p>Itt jön a csavar: <strong>honnan tudjuk, hogy a világunk „lapos"?</strong> Mi van, ha maga a tér – az egész univerzum – nem olyan, mint egy sima asztallap, hanem van benne egy láthatatlan görbület? Ez a kérdés kezdte ki Euklidész ötödik axiómájának örökérvényűségét.</p>
 
