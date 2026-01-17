@@ -1633,5 +1633,9 @@ Quick content edit session.
 - `streams/apps/bolyai/content.tsx` — replaced all text content
 
 ### Deployed
-- https://bolyai-kappa.vercel.app
+- https://stream-bolyai.vercel.app (fixed - was incorrectly deploying to new project)
+
+### Additional Fixes
+- Bolded axioms 1-4 with tight spacing
+- Fixed Vercel deployment: linked to existing `stream-bolyai` project, deleted duplicate `bolyai` project
 

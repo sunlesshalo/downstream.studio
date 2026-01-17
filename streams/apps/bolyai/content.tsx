@@ -29,10 +29,10 @@ export function Chapter1Content() {
       <Dialogue><p>„Persze, hogy nem találkoznak!" – vághatnád rá. „Éppen ez a párhuzamosság lényege."</p></Dialogue>
       <p>Végső soron, igazad is lenne, de azokat a matematikusokat, akikben a történelem folyamán felmerült ez a kérdés, nem olyan fából faragták, hogy megelégedtek volna egy ilyen válasszal. Ők ugyanis a végső bizonyítékot keresték.</p>
       <p>Kétezer évvel ezelőtt egy görög tudós, Euklidész, lefektette a geometria alapszabályait. Öt egyszerű állítást (axiómát) fogalmazott meg, amelyeket minden körülmény között igaznak tekintett, és amelyekből minden más szabályszerűség levezethető. Az első négy axióma kristálytisztának bizonyult, és leegyszerűsítve így hangzanak:</p>
-      <p>1. Bármely két pontot össze lehet kötni egyenessel.</p>
-      <p>2. Egy egyenes mindkét irányban végtelenül meghosszabbítható.</p>
-      <p>3. Bármely pont körül bármekkora sugárral kört lehet rajzolni.</p>
-      <p>4. Minden derékszög egyenlő.</p>
+      <p style={{ marginBottom: '0.25rem' }}><strong>1. Bármely két pontot össze lehet kötni egyenessel.</strong></p>
+      <p style={{ marginBottom: '0.25rem' }}><strong>2. Egy egyenes mindkét irányban végtelenül meghosszabbítható.</strong></p>
+      <p style={{ marginBottom: '0.25rem' }}><strong>3. Bármely pont körül bármekkora sugárral kört lehet rajzolni.</strong></p>
+      <p style={{ marginBottom: '1rem' }}><strong>4. Minden derékszög egyenlő.</strong></p>
       <p>De az ötödik szabály... azaz <em>ha két, azonos síkban fekvő egyenes egy harmadik metsz, akkor a két egyenes a harmadiknak azon az oldalán metszi egymást, amelyiken a keletkezett belső szögek összege két derékszögnél kisebb</em>, kilógott a sorból.</p>
       <p>Bonyolultabbnak, nehézkesebbnek bizonyult a többi axiómánál. Ez a szabály mondja ki, hogy a párhuzamosok soha nem metszik egymást, de olyan bonyolultan, olyan körmönfont módon, hogy már-már gyanúsnak tűnt.</p>
       <p>A matematikusokat évszázadokon át mardosta a kétség: ha a többi négy szabály ilyen elegáns, miért ilyen nyakatekert az ötödik? Tényleg alapigazság, amit egyszerűen el kell hinni? Vagy levezethető a többi négyből? Arab, perzsa, olasz és német tudósok generációi próbálkoztak, és vallottak kudarcot. Aztán a rejtély egy erdélyi család figyelmének középpontjába került.</p>

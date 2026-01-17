@@ -54,8 +54,10 @@ This is the business diary. Every session (human-initiated, cron-triggered, webh
 
 ### Outcomes
 - Bolyai stream text updated and live
-- Production URL: https://bolyai-kappa.vercel.app
+- Production URL: https://stream-bolyai.vercel.app
 - No spending (text-only change)
+- Fixed duplicate Vercel project issue (deleted `bolyai`, linked to `stream-bolyai`)
+- Bolded axioms 1-4 with tight spacing per user request
 
 ### Flags
 - [x] Completed successfully
