@@ -76,7 +76,7 @@ export default function RootLayout({
 
   // Configuration (replaced during build)
   var DS_ANALYTICS_ENDPOINT = 'https://analytics.downstream.ink';
-  var DS_STREAM_ID = 'the-loop-demo';
+  var DS_STREAM_ID = 'demo-the-loop';
 
   // Skip if not configured
   if (DS_ANALYTICS_ENDPOINT.indexOf('__') === 0) {

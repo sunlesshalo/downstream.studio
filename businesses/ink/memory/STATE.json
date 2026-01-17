@@ -1,7 +1,7 @@
 {
   "project": "DownStream SaaS",
   "updated": "2026-01-17",
-  "current_focus": "Social media preview support added to all 16 streams. Each stream now has og-image.jpg (1200x630) and full Open Graph + Twitter Card metadata. Demo streams ready for marketing.",
+  "current_focus": "Analytics monitoring added to health check. All streams verified for correct tracking. Service crash-loop diagnosed (port 8082 conflict), now monitored every 5 min with auto-restart and Discord alerts.",
   "metrics": {
     "revenue_total": 0,
     "revenue_this_week": 0,
@@ -358,6 +358,24 @@
       "task": "Add social media preview images and SEO metadata to all streams",
       "status": "completed",
       "notes": "Added comprehensive social sharing support: (1) generate_app.py auto-creates og-image.jpg (1200x630) from first keyframe using ffmpeg, (2) Full Open Graph metadata (title, description, type, siteName, images), (3) Twitter Card metadata (summary_large_image), (4) Dynamic metadataBase for Vercel URL resolution, (5) Created add_social_metadata.py utility for batch updates. All 16 streams updated and 3 deployed (bolyai, the-loop-demo, founding-story).",
+      "blocked_by": "",
+      "created": "2026-01-17",
+      "completed": "2026-01-17"
+    },
+    {
+      "id": 40,
+      "task": "AI-optimize SEO metadata generation",
+      "status": "pending",
+      "notes": "Current implementation takes first 150 chars as description. Instead, use Claude to generate: (1) SEO-optimized meta description (compelling, keyword-rich, 150-160 chars), (2) Relevant keywords based on content analysis, (3) Better og:description for social sharing. Could be added to production spec creation or as post-processing step.",
+      "blocked_by": "",
+      "created": "2026-01-17",
+      "completed": ""
+    },
+    {
+      "id": 41,
+      "task": "Add analytics service monitoring with Discord alerts",
+      "status": "completed",
+      "notes": "Added CHECK 8 to health_check.sh: monitors http://localhost:8082/health every 5 min, auto-restarts on failure, sends Discord alerts on failure/recovery, maintains state file to avoid spam. Cron updated from 30min to 5min. Triggered by analytics crash-loop (56 restarts) that went unnoticed.",
       "blocked_by": "",
       "created": "2026-01-17",
       "completed": "2026-01-17"

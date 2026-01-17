@@ -3,7 +3,7 @@
 #
 # Before installing, update PROJECT_DIR below to your actual path
 
-PROJECT_DIR=/root/downstream.ink
+PROJECT_DIR=/root/downstream
 
 # ============================================
 # JOB PROCESSING
@@ -37,6 +37,13 @@ PROJECT_DIR=/root/downstream.ink
 
 # Monthly review on 1st at 10:00
 0 10 1 * * PROJECT_DIR=$PROJECT_DIR $PROJECT_DIR/infrastructure/monthly_review.sh >> $PROJECT_DIR/logs/cron.log 2>&1
+
+# ============================================
+# ASSET ARCHIVAL & CLEANUP
+# ============================================
+
+# Clean up archived assets (delete after 48h) - runs every 6 hours
+0 */6 * * * $PROJECT_DIR/infrastructure/archival/cleanup_old_assets.sh >> /var/log/downstream/cleanup.log 2>&1
 
 # ============================================
 # INSTALLATION

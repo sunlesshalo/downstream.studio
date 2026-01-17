@@ -37,6 +37,37 @@ This is the business diary. Every session (human-initiated, cron-triggered, webh
 
 ## Operations Log
 
+### 2026-01-17 16:00 — Human Session (Session 46)
+
+**Trigger:** human (Ferenc)
+**Duration:** ~30 minutes
+
+### What Happened
+
+**Analytics Investigation & Monitoring**
+
+1. User reported demo-the-loop showing 0 engagement despite 39+ views
+2. Investigated root cause: stream ID mismatch (`the-loop-demo` vs `demo-the-loop`)
+3. Discovered analytics service had crashed 56 times (04:48-06:55 UTC)
+4. Root cause: `[Errno 98] address already in use` on port 8082
+5. Verified ALL 8 production streams one-by-one as user requested
+6. Added analytics monitoring to health_check.sh (CHECK 8)
+7. Updated cron from 30 min to 5 min interval
+8. Tested Discord webhook - confirmed working
+
+### Outcomes
+
+- demo-the-loop stream ID fixed, deployed
+- Analytics crash root cause identified (zombie process holding port)
+- All 8 streams verified: trackers correctly deployed
+- Health check now monitors analytics service with auto-restart
+- Discord alerts enabled for service failures
+
+### Flags
+- [x] Completed successfully
+
+---
+
 ### 2026-01-17 — Human Session (Session 45)
 
 **Trigger:** human (Ferenc)

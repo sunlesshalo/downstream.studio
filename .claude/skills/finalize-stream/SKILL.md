@@ -6,15 +6,21 @@ description: Create the final Next.js stream app from generated visual assets. U
 # Finalize Stream - Create Next.js App
 
 ## Goal
-Take generated frame assets and create a complete, runnable Next.js stream application.
+Take generated frame assets and create **TWO** complete Next.js stream applications:
+- **High quality** (`stream-{id}`) — 121-140 frames per segment
+- **Performance** (`stream-{id}-perf`) — 40 frames per segment
+
+**ALWAYS deploy both tiers. No exceptions.**
 
 ## When to Use
 - After completing frame extraction in stream-production pipeline
-- Visual assets exist in `streams/{id}/public/frames/`
-- Ready to create the final viewable stream
+- Visual assets exist in `streams/{id}/public/frames/` AND `streams/{id}/public/frames-perf/`
+- Ready to create the final viewable streams
 
 ## Prerequisites
-- Frames extracted to `streams/{stream-id}/public/frames/{segment}/`
+- **Dual-tier frames extracted:**
+  - High: `streams/{stream-id}/public/frames/{segment}/` (121-140 frames)
+  - Perf: `streams/{stream-id}/public/frames-perf/{segment}/` (40 frames)
 - `streams/{stream-id}/production.json` with:
   - `sections[]` containing `text_content`, `segment_ids`, `text_type`, `dialogue_markers`
   - `segments[]` with frame generation details
@@ -441,32 +447,67 @@ Only update:
 
 ---
 
+## DUAL-TIER APP GENERATION (MANDATORY)
+
+**Use the automated script for both tiers:**
+
+```bash
+cd /root/downstream/factory/execution
+python generate_app.py {stream-id} --tier both
+```
+
+This creates:
+- `streams/apps/{stream-id}/` — High quality (121-140 frames/segment)
+- `streams/apps/{stream-id}-perf/` — Performance (40 frames/segment)
+
+**Deploy BOTH to Vercel:**
+
+```bash
+# Deploy high-quality version
+cd /root/downstream/streams/apps/stream-{id}
+vercel --prod
+
+# Deploy performance version
+cd /root/downstream/streams/apps/stream-{id}-perf
+vercel --prod
+```
+
+**Final URLs:**
+- High: `stream-{id}.vercel.app`
+- Perf: `stream-{id}-perf.vercel.app`
+
+---
+
+## ASSET ARCHIVAL (AFTER DEPLOYMENT)
+
+After both apps are deployed, upload assets to Google Drive:
+
+```bash
+/root/downstream/infrastructure/archive_assets.sh {stream-id}
+```
+
+This uploads videos and source frames to Google Drive, then schedules deletion from server after 48 hours.
+
+---
+
 ## OUTPUT
 
-After completion:
+After completion, you should have **TWO** app directories:
 
 ```
-stream-{id}/
-├── app/
-│   ├── page.tsx
-│   ├── layout.tsx
-│   └── globals.css
-├── public/
-│   └── frames/
-│       ├── 1/
-│       │   ├── frame_0001.webp
-│       │   └── ... (141 frames)
-│       ├── 2/
-│       └── ...
-├── config.tsx
-├── content.tsx
-├── package.json
-├── tsconfig.json
-├── next.config.js
-└── node_modules/
+streams/apps/
+├── stream-{id}/           # HIGH QUALITY
+│   ├── app/
+│   ├── public/frames/     # 121-140 frames per segment
+│   └── ...
+└── stream-{id}-perf/      # PERFORMANCE
+    ├── app/
+    ├── public/frames/     # 40 frames per segment
+    └── ...
 ```
 
-Run with:
+Run locally:
 ```bash
-cd stream-{id} && npm run dev
+cd streams/apps/stream-{id} && npm run dev        # Port 3001
+cd streams/apps/stream-{id}-perf && npm run dev   # Port 3002
 ```

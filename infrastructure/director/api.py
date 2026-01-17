@@ -101,11 +101,14 @@ TASK: Generate videos from keyframes for this stream.
 1. Read the job file to get stream_path and mode
 2. For each segment with a keyframe, generate EXACTLY ONE video
 3. Save videos to {{stream_path}}/videos/segment_{{n}}.mp4
-4. Extract frames to {{stream_path}}/frames/segment_{{n}}/ as webp files
+4. Extract frames in DUAL TIERS using extract_frames_dual.py:
+   - High quality (121+ frames): {{stream_path}}/public/frames/{{n}}/
+   - Performance (40 frames): {{stream_path}}/public/frames-perf/{{n}}/
 5. If you see variant keyframes (e.g., _cold, _warm), ASK which to use
 6. Move job to completed/ when done
 
-Use the generate_video.py script.
+Use the generate_video.py script for video generation.
+Use extract_frames_dual.py for frame extraction (BOTH tiers mandatory).
 {messaging_instructions}""",
 
                 "finalize-stream": f"""You are processing a stream finalization job for DownStream.
@@ -113,14 +116,20 @@ Use the generate_video.py script.
 Job file: {processing_file}
 Stream ID: {stream_id}
 
-TASK: Build the Next.js app for this stream.
-1. Read the job file to get stream_path and output_path
-2. Read production.json for stream configuration
-3. Generate the Next.js app using the finalize-stream skill
-4. The app should be created at {{output_path}}
-5. Move job to completed/ when done
+TASK: Build BOTH Next.js apps (high quality + performance) for this stream.
 
-Use the finalize-stream skill from pipeline/skills/.
+1. Read the job file to get stream_path
+2. Read production.json for stream configuration
+3. Generate BOTH apps using: python generate_app.py {{stream_id}} --tier both
+   - This creates: streams/apps/{{stream_id}}/ (high, 121+ frames)
+   - And: streams/apps/{{stream_id}}-perf/ (perf, 40 frames)
+4. Deploy BOTH to Vercel:
+   - cd streams/apps/{{stream_id}} && vercel --prod
+   - cd streams/apps/{{stream_id}}-perf && vercel --prod
+5. Archive assets to Google Drive: infrastructure/archival/archive_assets.sh {{stream_id}}
+6. Move job to completed/ when done
+
+CRITICAL: You MUST create and deploy BOTH tiers. Single-tier deployment is not acceptable.
 {messaging_instructions}""",
 
                 "production-spec": f"""You are processing a production spec job for DownStream.

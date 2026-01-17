@@ -7,6 +7,56 @@
 
 # Session Log
 
+## 2026-01-17 (Session 46)
+**Analytics Service Monitoring + Stream Verification**
+
+### Issues Investigated
+
+1. **demo-the-loop 0 engagement metrics** - despite 39+ views
+   - Root cause: Stream ID mismatch (`the-loop-demo` vs `demo-the-loop`)
+   - Fix: Updated layout.tsx to use `demo-the-loop`, deleted duplicate DB entry
+
+2. **Analytics service crash-loop** - 56 restarts between 04:48-06:55 UTC
+   - Root cause: `[Errno 98] address already in use` on port 8082
+   - Zombie process from previous instance holding port
+   - Service self-recovered at 10:14 UTC
+
+3. **5 streams with 0 milestones** - verified one-by-one as requested
+   - All visits occurred DURING service crash window
+   - All trackers correctly deployed with right stream IDs
+   - Just need new traffic to populate data
+
+### Monitoring Added
+
+Added analytics service monitoring to health_check.sh (CHECK 8):
+- Checks `http://localhost:8082/health` every 5 minutes
+- Auto-restart on failure
+- Discord alert on failure/recovery
+- State tracking to avoid alert spam
+
+Cron updated: 30 min → 5 min interval.
+
+### Stream Verification Summary
+
+| Stream | Status |
+|--------|--------|
+| bolyai | ✅ 47 views since fix, 88 milestones |
+| demo-the-loop | ✅ Fixed stream ID, working |
+| az-utols-iro | ✅ 1 view since fix, 4 milestones |
+| nvnyeknek-mondotta-el-rszlet | ✅ Deployed OK, awaiting traffic |
+| fotoszintezis-demo | ✅ Deployed OK, awaiting traffic |
+| demo-club-promo | ✅ Deployed OK, awaiting traffic |
+| demo-restaurant-mediterranean | ✅ Deployed OK, awaiting traffic |
+| founding-story | ✅ Deployed OK, awaiting traffic |
+
+### Files Modified
+- `infrastructure/health_check.sh` — added analytics service monitoring
+
+### Commits
+- `739069c` Add analytics service monitoring to health check
+
+---
+
 ## 2026-01-17 (Session 45)
 **Social Media Preview Support for All Streams**
 
