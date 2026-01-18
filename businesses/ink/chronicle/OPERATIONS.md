@@ -37,6 +37,48 @@ This is the business diary. Every session (human-initiated, cron-triggered, webh
 
 ## Operations Log
 
+### 2026-01-18 — Human Session (Session 48)
+
+**Trigger:** human (Ferenc)
+**Duration:** ~60 minutes
+
+### What Happened
+
+**1. Bolyai Performance Version**
+- Extracted 40 frames/segment from source videos on Hetzner server
+- Created bolyai-perf app (copy of bolyai with reduced frames)
+- Deployed to https://bolyai-perf.vercel.app
+- Registered with analytics
+
+**2. Stylish Loading Indicator**
+- Implemented hybrid loading system in StreamEngine.tsx:
+  - Top progress bar (always visible during load)
+  - Center overlay with circular progress (shows when slow/early)
+- Design: glass morphism, accent color glow, animated dots
+- Fixed premature center overlay disappear bug (now stays until fully loaded)
+
+**3. Git Architecture Fix**
+- Initially added streams/apps/ to gitignore (mistake - deleted files on server pull)
+- Restored all 16 stream apps from git history
+- Corrected .gitignore: only pipeline/streams/ is ignored
+- streams/apps/ now tracked properly
+
+**4. Mass Redeployment**
+- Updated StreamEngine in all 16 stream apps
+- Redeployed all to Vercel with new loading indicator
+- One exception: the-loop-demo (uses legacy engine format, needs regeneration)
+
+### Outcomes
+- 16 streams now have stylish loading indicator
+- bolyai-perf live at https://bolyai-perf.vercel.app
+- Git sync between Mac and Hetzner restored
+- Template is source of truth for new streams
+
+### Flags
+- [ ] the-loop-demo needs regeneration with new engine format
+
+---
+
 ### 2026-01-18 — Human Session (Session 47 continued)
 
 **Trigger:** human (Ferenc)

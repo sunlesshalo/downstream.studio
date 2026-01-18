@@ -7,6 +7,22 @@
 
 # Session Log
 
+## 2026-01-18 (Session 48)
+**Stylish Loading Indicator + Bolyai Perf + Git Cleanup**
+
+- Created bolyai-perf stream (40 frames/segment performance version)
+- Implemented stylish hybrid loading indicator for all streams:
+  - Top progress bar: gradient fill with shimmer animation
+  - Center overlay: circular progress with percentage, glass morphism effect
+  - Shows during first 30% or when loading takes >2 seconds
+  - Auto-hides when fully loaded
+- Fixed git architecture: streams/apps/ now tracked in git (restored from history)
+- Pipeline working files (pipeline/streams/) remain gitignored
+- Redeployed all 16 streams to Vercel with new loading indicator
+- One legacy stream (the-loop-demo) needs regeneration (uses old engine format)
+
+---
+
 ## 2026-01-18 (Session 47 continued)
 **Cloudflare DNS Setup for Geographic Tracking**
 
