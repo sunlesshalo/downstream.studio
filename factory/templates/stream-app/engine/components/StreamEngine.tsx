@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState, useRef } from 'react'
 import { StreamConfig } from '../types'
 import { useFrameLoader } from '../hooks/useFrameLoader'
 import { useSectionObserver } from '../hooks/useSectionObserver'
@@ -18,6 +18,70 @@ interface DebugInfo {
   viewportHeight: number
   documentHeight: number
   sectionTops: { id: string; top: number; height: number }[]
+}
+
+// Stylish loading indicator component
+function LoadingIndicator({
+  progress,
+  isFullyLoaded,
+  showCenterOverlay
+}: {
+  progress: number
+  isFullyLoaded: boolean
+  showCenterOverlay: boolean
+}) {
+  const percentage = Math.round(progress * 100)
+
+  if (isFullyLoaded) return null
+
+  return (
+    <>
+      {/* Top progress bar - always visible while loading */}
+      <div className="ds-top-loader">
+        <div
+          className="ds-top-loader__fill"
+          style={{ width: `${percentage}%` }}
+        />
+        <div className="ds-top-loader__glow" style={{ left: `${percentage}%` }} />
+      </div>
+
+      {/* Center overlay - shows when loading is slow or early */}
+      {showCenterOverlay && (
+        <div className="ds-center-loader">
+          <div className="ds-center-loader__container">
+            {/* Circular progress */}
+            <div className="ds-center-loader__ring">
+              <svg viewBox="0 0 100 100">
+                <circle
+                  className="ds-center-loader__track"
+                  cx="50" cy="50" r="42"
+                />
+                <circle
+                  className="ds-center-loader__progress"
+                  cx="50" cy="50" r="42"
+                  style={{
+                    strokeDasharray: `${percentage * 2.64} 264`,
+                    strokeDashoffset: 0
+                  }}
+                />
+              </svg>
+              <div className="ds-center-loader__percentage">
+                {percentage}<span>%</span>
+              </div>
+            </div>
+
+            {/* Loading text */}
+            <div className="ds-center-loader__text">
+              <span className="ds-center-loader__label">Loading experience</span>
+              <span className="ds-center-loader__dots">
+                <span>.</span><span>.</span><span>.</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  )
 }
 
 /**
@@ -84,6 +148,30 @@ export function StreamEngine({ config }: StreamEngineProps) {
     segments,
     basePath: '/frames'
   })
+
+  // Track slow loading for center overlay display
+  const [showCenterLoader, setShowCenterLoader] = useState(true)
+  const loadStartTime = useRef(Date.now())
+
+  useEffect(() => {
+    if (isFullyLoaded) {
+      setShowCenterLoader(false)
+      return
+    }
+
+    // Show center loader if: progress < 30% OR loading takes > 2 seconds
+    const checkSlowLoading = () => {
+      const elapsed = Date.now() - loadStartTime.current
+      const shouldShow = progress < 0.3 || elapsed > 2000
+      setShowCenterLoader(shouldShow && !isFullyLoaded)
+    }
+
+    checkSlowLoading()
+
+    // Keep checking periodically
+    const interval = setInterval(checkSlowLoading, 500)
+    return () => clearInterval(interval)
+  }, [progress, isFullyLoaded])
 
   // Preload first frame via link tag (like Capsules)
   useEffect(() => {
@@ -404,50 +492,196 @@ export function StreamEngine({ config }: StreamEngineProps) {
           border-radius: 3px;
         }
 
-        /* Background loading indicator */
-        .ds-background-loader {
+        /* ============================================
+           LOADING INDICATORS - Stylish Hybrid System
+           ============================================ */
+
+        /* Top Progress Bar - Always visible while loading */
+        .ds-top-loader {
           position: fixed;
-          bottom: 20px;
-          right: 20px;
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          padding: 8px 14px;
-          background: color-mix(in srgb, var(--ds-color-background) 90%, var(--ds-color-text));
-          border-radius: 20px;
-          font-size: 0.75rem;
-          color: var(--ds-color-muted);
-          z-index: 50;
-          opacity: 0;
-          animation: ds-fade-in 0.3s ease forwards;
-        }
-
-        .ds-background-loader.ds-hidden {
-          animation: ds-fade-out 0.5s ease forwards;
-        }
-
-        @keyframes ds-fade-in {
-          from { opacity: 0; transform: translateY(10px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes ds-fade-out {
-          from { opacity: 1; transform: translateY(0); }
-          to { opacity: 0; transform: translateY(10px); }
-        }
-
-        .ds-background-loader__bar {
-          width: 60px;
+          top: 0;
+          left: 0;
+          right: 0;
           height: 3px;
-          background: var(--ds-color-muted);
-          border-radius: 2px;
+          background: rgba(255, 255, 255, 0.1);
+          z-index: 9999;
           overflow: hidden;
         }
 
-        .ds-background-loader__fill {
+        .ds-top-loader__fill {
           height: 100%;
-          background: var(--ds-color-accent);
-          transition: width 0.2s;
+          background: linear-gradient(
+            90deg,
+            var(--ds-color-accent) 0%,
+            color-mix(in srgb, var(--ds-color-accent) 80%, white) 50%,
+            var(--ds-color-accent) 100%
+          );
+          transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          position: relative;
+        }
+
+        .ds-top-loader__fill::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 100%;
+          background: linear-gradient(
+            90deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.4) 50%,
+            transparent 100%
+          );
+          animation: ds-shimmer 1.5s infinite;
+        }
+
+        .ds-top-loader__glow {
+          position: absolute;
+          top: 0;
+          width: 60px;
+          height: 100%;
+          background: radial-gradient(
+            ellipse at center,
+            var(--ds-color-accent) 0%,
+            transparent 70%
+          );
+          filter: blur(4px);
+          opacity: 0.8;
+          transform: translateX(-50%);
+          transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes ds-shimmer {
+          0% { transform: translateX(-100%); }
+          100% { transform: translateX(200%); }
+        }
+
+        /* Center Loader - Shows during slow loading */
+        .ds-center-loader {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 9998;
+          pointer-events: none;
+          animation: ds-center-fade-in 0.4s ease;
+        }
+
+        @keyframes ds-center-fade-in {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+
+        .ds-center-loader__container {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 20px;
+          padding: 32px 48px;
+          background: rgba(0, 0, 0, 0.7);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          border-radius: 24px;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          box-shadow:
+            0 0 0 1px rgba(255, 255, 255, 0.05),
+            0 20px 50px -10px rgba(0, 0, 0, 0.5),
+            0 0 100px -20px var(--ds-color-accent);
+        }
+
+        .ds-center-loader__ring {
+          position: relative;
+          width: 100px;
+          height: 100px;
+        }
+
+        .ds-center-loader__ring svg {
+          width: 100%;
+          height: 100%;
+          transform: rotate(-90deg);
+        }
+
+        .ds-center-loader__track {
+          fill: none;
+          stroke: rgba(255, 255, 255, 0.1);
+          stroke-width: 4;
+        }
+
+        .ds-center-loader__progress {
+          fill: none;
+          stroke: var(--ds-color-accent);
+          stroke-width: 4;
+          stroke-linecap: round;
+          transition: stroke-dasharray 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          filter: drop-shadow(0 0 6px var(--ds-color-accent));
+        }
+
+        .ds-center-loader__percentage {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          font-family: var(--ds-font-heading);
+          font-size: 1.75rem;
+          font-weight: 600;
+          color: var(--ds-color-text);
+          letter-spacing: -0.02em;
+        }
+
+        .ds-center-loader__percentage span {
+          font-size: 0.9rem;
+          opacity: 0.6;
+          margin-left: 1px;
+        }
+
+        .ds-center-loader__text {
+          display: flex;
+          align-items: center;
+          gap: 4px;
+          font-size: 0.875rem;
+          color: var(--ds-color-muted);
+          letter-spacing: 0.05em;
+          text-transform: uppercase;
+        }
+
+        .ds-center-loader__label {
+          opacity: 0.8;
+        }
+
+        .ds-center-loader__dots span {
+          animation: ds-dot-pulse 1.4s infinite;
+          opacity: 0;
+        }
+
+        .ds-center-loader__dots span:nth-child(1) { animation-delay: 0s; }
+        .ds-center-loader__dots span:nth-child(2) { animation-delay: 0.2s; }
+        .ds-center-loader__dots span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes ds-dot-pulse {
+          0%, 60%, 100% { opacity: 0; }
+          30% { opacity: 1; }
+        }
+
+        /* Mobile adjustments for center loader */
+        @media (max-width: 768px) {
+          .ds-center-loader__container {
+            padding: 24px 36px;
+            margin: 0 20px;
+          }
+
+          .ds-center-loader__ring {
+            width: 80px;
+            height: 80px;
+          }
+
+          .ds-center-loader__percentage {
+            font-size: 1.5rem;
+          }
         }
 
         /* Mobile: Stack vertically - fixed animation at top, content scrolls below */
@@ -580,18 +814,12 @@ export function StreamEngine({ config }: StreamEngineProps) {
         />
       )}
 
-      {/* Background loading indicator - shows while remaining frames load */}
-      {isLoaded && !isFullyLoaded && (
-        <div className="ds-background-loader">
-          <span>Loading</span>
-          <div className="ds-background-loader__bar">
-            <div
-              className="ds-background-loader__fill"
-              style={{ width: `${progress * 100}%` }}
-            />
-          </div>
-        </div>
-      )}
+      {/* Stylish loading indicators */}
+      <LoadingIndicator
+        progress={progress}
+        isFullyLoaded={isFullyLoaded}
+        showCenterOverlay={showCenterLoader}
+      />
 
       {/* Debug overlay - enabled via ?debug=true */}
       {debugMode && (
