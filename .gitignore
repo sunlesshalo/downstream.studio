@@ -55,8 +55,7 @@ coverage/
 # Large media (if needed locally)
 # recordings/
 
-# Production streams (archived to Google Drive)
-streams/apps/
+# Pipeline working files (large, regeneratable)
 pipeline/streams/
 
 # OS files

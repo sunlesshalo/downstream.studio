@@ -1,0 +1,43 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --ds-color-background: #0a0a14;
+  --ds-color-text: #c9b8a8;
+  --ds-color-accent: #c9a656;
+  --ds-color-muted: #4a6d8c;
+}
+
+html, body {
+  background: var(--ds-color-background);
+  color: var(--ds-color-text);
+  font-family: 'Georgia', serif;
+  overflow-x: hidden;
+  min-height: 100%;
+  width: 100%;
+  overscroll-behavior: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--ds-color-accent);
+  margin-bottom: 1rem;
+}
+
+p {
+  margin-bottom: 1.5rem;
+  line-height: 1.8;
+}
+
+/* Prevent rubber band effect on text column */
+.ds-layout-sidebyside__content {
+  overscroll-behavior: none;
+}
+
+/* Prevent FOUC on load */
+html {
+  visibility: visible;
+  opacity: 1;
+}
