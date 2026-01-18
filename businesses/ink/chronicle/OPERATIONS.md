@@ -37,6 +37,34 @@ This is the business diary. Every session (human-initiated, cron-triggered, webh
 
 ## Operations Log
 
+### 2026-01-18 — Human Session (Session 47 continued)
+
+**Trigger:** human (Ferenc)
+**Duration:** ~15 minutes
+
+### What Happened
+
+**Cloudflare DNS Setup**
+
+1. User enabled Cloudflare proxy (orange cloud) on analytics.downstream.ink
+2. Guided user through Cloudflare nameserver setup in Namecheap:
+   - Clarified "Personal DNS Server" section is NOT for nameservers
+   - Found correct location: Domain settings → Custom Nameservers
+   - User entered Cloudflare nameservers (braden.ns.cloudflare.com etc.)
+3. DNS propagation in progress
+
+### Outcomes
+- Cloudflare proxy active on analytics subdomain
+- CF-IPCountry header will now be sent with requests
+- Geographic tracking ready for new visitors
+- Existing 328 views remain "Unknown" (expected)
+
+### Flags
+- [x] Cloudflare nameservers configured in Namecheap
+- [x] Analytics geographic tracking enabled
+
+---
+
 ### 2026-01-17 22:00 — Human Session (Session 47)
 
 **Trigger:** human (Ferenc)
@@ -66,7 +94,7 @@ This is the business diary. Every session (human-initiated, cron-triggered, webh
 4. Fixed geographic tracking:
    - Updated nginx to forward CF-IPCountry header
    - Discovered: analytics.downstream.ink not proxied through Cloudflare
-   - Action needed: Enable Cloudflare proxy for geo data
+   - Resolved: User enabled Cloudflare proxy
 
 ### Outcomes
 - Dashboard v2.0 deployed to analytics.downstream.ink
@@ -74,7 +102,7 @@ This is the business diary. Every session (human-initiated, cron-triggered, webh
 - All endpoints tested and working
 
 ### Flags
-- [ ] Enable Cloudflare proxy on analytics.downstream.ink for geographic data
+- [x] Cloudflare proxy enabled on analytics.downstream.ink
 
 ---
 

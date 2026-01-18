@@ -7,6 +7,18 @@
 
 # Session Log
 
+## 2026-01-18 (Session 47 continued)
+**Cloudflare DNS Setup for Geographic Tracking**
+
+- Confirmed Cloudflare proxy enabled on analytics.downstream.ink (orange cloud)
+- Helped user set up Cloudflare nameservers in Namecheap:
+  - Selected "Custom Nameservers" (not "Personal DNS Server" - different thing)
+  - Entered Cloudflare nameservers (braden.ns.cloudflare.com etc.)
+- Geographic data will now populate for new visits (existing 328 views remain "Unknown")
+- Analytics dashboard fully operational with all visualizations
+
+---
+
 ## 2026-01-17 (Session 47)
 **Analytics Dashboard Visualizations**
 
@@ -21,7 +33,7 @@
 - Added stream-specific detail dashboard at `/dashboard/stream/{stream_id}`
 - 8 new API endpoints for stream-specific chart data
 - Fixed nginx to forward CF-IPCountry header
-- **Action needed:** Enable Cloudflare proxy (orange cloud) on `analytics.downstream.ink` for geographic data
+- Cloudflare proxy enabled on analytics subdomain
 
 ---
 
