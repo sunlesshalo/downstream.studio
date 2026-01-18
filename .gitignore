@@ -55,5 +55,9 @@ coverage/
 # Large media (if needed locally)
 # recordings/
 
+# Production streams (archived to Google Drive)
+streams/apps/
+pipeline/streams/
+
 # OS files
 Thumbs.db
