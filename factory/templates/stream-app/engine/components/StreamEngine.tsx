@@ -150,19 +150,30 @@ export function StreamEngine({ config }: StreamEngineProps) {
   })
 
   // Track slow loading for center overlay display
+  // Once triggered by slow loading, stays visible until fully loaded
   const [showCenterLoader, setShowCenterLoader] = useState(true)
+  const [slowLoadingTriggered, setSlowLoadingTriggered] = useState(false)
   const loadStartTime = useRef(Date.now())
 
   useEffect(() => {
     if (isFullyLoaded) {
       setShowCenterLoader(false)
+      setSlowLoadingTriggered(false)
       return
     }
 
-    // Show center loader if: progress < 30% OR loading takes > 2 seconds
     const checkSlowLoading = () => {
       const elapsed = Date.now() - loadStartTime.current
-      const shouldShow = progress < 0.3 || elapsed > 2000
+
+      // Trigger slow loading mode if > 2 seconds elapsed
+      if (elapsed > 2000 && !slowLoadingTriggered) {
+        setSlowLoadingTriggered(true)
+      }
+
+      // Show center loader if:
+      // - Progress < 30% (early loading), OR
+      // - Slow loading was triggered (stays until fully loaded)
+      const shouldShow = progress < 0.3 || slowLoadingTriggered || elapsed > 2000
       setShowCenterLoader(shouldShow && !isFullyLoaded)
     }
 
@@ -171,7 +182,7 @@ export function StreamEngine({ config }: StreamEngineProps) {
     // Keep checking periodically
     const interval = setInterval(checkSlowLoading, 500)
     return () => clearInterval(interval)
-  }, [progress, isFullyLoaded])
+  }, [progress, isFullyLoaded, slowLoadingTriggered])
 
   // Preload first frame via link tag (like Capsules)
   useEffect(() => {
