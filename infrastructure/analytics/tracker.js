@@ -8,6 +8,21 @@
 (function() {
   'use strict';
 
+  // KILL SWITCH: Set to true to disable all analytics tracking
+  var DS_ANALYTICS_DISABLED = false;
+  if (DS_ANALYTICS_DISABLED) {
+    console.log('[DS Analytics] Tracking globally disabled');
+    return;
+  }
+
+  // Single-visit skip: ?ds_skip=1 skips tracking for THIS visit only
+  // Unlike ds_optout, this doesn't set localStorage - just skips this one pageview
+  var skipParams = new URLSearchParams(window.location.search);
+  if (skipParams.get('ds_skip') === '1') {
+    console.log('[DS Analytics] Skipping this visit (ds_skip=1)');
+    return;
+  }
+
   // Configuration (replaced during build)
   var DS_ANALYTICS_ENDPOINT = '__DS_ANALYTICS_ENDPOINT__';
   var DS_STREAM_ID = '__DS_STREAM_ID__';
