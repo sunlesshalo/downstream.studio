@@ -54,6 +54,24 @@
   var READING_VELOCITY_THRESHOLD = 30;   // Below this = reading
   var WATCHING_VELOCITY_THRESHOLD = 50;  // Above this = watching
 
+  // Opt-out check: ?ds_optout=1 sets flag, ?ds_optout=0 clears it
+  (function checkOptOut() {
+    var params = new URLSearchParams(window.location.search);
+    if (params.get('ds_optout') === '1') {
+      localStorage.setItem('ds_optout', '1');
+      console.log('[DS Analytics] Opted out - tracking disabled');
+    } else if (params.get('ds_optout') === '0') {
+      localStorage.removeItem('ds_optout');
+      console.log('[DS Analytics] Opted back in - tracking enabled');
+    }
+  })();
+
+  // Skip all tracking if opted out
+  if (localStorage.getItem('ds_optout') === '1') {
+    console.log('[DS Analytics] Tracking disabled (opted out)');
+    return;
+  }
+
   // Generate UUID v4
   function generateUUID() {
     if (typeof crypto !== 'undefined' && crypto.randomUUID) {
