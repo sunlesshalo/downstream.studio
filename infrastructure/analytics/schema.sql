@@ -67,6 +67,10 @@ CREATE TABLE IF NOT EXISTS engagement_summaries (
     max_depth_pct INTEGER,  -- Max scroll depth during period
     total_scroll_distance INTEGER DEFAULT 0,  -- Total pixels scrolled
     section_revisits TEXT,  -- JSON object of {section_id: visit_count}
+    -- Phase 1 additions (nullable for backward compatibility)
+    hidden_duration_ms INTEGER DEFAULT 0,  -- Time tab was hidden/inactive
+    reading_time_ms INTEGER DEFAULT 0,     -- Time at velocity < 30 px/sec
+    watching_time_ms INTEGER DEFAULT 0,    -- Time at velocity > 50 px/sec
     FOREIGN KEY (page_view_id) REFERENCES page_views(id)
 );
 
@@ -83,6 +87,17 @@ CREATE TABLE IF NOT EXISTS daily_stats (
     mobile_views INTEGER DEFAULT 0,
     desktop_views INTEGER DEFAULT 0,
     UNIQUE(stream_id, date),
+    FOREIGN KEY (stream_id) REFERENCES streams(id)
+);
+
+-- Stream metadata for calculating reading_ratio and scroll_intensity
+-- Populated during stream deployment
+CREATE TABLE IF NOT EXISTS stream_metadata (
+    stream_id TEXT PRIMARY KEY,
+    total_words INTEGER,        -- For reading_ratio calculation
+    content_height INTEGER,     -- For scroll_intensity calculation
+    sections_json TEXT,         -- JSON: [{id, words, height, start_pct, end_pct}]
+    updated_at TEXT NOT NULL,
     FOREIGN KEY (stream_id) REFERENCES streams(id)
 );
 

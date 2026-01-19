@@ -46,6 +46,14 @@
   var SUMMARY_INTERVAL_MS = 60000;  // Send summary every 60 seconds
   var PAUSE_THRESHOLD_MS = 1000;  // 1 second without scroll = pause
 
+  // Phase 1: Tab visibility tracking
+  var tabHiddenAt = null;
+  var hiddenDurationMs = 0;
+
+  // Mode detection thresholds (px/sec)
+  var READING_VELOCITY_THRESHOLD = 30;   // Below this = reading
+  var WATCHING_VELOCITY_THRESHOLD = 50;  // Above this = watching
+
   // Generate UUID v4
   function generateUUID() {
     if (typeof crypto !== 'undefined' && crypto.randomUUID) {
@@ -105,6 +113,18 @@
     };
   }
 
+  // Phase 1: Track tab visibility changes
+  function handleVisibilityChange() {
+    if (document.hidden) {
+      tabHiddenAt = Date.now();
+    } else if (tabHiddenAt) {
+      hiddenDurationMs += Date.now() - tabHiddenAt;
+      tabHiddenAt = null;
+    }
+  }
+
+  document.addEventListener('visibilitychange', handleVisibilityChange);
+
   // Queue event for batched sending
   function queueEvent(type, data) {
     var event = {
@@ -130,6 +150,10 @@
     if (data.total_scroll_distance !== undefined) event.total_scroll_distance = data.total_scroll_distance;
     if (data.min_depth_pct !== undefined) event.min_depth_pct = data.min_depth_pct;
     if (data.max_depth_pct !== undefined) event.max_depth_pct = data.max_depth_pct;
+    // Phase 1: Tab visibility and mode tracking
+    if (data.hidden_duration_ms !== undefined) event.hidden_duration_ms = data.hidden_duration_ms;
+    if (data.reading_time_ms !== undefined) event.reading_time_ms = data.reading_time_ms;
+    if (data.watching_time_ms !== undefined) event.watching_time_ms = data.watching_time_ms;
 
     eventQueue.push(event);
 
@@ -296,6 +320,10 @@
     var minDepth = 100;
     var maxDepth = 0;
 
+    // Phase 1: Mode tracking
+    var readingTimeMs = 0;
+    var watchingTimeMs = 0;
+
     // Track pause detection
     var pauseStart = null;
     var pauseDepth = null;
@@ -304,6 +332,7 @@
       var prev = scrollSamples[i - 1];
       var curr = scrollSamples[i];
       var deltaY = curr.y - prev.y;
+      var deltaT = curr.t - prev.t;
 
       // Track min/max depth
       minDepth = Math.min(minDepth, curr.pct);
@@ -311,6 +340,16 @@
 
       // Track total scroll distance (absolute)
       totalDistance += Math.abs(deltaY);
+
+      // Phase 1: Calculate velocity and classify mode
+      // velocity in px/sec (deltaT is in ms, so multiply by 1000)
+      var velocity = deltaT > 0 ? (Math.abs(deltaY) / deltaT) * 1000 : 0;
+      if (velocity < READING_VELOCITY_THRESHOLD) {
+        readingTimeMs += deltaT;  // Low velocity = reading mode
+      } else if (velocity > WATCHING_VELOCITY_THRESHOLD) {
+        watchingTimeMs += deltaT;  // High velocity = watching mode
+      }
+      // Transitional velocity (between thresholds) is not counted
 
       // Detect direction changes (reversals)
       if (deltaY > 5) {  // Scrolling down (threshold to avoid noise)
@@ -355,6 +394,10 @@
     // Get exit depth (last sample)
     var exitDepth = scrollSamples[scrollSamples.length - 1].pct;
 
+    // Phase 1: Capture hidden duration for this period and reset
+    var periodHiddenMs = hiddenDurationMs;
+    hiddenDurationMs = 0;  // Reset for next period
+
     return {
       period: summaryPeriod,
       reversals: reversals,
@@ -363,7 +406,11 @@
       min_depth_pct: minDepth,
       max_depth_pct: maxDepth,
       total_scroll_distance: totalDistance,
-      section_revisits: revisits
+      section_revisits: revisits,
+      // Phase 1: New fields
+      hidden_duration_ms: periodHiddenMs,
+      reading_time_ms: readingTimeMs,
+      watching_time_ms: watchingTimeMs
     };
   }
 

@@ -45,13 +45,30 @@ def get_db():
 
 
 def init_db():
-    """Initialize database from schema."""
+    """Initialize database from schema and run migrations."""
     schema_path = os.path.join(os.path.dirname(__file__), "schema.sql")
     if os.path.exists(schema_path):
         db = get_db()
         with open(schema_path, "r") as f:
             db.executescript(f.read())
         db.commit()
+
+        # Run migrations for existing databases (add new columns if missing)
+        migrations = [
+            # Phase 1: Add mode tracking columns to engagement_summaries
+            "ALTER TABLE engagement_summaries ADD COLUMN hidden_duration_ms INTEGER DEFAULT 0",
+            "ALTER TABLE engagement_summaries ADD COLUMN reading_time_ms INTEGER DEFAULT 0",
+            "ALTER TABLE engagement_summaries ADD COLUMN watching_time_ms INTEGER DEFAULT 0",
+        ]
+
+        for migration in migrations:
+            try:
+                db.execute(migration)
+                db.commit()
+            except sqlite3.OperationalError:
+                # Column already exists, ignore
+                pass
+
         db.close()
 
 
@@ -96,6 +113,10 @@ class AnalyticsEvent(BaseModel):
     max_depth_pct: Optional[int] = None
     total_scroll_distance: Optional[int] = None
     section_revisits: Optional[dict] = None
+    # Phase 1: Tab visibility and mode tracking
+    hidden_duration_ms: Optional[int] = None
+    reading_time_ms: Optional[int] = None
+    watching_time_ms: Optional[int] = None
 
 
 class EventBatch(BaseModel):
@@ -113,6 +134,14 @@ class StreamRegistration(BaseModel):
     deployment_url: str
     total_sections: Optional[int] = 0
     total_frames: Optional[int] = 0
+
+
+class StreamMetadata(BaseModel):
+    """Metadata for calculating reading_ratio and scroll_intensity."""
+    stream_id: str
+    total_words: int
+    content_height: int
+    sections_json: Optional[str] = None  # JSON array of section metadata
 
 
 # ----- Endpoints -----
@@ -205,8 +234,9 @@ async def record_events(request: Request):
                     INSERT INTO engagement_summaries
                     (page_view_id, period, recorded_at, reversals, pause_points,
                      exit_depth_pct, min_depth_pct, max_depth_pct,
-                     total_scroll_distance, section_revisits)
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                     total_scroll_distance, section_revisits,
+                     hidden_duration_ms, reading_time_ms, watching_time_ms)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """, (
                     data.page_view_id,
                     event.period or 0,
@@ -217,7 +247,10 @@ async def record_events(request: Request):
                     event.min_depth_pct,
                     event.max_depth_pct,
                     event.total_scroll_distance or 0,
-                    json.dumps(event.section_revisits) if event.section_revisits else None
+                    json.dumps(event.section_revisits) if event.section_revisits else None,
+                    event.hidden_duration_ms or 0,
+                    event.reading_time_ms or 0,
+                    event.watching_time_ms or 0
                 ))
 
         db.commit()
@@ -249,6 +282,46 @@ async def register_stream(data: StreamRegistration):
         db.close()
 
 
+@app.post("/streams/metadata")
+async def register_stream_metadata(data: StreamMetadata):
+    """Register stream metadata for reading_ratio and scroll_intensity calculations."""
+    db = get_db()
+    cursor = db.cursor()
+
+    try:
+        cursor.execute("""
+            INSERT OR REPLACE INTO stream_metadata
+            (stream_id, total_words, content_height, sections_json, updated_at)
+            VALUES (?, ?, ?, ?, ?)
+        """, (
+            data.stream_id, data.total_words, data.content_height,
+            data.sections_json, datetime.utcnow().isoformat()
+        ))
+        db.commit()
+        return {"status": "ok", "stream_id": data.stream_id}
+    finally:
+        db.close()
+
+
+@app.get("/streams/metadata/{stream_id}")
+async def get_stream_metadata(stream_id: str):
+    """Get stream metadata."""
+    db = get_db()
+    cursor = db.cursor()
+
+    try:
+        cursor.execute("""
+            SELECT stream_id, total_words, content_height, sections_json, updated_at
+            FROM stream_metadata WHERE stream_id = ?
+        """, (stream_id,))
+        row = cursor.fetchone()
+        if row:
+            return dict(row)
+        return {"stream_id": stream_id, "total_words": None, "content_height": None}
+    finally:
+        db.close()
+
+
 @app.get("/stats/{stream_id}")
 async def get_stream_stats(stream_id: str, days: int = 7):
     """Get stats for a stream (used for internal dashboard and email API)."""
@@ -256,24 +329,35 @@ async def get_stream_stats(stream_id: str, days: int = 7):
     cursor = db.cursor()
 
     try:
-        # Overall stats
+        # Overall stats - use active time from engagement periods, NOT wall clock
+        # Each engagement_summary period = 60 seconds of active scrolling
         cursor.execute("""
             SELECT
                 COUNT(*) as total_views,
-                COUNT(DISTINCT visitor_id) as unique_visitors,
-                AVG(
-                    CASE
-                        WHEN ended_at IS NOT NULL
-                        THEN (julianday(ended_at) - julianday(started_at)) * 86400
-                        ELSE NULL
-                    END
-                ) as avg_time_seconds
+                COUNT(DISTINCT visitor_id) as unique_visitors
             FROM page_views
             WHERE stream_id = ?
             AND started_at >= datetime('now', ?)
         """, (stream_id, f'-{days} days'))
         row = cursor.fetchone()
         overall = dict(row) if row else {}
+
+        # Calculate active time from engagement summaries (not wall clock!)
+        # Each period represents ~60 seconds of active engagement
+        cursor.execute("""
+            SELECT AVG(active_seconds) as avg_active_seconds
+            FROM (
+                SELECT pv.id, (MAX(es.period) + 1) * 60 as active_seconds
+                FROM page_views pv
+                LEFT JOIN engagement_summaries es ON pv.id = es.page_view_id
+                WHERE pv.stream_id = ?
+                AND pv.started_at >= datetime('now', ?)
+                GROUP BY pv.id
+                HAVING MAX(es.period) IS NOT NULL
+            )
+        """, (stream_id, f'-{days} days'))
+        active_row = cursor.fetchone()
+        avg_active_seconds = active_row[0] if active_row and active_row[0] else 0
 
         # Completion rate (reached 100% milestone)
         cursor.execute("""
@@ -376,7 +460,10 @@ async def get_stream_stats(stream_id: str, days: int = 7):
                 SUM(reversals) as total_reversals,
                 AVG(reversals) as avg_reversals_per_session,
                 SUM(total_scroll_distance) as total_scroll_distance,
-                AVG(total_scroll_distance) as avg_scroll_distance
+                AVG(total_scroll_distance) as avg_scroll_distance,
+                SUM(reading_time_ms) as total_reading_time_ms,
+                SUM(watching_time_ms) as total_watching_time_ms,
+                AVG(hidden_duration_ms) as avg_hidden_duration_ms
             FROM engagement_summaries
             WHERE page_view_id IN (
                 SELECT id FROM page_views
@@ -386,6 +473,38 @@ async def get_stream_stats(stream_id: str, days: int = 7):
         """, (stream_id, f'-{days} days'))
         engagement_row = cursor.fetchone()
         engagement_totals = dict(engagement_row) if engagement_row else {}
+
+        # Get stream metadata for scroll_intensity and reading_ratio calculations
+        cursor.execute("""
+            SELECT total_words, content_height FROM stream_metadata WHERE stream_id = ?
+        """, (stream_id,))
+        metadata_row = cursor.fetchone()
+        stream_metadata = dict(metadata_row) if metadata_row else {}
+
+        # Calculate scroll_intensity: total_scroll_distance / content_height
+        # >1.0 means they scrolled through more than the content length (revisited sections)
+        scroll_intensity = None
+        if stream_metadata.get('content_height') and engagement_totals.get('avg_scroll_distance'):
+            scroll_intensity = round(
+                engagement_totals['avg_scroll_distance'] / stream_metadata['content_height'], 2
+            )
+
+        # Calculate reading_ratio: active_time / expected_reading_time
+        # expected_reading_time = total_words / 200 wpm * 60 seconds
+        reading_ratio = None
+        if stream_metadata.get('total_words') and avg_active_seconds:
+            expected_reading_seconds = (stream_metadata['total_words'] / 200) * 60
+            if expected_reading_seconds > 0:
+                reading_ratio = round(avg_active_seconds / expected_reading_seconds, 2)
+
+        # Mode distribution (reading vs watching)
+        total_reading_ms = engagement_totals.get('total_reading_time_ms') or 0
+        total_watching_ms = engagement_totals.get('total_watching_time_ms') or 0
+        total_mode_time = total_reading_ms + total_watching_ms
+        mode_distribution = {
+            "reading_pct": round(total_reading_ms / total_mode_time * 100, 1) if total_mode_time > 0 else None,
+            "watching_pct": round(total_watching_ms / total_mode_time * 100, 1) if total_mode_time > 0 else None
+        }
 
         # Top pause points (where people stop to watch/read)
         cursor.execute("""
@@ -444,7 +563,7 @@ async def get_stream_stats(stream_id: str, days: int = 7):
             "unique_visitors": overall.get('unique_visitors', 0) or 0,
             "completion_rate": round(completions / total_views * 100, 1) if total_views > 0 else 0,
             "avg_scroll_depth": round(avg_depth, 1),
-            "avg_time_seconds": round(overall.get('avg_time_seconds', 0) or 0, 1),
+            "avg_time_seconds": round(avg_active_seconds, 1),  # Active time, not wall clock
             "device_split": devices,
             "top_referrers": referrers,
             "section_engagement": sections,
@@ -457,6 +576,13 @@ async def get_stream_stats(stream_id: str, days: int = 7):
                 "avg_scroll_distance": round(engagement_totals.get('avg_scroll_distance') or 0, 0),
                 "pause_points_by_depth": pause_depth_counts,
                 "section_revisits": revisit_counts
+            },
+            # Phase 1: New accuracy metrics
+            "phase1_metrics": {
+                "scroll_intensity": scroll_intensity,  # >1.0 = replayed content
+                "reading_ratio": reading_ratio,  # 1.0 = had time to read all words at 200wpm
+                "mode_distribution": mode_distribution,  # reading vs watching %
+                "has_metadata": bool(stream_metadata.get('total_words'))
             }
         }
     finally:
