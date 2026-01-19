@@ -31,6 +31,14 @@ Implemented Phase 1 of analytics specification - the core accuracy fixes:
 - reading_ratio: 1.28 (users spend 28% more time than needed to read!)
 - mode_distribution: null (will populate after stream rebuild with new tracker)
 
+**Metadata registered for all 16 streams:**
+- az-ehseg-v2, az-utols-iro, bolyai, demo-club-promo, demo-club-promo-perf
+- demo-restaurant-mediterranean, demo-restaurant-mediterranean-perf
+- flight-of-ravens, fotoszintezis-demo, founding-story, founding-story-perf
+- hollok-ropte, nvnyeknek-mondotta-el-rszlet, the-hunger, the-hunger-perf, the-loop-demo
+
+All streams can now measure scroll_intensity and reading_ratio. Analytics paused until traffic increases.
+
 **Files modified:**
 - infrastructure/analytics/api.py - time fix, new metrics, metadata endpoint
 - infrastructure/analytics/schema.sql - stream_metadata table, new columns
