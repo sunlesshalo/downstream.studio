@@ -1,7 +1,7 @@
 {
   "project": "DownStream SaaS",
   "updated": "2026-01-19",
-  "current_focus": "Analytics specification complete (60+ metrics). Definitive doc for implementation: reading ratio, animation engagement, conversion attribution, privacy-first. Ready for Phase 1 implementation.",
+  "current_focus": "Analytics Phase 1 COMPLETE. Server-side: active time from periods (fixes 89-min bug), scroll_intensity, reading_ratio. Tracker: tab visibility + mode detection. Bolyai shows 1.28 reading ratio (engaged!). Next: Phase 2 (section metrics) or Phase 3 (conversion tracking).",
   "metrics": {
     "revenue_total": 0,
     "revenue_this_week": 0,
@@ -392,11 +392,11 @@
     {
       "id": 43,
       "task": "Implement analytics specification Phase 1 (core accuracy)",
-      "status": "pending",
-      "notes": "From analytics-specification.md: (1) Add tab visibility tracking to tracker, (2) Fix time calculation (active time, not wall time), (3) Add reading/watching mode classification, (4) Update API to calculate reading_ratio and scroll_intensity. Goal: fix the 89-minute-average problem caused by abandoned tabs.",
+      "status": "completed",
+      "notes": "DONE: (1) Time now from active periods, not wall clock (fixes 89-min bug), (2) Tab visibility tracking in tracker, (3) Mode detection (reading <30px/s, watching >50px/s), (4) scroll_intensity and reading_ratio in API, (5) stream_metadata table for word counts. Bolyai: scroll_intensity=0.72, reading_ratio=1.28. Mode metrics will populate when streams rebuilt.",
       "blocked_by": "",
       "created": "2026-01-19",
-      "completed": ""
+      "completed": "2026-01-19"
     }
   ],
   "_schema": {

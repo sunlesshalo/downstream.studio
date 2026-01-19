@@ -7,6 +7,37 @@
 
 # Session Log
 
+## 2026-01-19 (Session 51)
+**Analytics Phase 1 Implementation: The Fix**
+
+Implemented Phase 1 of analytics specification - the core accuracy fixes:
+
+**Server-side (deployed, no stream redeploy needed):**
+- Fixed time calculation: now uses active periods (engagement summaries) instead of wall clock time
+- The 89-minute average bug is FIXED - tabs left open no longer count as engagement
+- Added scroll_intensity = total_scroll_distance / content_height (>1.0 = replayed content)
+- Added reading_ratio = active_time / expected_reading_time (1.0 = had time to read at 200wpm)
+- Added stream_metadata table for word counts and content heights
+- New endpoint: POST /streams/metadata for registering stream metadata
+
+**Tracker updates (requires stream rebuild for mode metrics):**
+- Added tab visibility tracking (hidden_duration_ms)
+- Added mode detection from scroll velocity:
+  - reading_time_ms (velocity < 30 px/sec = reading)
+  - watching_time_ms (velocity > 50 px/sec = watching)
+
+**Results for Bolyai stream:**
+- scroll_intensity: 0.72 (users scroll 72% of content)
+- reading_ratio: 1.28 (users spend 28% more time than needed to read!)
+- mode_distribution: null (will populate after stream rebuild with new tracker)
+
+**Files modified:**
+- infrastructure/analytics/api.py - time fix, new metrics, metadata endpoint
+- infrastructure/analytics/schema.sql - stream_metadata table, new columns
+- infrastructure/analytics/tracker.js - visibility + mode tracking
+
+---
+
 ## 2026-01-19 (Session 50)
 **Analytics Specification: The Moat Document**
 
