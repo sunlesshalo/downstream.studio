@@ -345,6 +345,83 @@
       color: white;
     }
 
+    .stat-hint {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* Mode distribution */
+    .mode-container {
+      padding: 8px 0;
+    }
+
+    .mode-bar-container {
+      display: flex;
+      height: 48px;
+      background: var(--bg-hover);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+
+    .mode-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: width 0.5s ease;
+      min-width: 60px;
+    }
+
+    .mode-bar.reading-bar {
+      background: linear-gradient(90deg, #60a5fa, #3b82f6);
+    }
+
+    .mode-bar.watching-bar {
+      background: linear-gradient(90deg, #d4a056, #f59e0b);
+    }
+
+    .mode-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: white;
+    }
+
+    .mode-value {
+      font-size: 14px;
+      font-weight: 700;
+      color: white;
+    }
+
+    .mode-legend {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .legend-dot.reading {
+      background: #60a5fa;
+    }
+
+    .legend-dot.watching {
+      background: #d4a056;
+    }
+
     .loading {
       text-align: center;
       padding: 40px;
@@ -411,11 +488,44 @@
       </div>
       <div class="stat-card">
         <div class="stat-value" id="avg-time">-</div>
-        <div class="stat-label">Avg Time</div>
+        <div class="stat-label">Avg Active Time</div>
       </div>
       <div class="stat-card">
         <div class="stat-value" id="avg-depth">-</div>
         <div class="stat-label">Avg Scroll Depth</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="reading-ratio">-</div>
+        <div class="stat-label">Reading Ratio</div>
+        <div class="stat-hint" id="reading-ratio-hint"></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="scroll-intensity">-</div>
+        <div class="stat-label">Scroll Intensity</div>
+        <div class="stat-hint" id="scroll-intensity-hint"></div>
+      </div>
+    </div>
+
+    <!-- Mode Distribution -->
+    <div class="charts-grid">
+      <div class="chart-card span-12" id="mode-card" style="display: none;">
+        <div class="chart-title">Engagement Mode Distribution</div>
+        <div class="mode-container">
+          <div class="mode-bar-container">
+            <div class="mode-bar reading-bar" id="reading-bar" style="width: 0%">
+              <span class="mode-label">Reading</span>
+              <span class="mode-value" id="reading-pct">-</span>
+            </div>
+            <div class="mode-bar watching-bar" id="watching-bar" style="width: 0%">
+              <span class="mode-label">Watching</span>
+              <span class="mode-value" id="watching-pct">-</span>
+            </div>
+          </div>
+          <div class="mode-legend">
+            <span class="legend-item"><span class="legend-dot reading"></span> Reading (slow scroll, &lt;30 px/sec)</span>
+            <span class="legend-item"><span class="legend-dot watching"></span> Watching (fast scroll, &gt;50 px/sec)</span>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -543,6 +653,45 @@
         const mins = Math.floor(avgTime / 60);
         const secs = Math.round(avgTime % 60);
         document.getElementById('avg-time').textContent = mins > 0 ? `${mins}m ${secs}s` : `${secs}s`;
+
+        // Phase 1 metrics
+        const p1 = data.phase1_metrics || {};
+
+        // Reading ratio
+        if (p1.reading_ratio !== null && p1.reading_ratio !== undefined) {
+          document.getElementById('reading-ratio').textContent = p1.reading_ratio + 'x';
+          const hint = p1.reading_ratio >= 1
+            ? 'Time to read all content'
+            : 'Read ' + Math.round(p1.reading_ratio * 100) + '% of content';
+          document.getElementById('reading-ratio-hint').textContent = hint;
+        } else {
+          document.getElementById('reading-ratio').textContent = '-';
+          document.getElementById('reading-ratio-hint').textContent = p1.has_metadata ? 'No data yet' : 'No metadata';
+        }
+
+        // Scroll intensity
+        if (p1.scroll_intensity !== null && p1.scroll_intensity !== undefined) {
+          document.getElementById('scroll-intensity').textContent = p1.scroll_intensity + 'x';
+          const hint = p1.scroll_intensity > 1
+            ? 'Replayed content'
+            : 'Scrolled ' + Math.round(p1.scroll_intensity * 100) + '% of content';
+          document.getElementById('scroll-intensity-hint').textContent = hint;
+        } else {
+          document.getElementById('scroll-intensity').textContent = '-';
+          document.getElementById('scroll-intensity-hint').textContent = p1.has_metadata ? 'No data yet' : 'No metadata';
+        }
+
+        // Mode distribution
+        const mode = p1.mode_distribution || {};
+        if (mode.reading_pct !== null && mode.watching_pct !== null) {
+          document.getElementById('mode-card').style.display = 'block';
+          document.getElementById('reading-bar').style.width = mode.reading_pct + '%';
+          document.getElementById('watching-bar').style.width = mode.watching_pct + '%';
+          document.getElementById('reading-pct').textContent = mode.reading_pct + '%';
+          document.getElementById('watching-pct').textContent = mode.watching_pct + '%';
+        } else {
+          document.getElementById('mode-card').style.display = 'none';
+        }
       } catch (e) {
         console.error('Stats error:', e);
       }
