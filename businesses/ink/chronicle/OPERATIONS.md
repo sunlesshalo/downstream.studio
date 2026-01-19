@@ -37,6 +37,35 @@ This is the business diary. Every session (human-initiated, cron-triggered, webh
 
 ## Operations Log
 
+### 2026-01-19 — Human Session (Session 53)
+
+**Trigger:** human
+**Duration:** ~45 minutes
+
+### What Happened
+- Added ?ds_skip=1 parameter to all analytics dashboard links (5 files)
+- Changed downstream.studio pricing from $497 to $495 with original text format
+- Created English Bolyai stream (bolyai-en):
+  - Copied existing bolyai app (no asset regeneration)
+  - Translated all text in content.tsx
+  - Updated config.tsx (id, title)
+  - Fixed layout.tsx (DS_STREAM_ID, all metadata: title, description, openGraph, twitter)
+  - Updated package.json name
+- Updated downstream.studio landing page to feature bolyai-en instead of Flight of Ravens
+- Created transpose-stream skill with 12-item verification checklist
+- Verified analytics tracking working for bolyai-en
+
+### Outcomes
+- English Bolyai live at https://bolyai-en.vercel.app
+- downstream.studio landing page updated with correct example
+- New skill prevents future translation mistakes
+- Analytics dashboard visits no longer count in metrics
+
+### Flags
+- [x] Completed successfully
+
+---
+
 ### 2026-01-19 — Human Session (Session 52)
 
 **Trigger:** human

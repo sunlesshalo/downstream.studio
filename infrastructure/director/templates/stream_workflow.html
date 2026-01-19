@@ -224,7 +224,7 @@
     </div>
     <div style="display: flex; gap: 0.5rem;">
         {% if progress.cp5_complete %}
-        <a href="{{ stream.deployment.url }}" target="_blank" class="btn btn-success">
+        <a href="{{ stream.deployment.url }}?ds_skip=1" target="_blank" class="btn btn-success">
             View Live ↗
         </a>
         {% elif progress.finalized %}

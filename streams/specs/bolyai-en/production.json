@@ -1,0 +1,115 @@
+{
+  "stream": {
+    "id": "bolyai-en",
+    "title": "The Two-Thousand-Year Riddle: János Bolyai and Curved Space",
+    "interpretation_scale": 7,
+    "notes": "English version of the Bolyai stream. Uses same visual assets as Hungarian version."
+  },
+  "input": {
+    "language": "en",
+    "word_count": 881,
+    "brief": {
+      "tone": ["intellectual", "inspiring", "historical"],
+      "style_hints": ["mathematical visualization", "educational", "Hungarian heritage"],
+      "references": ["scientific illustration", "vintage mathematics diagrams", "cosmic visualization"],
+      "target_audience": "English-speaking readers interested in science and history",
+      "notes": "Story of Bolyai's discovery of non-Euclidean geometry. Visual motif: transition from rigid parallel lines to flowing curved space."
+    }
+  },
+  "visual_direction": {
+    "aesthetic": "Mathematical abstraction meets cosmic wonder. Clean geometric forms give way to organic hyperbolic curves. Renaissance study meets infinite space. Paper textures and aged document feel combined with cosmic depth.",
+    "color_palette": {
+      "background": "#0a0a14",
+      "primary": "#c9a656",
+      "secondary": "#8b7355",
+      "accent": "#4a6d8c",
+      "cold": "#1a2a3a",
+      "warm": "#d4a056"
+    },
+    "texture": "Aged paper, mathematical manuscript, subtle grain, ink wash",
+    "references": ["Scientific illustration", "M.C. Escher", "Cosmic visualization", "Renaissance study"],
+    "unifying_elements": "Geometric lines that curve and flow. The recurring motif of parallel lines transforming - starting rigid and flat, gradually bending and diverging into curved space. Mathematical symbols floating as if alive.",
+    "bookend_strategy": "evolution",
+    "bookend_method": "compositional_parallel",
+    "bookend_notes": "Opening: rigid parallel lines, Euclidean perfection, the prison of assumption. Closing: curved space embracing planets, Bolyai's vision proven. Both show lines, but transformed."
+  },
+  "composition_rules": {
+    "safe_zone": "Key visual elements must be in CENTER 60% of frame",
+    "reason": "Desktop crops ~20% from each side",
+    "prompt_suffix": "center-focused composition with key subject in middle of frame"
+  },
+  "segments": [
+    {
+      "id": 1,
+      "title": "THE RIDDLE",
+      "camera_instruction": "slow push in toward center",
+      "color_state": "warm"
+    },
+    {
+      "id": 2,
+      "title": "THE FATHER'S WARNING",
+      "camera_instruction": "slow pan right",
+      "color_state": "muted"
+    },
+    {
+      "id": 3,
+      "title": "CURVED SPACE",
+      "camera_instruction": "pull back",
+      "color_state": "cold"
+    },
+    {
+      "id": 4,
+      "title": "A NEW WORLD FROM NOTHING",
+      "camera_instruction": "orbit",
+      "color_state": "warm"
+    },
+    {
+      "id": 5,
+      "title": "VINDICATION",
+      "camera_instruction": "drift",
+      "color_state": "warm"
+    }
+  ],
+  "sections": [
+    {
+      "id": "chapter-1",
+      "heading": null,
+      "heading_type": null,
+      "segment_ids": [1],
+      "text_type": "prose",
+      "dialogue_markers": null,
+      "text_content": "1. The Riddle\nFor two thousand years, no one found the answer. It wasn't about an ancient curse, nor about a map to lost treasure — just an infinitely simple question about lines. It was the kind of question any student might ask in a geometry class, yet history's greatest minds stumbled over it one after another.\nThe question was this: Why are we certain that parallel lines never meet?\n\"Of course they don't meet!\" you might say. \"That's the very definition of parallel.\" And you'd be right, but mathematicians weren't carved from such simple wood: they sought ultimate proof.\nTwo thousand years ago, a Greek scholar named Euclid laid down the fundamental rules of geometry. He formulated five simple statements (axioms) from which everything else could be derived. The first four were crystal clear:\nA line can be drawn between two points.\nAny line segment can be extended.\nA circle can be drawn with any center and any radius.\nAll right angles are equal.\nBut that damned fifth rule... it was entirely different. More complex, more cumbersome, as if it didn't belong with the others. This rule stated that parallel lines never intersect, but in such a convoluted way that it practically begged to be proven.\nFor centuries, mathematicians were gnawed by doubt: if the other four rules were so elegant, why was the fifth so twisted? Was it truly a fundamental truth that could only be believed? Or could it be derived from the other four? Generations of Arab, Persian, Italian, and German scholars tried and failed. Then attention turned to a family in Transylvania."
+    },
+    {
+      "id": "chapter-2",
+      "heading": null,
+      "heading_type": null,
+      "segment_ids": [2],
+      "text_type": "prose_with_dialogue",
+      "dialogue_markers": ["\"", "\""],
+      "text_content": "2. The Father: Farkas Bolyai\nFarkas Bolyai was no ordinary man. A mathematician, inventor, musician, and poet rolled into one, he taught in Marosvásárhely. His students adored him because he didn't make them memorize — he taught them to think. But Farkas had a dark obsession: he too was possessed by the demon of parallel lines.\nAs a young man, he corresponded with the \"Prince of Mathematics,\" Carl Friedrich Gauss. Farkas firmly believed he would be the one to finally put an end to the two-thousand-year riddle. He hunched over papers through countless nights. Every time he thought he had the solution, he discovered a small, devastating flaw. Failure slowly eroded his self-esteem.\nMeanwhile, his son János grew up. The boy's genius showed early: he played violin at six, and by thirteen was studying university-level mathematics. Farkas was proud but also terrified, seeing that János's attention was turning to the same riddle that had ruined his own life.\nIn 1820, Farkas wrote a dramatic letter to his son — one of the most moving documents in the history of science:\n\"For God's sake, leave the doctrine of parallel lines alone... I have traveled this path to its end, and there is no happiness in it. All my attempts have failed, and my soul has sunk into darkness. Please, don't try it — you would waste your life, as I have wasted mine.\"\nBut János did not listen to his father."
+    },
+    {
+      "id": "chapter-3-4",
+      "heading": null,
+      "heading_type": null,
+      "segment_ids": [3, 4],
+      "text_type": "prose_with_dialogue",
+      "dialogue_markers": ["\"", "\""],
+      "text_content": "3. The Heart of the Problem\nTo understand János's revolution, let's try an experiment. Take a sheet of paper. Draw a line, then a point above it, and through that point draw another line parallel to the first. Easy, right? The two lines never meet.\nBut what if your paper isn't flat? Imagine drawing on the surface of a basketball. If you start drawing two parallel lines from the ball's \"equator\" toward the north pole, they will meet at the top. Yet they started out parallel! This is called spherical geometry.\nHere's the brilliant twist: how do we know our world is \"flat\"? What if space itself — the entire universe — isn't like a smooth tabletop, but contains an invisible curvature? This was the question that changed everything.\n4. The Breakthrough: \"From Nothing, a New World\"\nJános became a military officer, but by candlelight in the barracks, during breaks from marching, he still pondered parallel lines. But he approached it differently. He didn't ask: \"How can I prove the fifth rule?\" Instead, he asked: \"What happens if it isn't true?\"\nWhat if there exists a geometry where parallel lines not only don't meet, but actively diverge from each other? János developed a system that at first seemed insane, yet worked perfectly, without contradictions. He built an entire mathematical universe that wasn't based on Euclid's rules.\nIn 1823, he wrote the famous lines to his father:\n\"From nothing, I have created a new, different world.\"\nFarkas could hardly believe what he saw. His son had succeeded not because he was smarter, but because he had the courage to reject two thousand years of dogma. The result finally saw daylight in 1832, in a work titled Appendix. It was only twenty-six pages, but it shook science to its foundations."
+    },
+    {
+      "id": "chapter-5-6",
+      "heading": null,
+      "heading_type": null,
+      "segment_ids": [5],
+      "text_type": "prose",
+      "dialogue_markers": null,
+      "text_content": "5. The Saddle-Shaped World\nWhat did János discover? A space (called hyperbolic space) that most resembles a horse's saddle. In this world, the rules go mad:\nThe sum of angles in a triangle is less than 180 degrees.\nThrough a single point, infinitely many lines can be drawn parallel to a given line.\nThis isn't just abstract math. Nature loves Bolyai geometry: look at the ruffles of a coral reef, the edge of a lettuce leaf, or certain mushroom caps — they all follow this hyperbolic form.\n6. Vindication\nJános's success was bittersweet. When his work was sent to Gauss, the great scientist gave a cool response: he wrote that he couldn't praise János, because that would be praising himself — he claimed he had figured this out years earlier but hadn't dared to write it down. János collapsed, feeling betrayed, his discovery stolen. He never published again.\nBut history delivered justice. Eighty years later, a young German physicist named Albert Einstein was investigating the secret of gravity. He realized that planets don't orbit due to invisible ropes: the Sun's mass simply curves space around it.\nFor Einstein to describe how the universe works, he needed precisely the \"curved\" geometry that János Bolyai had created in the darkness of military barracks.\nJános discovered what no one had for two thousand years before him: sometimes the greatest discovery comes not from proving what everyone believes to be true, but from questioning it."
+    }
+  ],
+  "output": {
+    "frame_format": "webp",
+    "dimensions": "1920x1080"
+  }
+}

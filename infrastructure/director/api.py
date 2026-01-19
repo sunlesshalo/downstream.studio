@@ -953,9 +953,11 @@ async def preview_stream(
     if not stream:
         raise HTTPException(status_code=404, detail="Stream not found")
 
-    # If deployed, redirect to deployed URL
+    # If deployed, redirect to deployed URL (with ds_skip=1 to exclude from analytics)
     if stream.get("deployment") and stream["deployment"].get("stream_url"):
-        return RedirectResponse(url=stream["deployment"]["stream_url"], status_code=302)
+        url = stream["deployment"]["stream_url"]
+        skip_url = f"{url}{'&' if '?' in url else '?'}ds_skip=1"
+        return RedirectResponse(url=skip_url, status_code=302)
 
     # Otherwise, return a message that preview isn't available
     return HTMLResponse(

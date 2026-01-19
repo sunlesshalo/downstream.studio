@@ -10,7 +10,7 @@
 <div class="flex justify-between items-center" style="margin-bottom: 2rem;">
     <h1>{{ stream.input.title if stream.input else stream.id }}</h1>
     {% if stream.deployment %}
-    <a href="{{ stream.deployment.url }}" class="btn btn-primary" target="_blank">View Live →</a>
+    <a href="{{ stream.deployment.url }}?ds_skip=1" class="btn btn-primary" target="_blank">View Live →</a>
     {% endif %}
 </div>
 

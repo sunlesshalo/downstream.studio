@@ -1,7 +1,7 @@
 {
   "project": "DownStream SaaS",
   "updated": "2026-01-19",
-  "current_focus": "Analytics Phase 1 COMPLETE. All 16 streams have metadata registered (word counts, content heights). All streams can now measure scroll_intensity and reading_ratio. Analytics paused until traffic increases. Next priority: Launch (Task #7) - we have 0 revenue, 0 customers.",
+  "current_focus": "English Bolyai stream live on downstream.studio landing page. Analytics dashboard links auto-skip tracking. Pricing restored to $495. transpose-stream skill created. Next priority: Launch (Task #7) - we have 0 revenue, 0 customers.",
   "metrics": {
     "revenue_total": 0,
     "revenue_this_week": 0,
@@ -394,6 +394,33 @@
       "task": "Implement analytics specification Phase 1 (core accuracy)",
       "status": "completed",
       "notes": "DONE: (1) Time now from active periods, not wall clock (fixes 89-min bug), (2) Tab visibility tracking in tracker, (3) Mode detection (reading <30px/s, watching >50px/s), (4) scroll_intensity and reading_ratio in API, (5) stream_metadata table for word counts. Bolyai: scroll_intensity=0.72, reading_ratio=1.28. Mode metrics will populate when streams rebuilt.",
+      "blocked_by": "",
+      "created": "2026-01-19",
+      "completed": "2026-01-19"
+    },
+    {
+      "id": 44,
+      "task": "Create English Bolyai stream for downstream.studio",
+      "status": "completed",
+      "notes": "Translated Hungarian Bolyai stream to English. NO asset regeneration - copied app, translated text only. Fixed: DS_STREAM_ID, all metadata (openGraph, twitter), package.json name. Replaced Flight of Ravens on landing page. Live at bolyai-en.vercel.app",
+      "blocked_by": "",
+      "created": "2026-01-19",
+      "completed": "2026-01-19"
+    },
+    {
+      "id": 45,
+      "task": "Create transpose-stream skill for language translations",
+      "status": "completed",
+      "notes": "Comprehensive skill documenting stream translation process. 12-item verification checklist, common mistakes, language suffix conventions. Critical rule: NEVER regenerate visual assets.",
+      "blocked_by": "",
+      "created": "2026-01-19",
+      "completed": "2026-01-19"
+    },
+    {
+      "id": 46,
+      "task": "Add analytics skip parameter to dashboard links",
+      "status": "completed",
+      "notes": "All stream links from analytics dashboards now include ?ds_skip=1 to exclude own visits from tracking. Updated 5 files: api.py, stream_detail.html, stream_workflow.html, dashboard.html, stream-detail.html",
       "blocked_by": "",
       "created": "2026-01-19",
       "completed": "2026-01-19"

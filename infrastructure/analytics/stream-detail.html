@@ -626,7 +626,7 @@
 
         const urlEl = document.getElementById('stream-url');
         if (data.deployment_url) {
-          urlEl.href = data.deployment_url;
+          urlEl.href = data.deployment_url + '?ds_skip=1';
           urlEl.style.display = 'inline';
         } else {
           urlEl.style.display = 'none';

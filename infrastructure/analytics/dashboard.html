@@ -577,7 +577,7 @@
               <td>${formatNumber(stream.views)}</td>
               <td>${formatNumber(stream.unique_visitors)}</td>
               <td>
-                ${stream.deployment_url ? `<a href="${escapeHtml(stream.deployment_url)}" target="_blank" class="stream-link">View</a>` : '-'}
+                ${stream.deployment_url ? `<a href="${escapeHtml(stream.deployment_url)}?ds_skip=1" target="_blank" class="stream-link">View</a>` : '-'}
                 <a href="/dashboard/stream/${escapeHtml(stream.stream_id)}" class="stream-link" style="margin-left: 12px;">Analytics</a>
               </td>
             </tr>

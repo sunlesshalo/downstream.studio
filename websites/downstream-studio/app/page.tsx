@@ -6,7 +6,7 @@ import AnimatedBackground from './components/AnimatedBackground'
 
 const FOUNDING_STORY_URL = 'https://founding-story-perf.vercel.app/'
 const THE_HUNGER_URL = 'https://the-hunger-perf.vercel.app/'
-const FLIGHT_OF_RAVENS_URL = 'https://flight-of-ravens-v2.vercel.app/'
+const BOLYAI_EN_URL = 'https://bolyai-en.vercel.app/'
 const BOOKING_URL = 'https://cal.com/ferencz-csuszner/30min'
 
 export default function BetaLandingPage() {
@@ -183,21 +183,21 @@ export default function BetaLandingPage() {
           <div className={styles.exampleCard}>
             <div className={styles.exampleFrame}>
               <iframe
-                src={FLIGHT_OF_RAVENS_URL}
-                title="Flight of Ravens"
+                src={BOLYAI_EN_URL}
+                title="The Two-Thousand-Year Riddle"
                 className={styles.exampleIframe}
                 allow="autoplay"
               />
             </div>
             <div className={styles.exampleInfo}>
-              <h3>Flight of Ravens</h3>
-              <p className={styles.exampleMeta}>Surrealist Fiction</p>
+              <h3>The Two-Thousand-Year Riddle</h3>
+              <p className={styles.exampleMeta}>Science History</p>
               <p className={styles.exampleDesc}>
-                A dreamlike journey through memory and transformation.
-                Poetic, visual, haunting.
+                How a 19th century Hungarian mathematician questioned 2,000 years of certainty
+                and changed how we see the universe.
               </p>
               <a
-                href={FLIGHT_OF_RAVENS_URL}
+                href={BOLYAI_EN_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.exampleLink}
@@ -252,7 +252,7 @@ export default function BetaLandingPage() {
             <div className={styles.processCard}>
               <span className={styles.stepNumber}>3</span>
               <h3>Submit + Pay</h3>
-              <p>Send your full text (1,000-2,000 words) and pay the founding price ($497).</p>
+              <p>Send your full text (1,000-2,000 words) and pay the founding price ($495).</p>
             </div>
             <div className={styles.processCard}>
               <span className={styles.stepNumber}>4</span>
@@ -272,7 +272,7 @@ export default function BetaLandingPage() {
               <p className={styles.spotsLabel}>Only 10 spots available</p>
               <h2>Join the Founding Beta</h2>
               <div className={styles.applyDeal}>
-                <p><strong>Founder Price Starts at $99</strong></p>
+                <p><strong>Founder Price:</strong> $495 <span className={styles.muted}>(future price: $1,497+)</span></p>
                 <p><strong>You bring:</strong> A story (1,000-2,000 words)</p>
                 <p><strong>We deliver:</strong> A complete stream</p>
               </div>
@@ -414,7 +414,7 @@ export default function BetaLandingPage() {
                 a: "Every stream comes with a clean hosted URL and embed code for your website. If you want a custom domain (story.yourdomain.com), we can set that up — just let us know."
               },
               {
-                q: "Why is the price $497 now vs $1,497 later?",
+                q: "Why is the price $495 now vs $1,497 later?",
                 a: "This is the founding beta. You get a lower price in exchange for honest feedback and helping us refine the product. Once we have 10 founding customers, the price goes up."
               },
               {

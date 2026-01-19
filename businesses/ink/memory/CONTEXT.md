@@ -7,6 +7,21 @@
 
 # Session Log
 
+## 2026-01-19 (Session 53)
+**English Bolyai Stream & Translation Skill**
+
+- Created English version of Bolyai stream (bolyai-en) - text translation ONLY, no asset regeneration
+- Updated downstream.studio landing page: replaced Flight of Ravens with English Bolyai
+- Fixed multiple issues in translation: DS_STREAM_ID, all metadata (title, description, openGraph, twitter), package.json name
+- Created transpose-stream skill documenting translation process with 12-item verification checklist
+- Added ?ds_skip=1 parameter to all analytics dashboard links (5 files updated)
+- Changed downstream.studio pricing back to $495 with original format
+- Verified analytics tracking working for bolyai-en (2 page views in DB)
+
+**Key learning:** Stream translations are just text changes. NEVER regenerate visual assets - copy the app, translate content, fix identifiers.
+
+---
+
 ## 2026-01-19 (Session 52)
 **Analytics Opt-Out & Dashboard Polish**
 
