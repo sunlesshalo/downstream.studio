@@ -1,7 +1,7 @@
 {
   "project": "DownStream SaaS",
   "updated": "2026-01-19",
-  "current_focus": "Marketing showreel created (60-sec, 9:16 format). Analytics dashboard operational. Ready for social media promotion.",
+  "current_focus": "Analytics specification complete (60+ metrics). Definitive doc for implementation: reading ratio, animation engagement, conversion attribution, privacy-first. Ready for Phase 1 implementation.",
   "metrics": {
     "revenue_total": 0,
     "revenue_this_week": 0,
@@ -388,6 +388,15 @@
       "blocked_by": "",
       "created": "2026-01-17",
       "completed": "2026-01-17"
+    },
+    {
+      "id": 43,
+      "task": "Implement analytics specification Phase 1 (core accuracy)",
+      "status": "pending",
+      "notes": "From analytics-specification.md: (1) Add tab visibility tracking to tracker, (2) Fix time calculation (active time, not wall time), (3) Add reading/watching mode classification, (4) Update API to calculate reading_ratio and scroll_intensity. Goal: fix the 89-minute-average problem caused by abandoned tabs.",
+      "blocked_by": "",
+      "created": "2026-01-19",
+      "completed": ""
     }
   ],
   "_schema": {

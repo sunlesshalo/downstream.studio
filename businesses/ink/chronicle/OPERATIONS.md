@@ -37,6 +37,56 @@ This is the business diary. Every session (human-initiated, cron-triggered, webh
 
 ## Operations Log
 
+### 2026-01-19 — Human Session (Session 50)
+
+**Trigger:** human (Ferenc)
+**Duration:** ~120 minutes
+
+### What Happened
+
+**1. Analytics Accuracy Problem Identified**
+- Discovered time-on-page showing 89 minutes average (impossible for 2-3 min streams)
+- Root cause: wall clock time counted even when tab abandoned
+- Engagement summary data already exists to calculate active time
+
+**2. Deep Product Analysis**
+- Initial assumption: scroll-driven video player (fast scroll = watching)
+- Corrected to: dual-content medium (text AND animation simultaneously)
+- Key insight: reading and watching are in tension - can't optimize both at same time
+- Users switch modes: read → watch → read → watch
+
+**3. Analytics Specification Created**
+- Definitive document: `businesses/ink/chronicle/methodology/analytics-specification.md`
+- ~60+ metrics catalogued across 3 categories:
+  - Standard landing page (CTR, form submissions, etc.)
+  - Stream-specific (reading ratio, scroll intensity, mode analysis)
+  - Conversion context (engagement patterns linked to conversion)
+- Privacy-first architecture: no PII, no cookies, GDPR compliant
+- 6-phase implementation roadmap
+- Archived superseded draft documents
+
+**4. Key Metrics Designed**
+- Reading ratio = actual_time / expected_reading_time (based on word count)
+- Scroll intensity = total_distance / content_height (1.0 = single pass)
+- Mode detection via velocity thresholds (<30 px/sec = reading, >50 = watching)
+- Engagement cohorts: Deep Engagers, Full Experiencers, Readers, Watchers, Samplers, Bouncers
+
+**5. Showreel Task Closed**
+- User confirmed cheer music version was posted
+- Marked Session 49 outstanding task complete
+
+### Outcomes
+- Complete analytics specification ready for implementation
+- New task created: Phase 1 implementation (tab visibility, active time, mode classification)
+- Clear differentiation story: "We show you WHY they converted, not just IF"
+- Privacy-first approach ensures GDPR compliance without consent banners
+
+### Flags
+- [x] Analytics specification complete
+- [ ] Phase 1 implementation pending (Task #43)
+
+---
+
 ### 2026-01-19 — Human Session (Session 49)
 
 **Trigger:** human (Ferenc)

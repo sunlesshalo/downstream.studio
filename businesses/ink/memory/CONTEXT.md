@@ -7,6 +7,29 @@
 
 # Session Log
 
+## 2026-01-19 (Session 50)
+**Analytics Specification: The Moat Document**
+
+- Identified time-on-page bug: 89-minute averages caused by abandoned tabs (wall time vs active time)
+- Deep analysis of DownStream's unique nature: scroll-controlled video + text simultaneously
+- Key realization: Fast scrolling = watching animation = HIGH engagement (not skimming like articles)
+- Created definitive analytics specification (businesses/ink/chronicle/methodology/analytics-specification.md):
+  - ~60+ metrics across standard landing page + stream-specific
+  - Reading ratio: actual_time / expected_reading_time based on word count
+  - Animation engagement: scroll_intensity = total_distance / content_height
+  - Mode analysis: reading vs watching detection via scroll velocity thresholds
+  - Conversion attribution: links engagement patterns to CTA clicks
+  - Privacy-first: no PII, no cookies, GDPR compliant by design
+- Cohort definitions: Deep Engagers, Full Experiencers, Readers, Watchers, Samplers, Bouncers
+- CTA/form/link tracking with engagement context (unique to DownStream)
+- Implementation roadmap: 6 phases over ~6 weeks
+- Archived previous draft docs to methodology/archive/
+- Showreel posted with cheer music (from Session 49)
+
+**The pitch:** "Full landing page analytics plus clinical precision on content consumption. Every scroll, every pause, every replay, every click — plus the WHY behind conversions."
+
+---
+
 ## 2026-01-19 (Session 49)
 **Marketing Showreel Creation**
 
