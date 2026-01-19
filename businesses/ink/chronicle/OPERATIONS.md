@@ -37,6 +37,52 @@ This is the business diary. Every session (human-initiated, cron-triggered, webh
 
 ## Operations Log
 
+### 2026-01-19 — Human Session (Session 49)
+
+**Trigger:** human (Ferenc)
+**Duration:** ~90 minutes
+
+### What Happened
+
+**1. Marketing Showreel Creation**
+- Discussed CTA placement options and 10 innovative use cases for streams
+- Recorded 4 streams at 60 seconds each (reels format, 9:16):
+  - bolyai-raw.mp4 (32MB)
+  - ehseg-raw.mp4 (28MB)
+  - founding-story-raw.mp4 (41MB)
+  - hollok-ropte-raw.mp4 (37MB)
+- Used existing capture-frames.js with `reels` config (430x763 → 1080x1920)
+
+**2. Montage System**
+- Created clips.json with 15 segment definitions (4 seconds each)
+- Emphasis distribution: Bolyai (5), Éhség (4), Founding Story (3), Hollók röpte (3)
+- Built create_montage.js script for automated montage creation
+- Fixed ffmpeg concat path issues
+
+**3. Background Music**
+- Tried multiple Mixkit tracks (ambient, corporate, digital - rejected as "too mechanical")
+- Downloaded lo-fi and piano alternatives
+- Created two music versions:
+  - showreel-v1-piano.mp4 (Piano Reflections, 25% volume)
+  - showreel-v1-lofi.mp4 (Sleepy Cat, 30% volume)
+- Audio has 3-second fade out at end
+
+**4. License Verification**
+- Researched Mixkit licensing for social media use
+- Confirmed: Commercial use allowed, YouTube/Facebook/Instagram/TikTok permitted, no attribution required
+- Note: Can't guarantee against false Content ID claims (platform algorithm issue, not license issue)
+
+### Outcomes
+- Marketing showreel ready for social media: assets/recordings/showreel/
+- Reusable montage system: clips.json + create_montage.js
+- Three versions available: silent, lo-fi, piano
+
+### Flags
+- [x] Showreel created for marketing use
+- [ ] User to choose preferred music version for posting
+
+---
+
 ### 2026-01-18 — Human Session (Session 48)
 
 **Trigger:** human (Ferenc)

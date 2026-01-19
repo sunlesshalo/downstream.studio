@@ -1,0 +1,22 @@
+{
+  "output": "showreel-v1.mp4",
+  "clip_duration": 4,
+  "fps": 24,
+  "clips": [
+    {"source": "bolyai-raw.mp4", "start": 5, "note": "Opening - animation starting"},
+    {"source": "ehseg-raw.mp4", "start": 8, "note": "Ehség intro"},
+    {"source": "founding-story-raw.mp4", "start": 10, "note": "Founding story intro"},
+    {"source": "bolyai-raw.mp4", "start": 15, "note": "Bolyai section 1"},
+    {"source": "hollok-ropte-raw.mp4", "start": 12, "note": "Ravens intro"},
+    {"source": "ehseg-raw.mp4", "start": 20, "note": "Ehség middle"},
+    {"source": "bolyai-raw.mp4", "start": 25, "note": "Bolyai axioms"},
+    {"source": "founding-story-raw.mp4", "start": 25, "note": "Founding story middle"},
+    {"source": "ehseg-raw.mp4", "start": 35, "note": "Ehség climax"},
+    {"source": "bolyai-raw.mp4", "start": 35, "note": "Bolyai key moment"},
+    {"source": "hollok-ropte-raw.mp4", "start": 30, "note": "Ravens middle"},
+    {"source": "ehseg-raw.mp4", "start": 45, "note": "Ehség ending"},
+    {"source": "bolyai-raw.mp4", "start": 45, "note": "Bolyai near end"},
+    {"source": "founding-story-raw.mp4", "start": 45, "note": "Founding story ending"},
+    {"source": "bolyai-raw.mp4", "start": 52, "note": "Bolyai finale"}
+  ]
+}

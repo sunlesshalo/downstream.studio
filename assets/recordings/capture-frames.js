@@ -353,7 +353,7 @@ const configs = {
     height: 1080,
     duration,
     fps: 24,
-    outputDir: '/Users/ferenczcsuszner/Coding/2026/downstream/recordings',
+    outputDir: path.join(__dirname, 'showreel'),
     name: customName || 'desktop',
     startSection,
     endSection
@@ -364,7 +364,7 @@ const configs = {
     height: 844,
     duration,
     fps: 24,
-    outputDir: '/Users/ferenczcsuszner/Coding/2026/downstream/recordings',
+    outputDir: path.join(__dirname, 'showreel'),
     name: customName || 'mobile',
     startSection,
     endSection
@@ -375,7 +375,7 @@ const configs = {
     height: 763, // 9:16 ratio at this width
     duration,
     fps: 24,
-    outputDir: '/Users/ferenczcsuszner/Coding/2026/downstream/recordings',
+    outputDir: path.join(__dirname, 'showreel'),
     name: customName || 'reels',
     startSection,
     endSection,

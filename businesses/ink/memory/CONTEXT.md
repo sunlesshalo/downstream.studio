@@ -7,6 +7,21 @@
 
 # Session Log
 
+## 2026-01-19 (Session 49)
+**Marketing Showreel Creation**
+
+- Created 60-second showreel video (9:16 format) for social media marketing
+- Recorded 4 streams at 60 seconds each: Bolyai, Éhség, Founding Story, Hollók röpte
+- Built clips.json config with 15 segments (4 sec each), emphasis on Bolyai (5 clips)
+- Created create_montage.js script for automated montage generation
+- Added royalty-free background music from Mixkit:
+  - Sleepy Cat (lo-fi beats) → showreel-v1-lofi.mp4
+  - Piano Reflections → showreel-v1-piano.mp4
+- Verified Mixkit license: commercial use, social media (Facebook/Instagram/YouTube) allowed, no attribution required
+- Files: assets/recordings/showreel/
+
+---
+
 ## 2026-01-18 (Session 48)
 **Stylish Loading Indicator + Bolyai Perf + Git Cleanup**
 
