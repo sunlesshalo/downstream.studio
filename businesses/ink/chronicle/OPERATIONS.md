@@ -37,6 +37,29 @@ This is the business diary. Every session (human-initiated, cron-triggered, webh
 
 ## Operations Log
 
+### 2026-01-19 — Human Session (Session 52)
+
+**Trigger:** human
+**Duration:** ~15 minutes
+
+### What Happened
+- Added Phase 1 metrics display to stream-detail.html (reading ratio, scroll intensity, mode distribution bar)
+- Implemented tracker opt-out mechanisms:
+  - ?ds_skip=1 for single-visit skip
+  - ?ds_optout=1/0 for permanent localStorage opt-out
+- Removed unnecessary kill switch after user clarified requirements
+- Pushed changes to GitHub
+
+### Outcomes
+- Dashboard now shows all Phase 1 metrics
+- User can skip tracking on individual visits without affecting other users
+- Code is cleaner without redundant kill switch
+
+### Flags
+- [x] Completed successfully
+
+---
+
 ### 2026-01-19 — Human Session (Session 50)
 
 **Trigger:** human (Ferenc)

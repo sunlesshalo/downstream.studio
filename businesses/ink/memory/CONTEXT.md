@@ -7,6 +7,27 @@
 
 # Session Log
 
+## 2026-01-19 (Session 52)
+**Analytics Opt-Out & Dashboard Polish**
+
+Short session focused on analytics quality-of-life improvements:
+
+**Dashboard displays Phase 1 metrics:**
+- Added reading ratio and scroll intensity stat cards to stream-detail.html
+- Added mode distribution bar (reading vs watching %) with legend
+- All Phase 1 metrics now visible in dashboard
+
+**Tracker opt-out mechanisms:**
+- `?ds_skip=1` — Skip tracking for single visit only (no persistence)
+- `?ds_optout=1` — Permanent opt-out via localStorage
+- `?ds_optout=0` — Re-enable tracking
+
+Removed unnecessary kill switch after user clarified requirements. User wanted per-visit skip, not global disable.
+
+**Note:** Existing deployed streams have old tracker inlined. Changes apply to new builds.
+
+---
+
 ## 2026-01-19 (Session 51)
 **Analytics Phase 1 Implementation: The Fix**
 
