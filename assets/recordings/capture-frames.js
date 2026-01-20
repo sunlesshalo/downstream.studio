@@ -344,7 +344,13 @@ const smoothMode = args.includes('--smooth');
 const segmentsArg = getArg('segments', null);  // e.g., "0,1,2"
 const secondsPerSegment = parseInt(getArg('segment-duration', '5'));
 
-const baseUrl = customUrl || `http://localhost:${port}`;
+let baseUrl = customUrl || `http://localhost:${port}`;
+
+// Add ds_skip=1 to downstream URLs to avoid polluting analytics
+if (baseUrl.includes('downstream.') || baseUrl.includes('localhost')) {
+  const separator = baseUrl.includes('?') ? '&' : '?';
+  baseUrl = `${baseUrl}${separator}ds_skip=1`;
+}
 
 const configs = {
   desktop: {

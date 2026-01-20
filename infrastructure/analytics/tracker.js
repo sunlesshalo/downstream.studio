@@ -32,6 +32,13 @@
     return;
   }
 
+  // Skip localhost referrers (internal testing, Playwright, dev environments)
+  var ref = document.referrer || '';
+  if (/^https?:\/\/localhost(:\d+)?/i.test(ref)) {
+    console.log('[DS Analytics] Skipping localhost referrer');
+    return;
+  }
+
   // State
   var sessionId = generateUUID();
   var visitorId = getOrCreateVisitorId();
