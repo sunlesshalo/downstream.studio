@@ -8,6 +8,21 @@
 
 # Session Log
 
+## 2026-01-20 (Session 55)
+**Analytics: Skip Internal Testing Traffic**
+
+Investigated unexpected traffic from "Russia" — turned out to be **Serbia (RS)**, not Russia (RU). Traffic was our own Playwright testing through VPN.
+
+**Root cause:** MCP Playwright opens sites in headed Chrome (not headless), so user-agent filtering doesn't catch it. Referrer was `http://localhost:3003/`.
+
+**Fixes implemented:**
+- `tracker.js`: Skip tracking when referrer is localhost (catches Playwright/dev testing)
+- `capture-frames.js`: Auto-append `?ds_skip=1` to downstream/localhost URLs
+- Fixed server path docs: `/root/downstream` (not `/root/downstream.ink`)
+- Deployed to production server
+
+---
+
 ## 2026-01-20 (Session 54)
 **Agency Outreach Demo Page**
 

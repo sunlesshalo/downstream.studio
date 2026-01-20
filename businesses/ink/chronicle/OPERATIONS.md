@@ -37,6 +37,32 @@ This is the business diary. Every session (human-initiated, cron-triggered, webh
 
 ## Operations Log
 
+### 2026-01-20 — Human Session (Session 55)
+
+**Trigger:** human
+**Duration:** ~15 minutes
+
+### What Happened
+- Investigated unexpected traffic from "Russia" (74 visits)
+- Discovered it was Serbia (RS), not Russia (RU) — country code confusion
+- Identified traffic as internal Playwright testing through VPN
+- Root cause: MCP Playwright runs headed Chrome (not headless), bypassing bot filter
+- Referrer `http://localhost:3003/` confirmed dev testing origin
+- Updated tracker.js: skip tracking for localhost referrers
+- Updated capture-frames.js: auto-append ?ds_skip=1 to downstream/localhost URLs
+- Fixed server path documentation: /root/downstream (not /root/downstream.ink)
+- Deployed changes to Hetzner server
+
+### Outcomes
+- Internal testing traffic will no longer pollute analytics
+- Server path correctly documented in CLAUDE.md and CONTEXT.md
+- Two-layer defense: (1) localhost referrer skip, (2) ds_skip parameter
+
+### Flags
+- [x] Completed successfully
+
+---
+
 ### 2026-01-20 — Human Session (Session 54)
 
 **Trigger:** human
