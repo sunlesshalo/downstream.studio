@@ -429,7 +429,7 @@
       "id": 47,
       "task": "Create agency outreach demo page",
       "status": "completed",
-      "notes": "New /demos page on downstream.studio for cold outreach to agencies. Two-column layout: Történetek (Founding Story, Bolyai HU) and Márkák (Neon Nights, Limani). CSS Grid ensures perfect row alignment. Hungarian CTA (Beszéljünk) links to Cal.com. Uses -perf versions of demo streams. Live at downstream.studio/demos",
+      "notes": "Demo pages on downstream.studio for cold outreach. Two-column layout with CSS Grid alignment. HU version (/demos): Történetek/Márkák, Bolyai HU, Hungarian CTA. EN version (/demos/en): Stories/Brands, Bolyai EN, English CTA. Uses -perf versions of all demo streams.",
       "blocked_by": "",
       "created": "2026-01-20",
       "completed": "2026-01-20"

@@ -66,10 +66,10 @@ This is the business diary. Every session (human-initiated, cron-triggered, webh
 ### 2026-01-20 — Human Session (Session 54)
 
 **Trigger:** human
-**Duration:** ~30 minutes
+**Duration:** ~40 minutes
 
 ### What Happened
-- Created agency outreach demo page at downstream.studio/demos
+- Created Hungarian agency outreach demo page at downstream.studio/demos
 - Iterated on design: minimal grid → categorized columns (Történetek/Márkák)
 - Fixed stream URL issues:
   - Found correct founding story URL (founding-story-perf.vercel.app)
@@ -77,11 +77,15 @@ This is the business diary. Every session (human-initiated, cron-triggered, webh
   - Discovered improved vs old demo streams (pink club promo vs white/grey -perf version)
 - Fixed CSS Grid alignment to ensure rows perfectly aligned across columns
 - Translated CTA subtext to Hungarian (30 perces hívás foglalása)
-- Deployed to Vercel production
+- Created English version at downstream.studio/demos/en
+  - Uses bolyai-en.vercel.app instead of Hungarian version
+  - English column headers (Stories/Brands) and CTA (Let's Talk)
+- Deployed both versions to Vercel production
 
 ### Outcomes
-- Demo page live at https://downstream.studio/demos
-- Ready for cold outreach to Hungarian agencies
+- Hungarian demo page live at https://downstream.studio/demos
+- English demo page live at https://downstream.studio/demos/en
+- Ready for cold outreach to both Hungarian and international agencies
 - Correct -perf versions identified for all demo streams
 
 ### Flags

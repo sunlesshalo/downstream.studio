@@ -24,21 +24,30 @@ Investigated unexpected traffic from "Russia" — turned out to be **Serbia (RS)
 ---
 
 ## 2026-01-20 (Session 54)
-**Agency Outreach Demo Page**
+**Agency Outreach Demo Pages (HU + EN)**
 
-Created dedicated demo page for cold outreach to Hungarian agencies at `downstream.studio/demos`:
+Created dedicated demo pages for cold outreach:
 
-- Two-column categorized layout: **Történetek** (Stories) | **Márkák** (Brands)
-- Four streams: Founding Story (EN), Bolyai (HU), Neon Nights, Limani
-- Used correct -perf versions (discovered old pink club promo vs improved white/grey version)
-- CSS Grid layout ensures perfect row alignment across columns
-- Hungarian CTA "Beszéljünk" with Cal.com booking link
-- Deployed to Vercel production
+**Hungarian version** (`/demos`):
+- Column headers: Történetek | Márkák
+- Streams: Founding Story (EN), Bolyai (HU), Neon Nights, Limani
+- CTA: "Beszéljünk" → Cal.com
 
-**Key URLs verified:**
+**English version** (`/demos/en`):
+- Column headers: Stories | Brands
+- Streams: Founding Story (EN), Bolyai (EN), Neon Nights, Limani
+- CTA: "Let's Talk" → Cal.com
+
+**Technical:**
+- CSS Grid layout ensures perfect row alignment
+- Uses -perf versions of all demo streams
+- Discovered old pink club promo vs improved white/grey version
+
+**Key URLs:**
 - `founding-story-perf.vercel.app` — English founding story
 - `stream-bolyai.vercel.app` — Hungarian Bolyai
-- `demo-club-promo-perf.vercel.app` — Improved club (white/grey, not pink)
+- `bolyai-en.vercel.app` — English Bolyai
+- `demo-club-promo-perf.vercel.app` — Improved club
 - `demo-restaurant-mediterranean-perf.vercel.app` — Improved restaurant
 
 ---
