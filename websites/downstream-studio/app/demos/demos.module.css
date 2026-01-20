@@ -1,0 +1,240 @@
+.page {
+  min-height: 100vh;
+  background: var(--ds-color-background, #0a0a0f);
+  color: var(--ds-color-text, #e8e6e3);
+  padding: 3rem 2rem 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ================================
+   CONTAINER & GRID LAYOUT
+   ================================ */
+.container {
+  max-width: 1100px;
+  width: 100%;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.container.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.headerRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  margin-bottom: 2rem;
+}
+
+.columnTitle {
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--ds-color-accent, #d4a056);
+  margin: 0;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--ds-color-border, rgba(255, 255, 255, 0.1));
+}
+
+.streamsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem 4rem;
+}
+
+/* ================================
+   STREAM CARD
+   ================================ */
+.streamCard {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  opacity: 0;
+  animation: fadeInUp 0.5s ease forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.streamFrame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 9 / 12;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--ds-color-border, rgba(255, 255, 255, 0.1));
+  background: var(--ds-color-card, #111118);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.streamFrame:hover {
+  border-color: var(--ds-color-accent, #d4a056);
+  box-shadow: 0 8px 32px rgba(212, 160, 86, 0.1);
+}
+
+.iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* ================================
+   STREAM INFO
+   ================================ */
+.streamInfo {
+  padding: 0 0.25rem;
+}
+
+.category {
+  font-size: 0.75rem;
+  color: var(--ds-color-accent, #d4a056);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.title {
+  font-size: 1.25rem;
+  font-weight: 400;
+  margin: 0 0 0.5rem;
+  line-height: 1.3;
+}
+
+.description {
+  font-size: 0.9rem;
+  opacity: 0.7;
+  line-height: 1.6;
+  margin: 0 0 1rem;
+}
+
+.fullscreenLink {
+  color: var(--ds-color-accent, #d4a056);
+  text-decoration: none;
+  font-size: 0.875rem;
+  position: relative;
+  display: inline-block;
+  transition: opacity 0.2s;
+}
+
+.fullscreenLink::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--ds-color-accent, #d4a056);
+  transition: width 0.25s ease;
+}
+
+.fullscreenLink:hover::after {
+  width: 100%;
+}
+
+/* ================================
+   CTA SECTION
+   ================================ */
+.ctaContainer {
+  margin-top: 4rem;
+  text-align: center;
+  opacity: 0;
+  animation: fadeInUp 0.6s ease 0.4s forwards;
+}
+
+.ctaButton {
+  display: inline-block;
+  padding: 1.1rem 3rem;
+  background: var(--ds-color-accent, #d4a056);
+  color: var(--ds-color-background, #0a0a0f);
+  font-family: Georgia, serif;
+  font-size: 1.1rem;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 16px rgba(212, 160, 86, 0.25);
+}
+
+.ctaButton:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 32px rgba(212, 160, 86, 0.4);
+}
+
+.ctaSubtext {
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  opacity: 0.5;
+}
+
+/* ================================
+   RESPONSIVE
+   ================================ */
+@media (max-width: 900px) {
+  .grid {
+    gap: 2.5rem;
+  }
+
+  .streamFrame {
+    aspect-ratio: 9 / 14;
+  }
+}
+
+@media (max-width: 900px) {
+  .headerRow,
+  .streamsGrid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .headerRow {
+    margin-bottom: 1.5rem;
+  }
+
+  .columnTitle:last-child {
+    margin-top: 2rem;
+  }
+}
+
+@media (max-width: 700px) {
+  .page {
+    padding: 2rem 1.5rem 3rem;
+  }
+
+  .container {
+    max-width: 400px;
+  }
+
+  .streamFrame {
+    aspect-ratio: 9 / 14;
+  }
+
+  .title {
+    font-size: 1.15rem;
+  }
+
+  .ctaContainer {
+    margin-top: 3rem;
+  }
+
+  .ctaButton {
+    width: 100%;
+    max-width: 300px;
+  }
+}

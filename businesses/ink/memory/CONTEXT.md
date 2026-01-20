@@ -7,6 +7,26 @@
 
 # Session Log
 
+## 2026-01-20 (Session 54)
+**Agency Outreach Demo Page**
+
+Created dedicated demo page for cold outreach to Hungarian agencies at `downstream.studio/demos`:
+
+- Two-column categorized layout: **Történetek** (Stories) | **Márkák** (Brands)
+- Four streams: Founding Story (EN), Bolyai (HU), Neon Nights, Limani
+- Used correct -perf versions (discovered old pink club promo vs improved white/grey version)
+- CSS Grid layout ensures perfect row alignment across columns
+- Hungarian CTA "Beszéljünk" with Cal.com booking link
+- Deployed to Vercel production
+
+**Key URLs verified:**
+- `founding-story-perf.vercel.app` — English founding story
+- `stream-bolyai.vercel.app` — Hungarian Bolyai
+- `demo-club-promo-perf.vercel.app` — Improved club (white/grey, not pink)
+- `demo-restaurant-mediterranean-perf.vercel.app` — Improved restaurant
+
+---
+
 ## 2026-01-19 (Session 53)
 **English Bolyai Stream & Translation Skill**
 

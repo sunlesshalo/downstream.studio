@@ -37,6 +37,32 @@ This is the business diary. Every session (human-initiated, cron-triggered, webh
 
 ## Operations Log
 
+### 2026-01-20 — Human Session (Session 54)
+
+**Trigger:** human
+**Duration:** ~30 minutes
+
+### What Happened
+- Created agency outreach demo page at downstream.studio/demos
+- Iterated on design: minimal grid → categorized columns (Történetek/Márkák)
+- Fixed stream URL issues:
+  - Found correct founding story URL (founding-story-perf.vercel.app)
+  - Found correct Hungarian Bolyai URL (stream-bolyai.vercel.app)
+  - Discovered improved vs old demo streams (pink club promo vs white/grey -perf version)
+- Fixed CSS Grid alignment to ensure rows perfectly aligned across columns
+- Translated CTA subtext to Hungarian (30 perces hívás foglalása)
+- Deployed to Vercel production
+
+### Outcomes
+- Demo page live at https://downstream.studio/demos
+- Ready for cold outreach to Hungarian agencies
+- Correct -perf versions identified for all demo streams
+
+### Flags
+- [x] Completed successfully
+
+---
+
 ### 2026-01-19 — Human Session (Session 53)
 
 **Trigger:** human
