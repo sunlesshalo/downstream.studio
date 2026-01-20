@@ -81,12 +81,12 @@ Do NOT rely on memory. Do NOT guess. Read the file first.
 
 **Repository:** https://github.com/sunlesshalo/downstream.studio
 
-**Note:** Server directory is still `/root/downstream.ink` (legacy name). The git remote points to the correct repo.
+**Server directory:** `/root/downstream`
 
 **Correct workflow for code changes:**
 1. Make changes locally on Mac
 2. `git add`, `git commit`, `git push`
-3. SSH to Hetzner: `cd /root/downstream.ink && git pull`
+3. SSH to Hetzner: `cd /root/downstream && git pull`
 
 **NEVER use SCP to copy files directly.** This causes sync issues. Always use git.
 

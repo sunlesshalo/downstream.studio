@@ -1,6 +1,7 @@
 # Infrastructure
 
 **Hetzner Server:** 46.224.118.133 (downstream, CX23)
+**Server Path:** /root/downstream
 **Dashboard URL:** https://director.downstream.studio
 
 ---
