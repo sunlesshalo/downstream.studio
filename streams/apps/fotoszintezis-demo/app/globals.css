@@ -15,7 +15,8 @@ html, body {
   background: var(--ds-color-background);
   color: var(--ds-color-text);
   font-family: 'Georgia', serif;
-  overflow-x: hidden;
+  overflow-x: clip;
+  overflow-y: scroll;
   overscroll-behavior: none;
   min-height: 100%;
   width: 100%;
