@@ -8,7 +8,9 @@ html {
   scroll-behavior: smooth;
   /* Dark fallback for overscroll - theme background overrides this */
   background: #0a0a0f;
-  overscroll-behavior: none;
+  /* overflow-x: clip + overflow-y: scroll prevents scroll-blocking bug in some browsers */
+  overflow-x: clip;
+  overflow-y: scroll;
 }
 
 body {
