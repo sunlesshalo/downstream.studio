@@ -11,12 +11,20 @@
   --ds-color-muted: #8b6914;
 }
 
-html, body {
+html {
   background: var(--ds-color-background);
   color: var(--ds-color-text);
   font-family: 'Georgia', serif;
   overflow-x: clip;
   overflow-y: scroll;
+  min-height: 100%;
+  width: 100%;
+}
+
+body {
+  background: var(--ds-color-background);
+  color: var(--ds-color-text);
+  font-family: 'Georgia', serif;
   min-height: 100%;
   width: 100%;
   overscroll-behavior: none;
