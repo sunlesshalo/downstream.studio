@@ -37,6 +37,29 @@ This is the business diary. Every session (human-initiated, cron-triggered, webh
 
 ## Operations Log
 
+### 2026-01-25 — Human Session (Session 57)
+
+**Trigger:** human
+**Duration:** ~45 minutes
+
+### What Happened
+- Debugged scroll bug on founding-story stream (desktop scroll worked then stopped)
+- Identified root cause: `overflow-x: hidden` on both html AND body blocks scroll in Chrome/Mac
+- Applied fix: `overflow-x: clip` + `overflow-y: scroll` on html only
+- Fixed all 16 stream apps + factory template
+- Deployed all streams to Vercel
+- Set up story.downstream.studio custom domain (CNAME to Vercel DNS)
+
+### Outcomes
+- All streams now scroll correctly on desktop
+- Founding story accessible at story.downstream.studio
+- Factory template updated for future streams
+
+### Flags
+- [x] Completed successfully
+
+---
+
 ### 2026-01-21 — Human Session (Session 56)
 
 **Trigger:** human

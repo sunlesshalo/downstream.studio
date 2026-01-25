@@ -1,0 +1,33 @@
+{
+  "name": "Default",
+  "description": "Standard data-aesthetic look with balanced particles and lines",
+  "particles": {
+    "count": 30000,
+    "size": 2.0,
+    "color": "#00ffaa",
+    "speed": 0.5,
+    "decay": 0.98,
+    "turbulence": 0.1
+  },
+  "lines": {
+    "count": 300,
+    "maxLength": 50,
+    "width": 1.5,
+    "color": "#00aaff",
+    "fadeSpeed": 0.02,
+    "speed": 0.3
+  },
+  "numbers": {
+    "count": 200,
+    "fontSize": 14,
+    "color": "#00ffaa",
+    "fadeSpeed": 0.01,
+    "spawnThreshold": 0.1,
+    "numberType": "mixed"
+  },
+  "effects": {
+    "bloomIntensity": 1.5,
+    "bloomThreshold": 0.2,
+    "bloomRadius": 0.8
+  }
+}

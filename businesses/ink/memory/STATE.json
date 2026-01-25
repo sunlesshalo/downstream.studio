@@ -1,7 +1,7 @@
 {
   "project": "DownStream SaaS",
-  "updated": "2026-01-21",
-  "current_focus": "Data aesthetic tool built for visual experiments (tools/data-aesthetic). Agency outreach demo pages live at downstream.studio/demos (HU + EN). Next priority: Launch (Task #7) - we have 0 revenue, 0 customers.",
+  "updated": "2026-01-25",
+  "current_focus": "Fixed critical scroll bug across all streams. story.downstream.studio now live. Next priority: Launch (Task #7) - we have 0 revenue, 0 customers.",
   "metrics": {
     "revenue_total": 0,
     "revenue_this_week": 0,
@@ -433,6 +433,24 @@
       "blocked_by": "",
       "created": "2026-01-20",
       "completed": "2026-01-20"
+    },
+    {
+      "id": 48,
+      "task": "Fix scroll bug across all streams",
+      "status": "completed",
+      "notes": "Desktop scroll was broken - worked briefly then stopped. Root cause: overflow-x:hidden on both html AND body blocks scroll in some browsers. Fix: overflow-x:clip + overflow-y:scroll on html only. Applied to all 16 streams + factory template. All streams redeployed to Vercel.",
+      "blocked_by": "",
+      "created": "2026-01-25",
+      "completed": "2026-01-25"
+    },
+    {
+      "id": 49,
+      "task": "Set up story.downstream.studio custom domain",
+      "status": "completed",
+      "notes": "Added CNAME record pointing to Vercel DNS. Founding story (English) now accessible at story.downstream.studio.",
+      "blocked_by": "",
+      "created": "2026-01-25",
+      "completed": "2026-01-25"
     }
   ],
   "_schema": {

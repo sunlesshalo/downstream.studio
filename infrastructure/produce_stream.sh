@@ -238,7 +238,7 @@ This is an automated production run. Execute the skill now."
             -i "$KEYFRAME_FILE" \
             -p "$MOTION_PROMPT" \
             -o "$VIDEO_FILE" \
-            -m minimax; then
+            -m kling; then
             log "ERROR" "Failed to generate video for segment $SEGMENT_ID"
             alert_ferenc "Production Failed - Video" "Failed to generate video for segment $SEGMENT_ID"
             exit 1

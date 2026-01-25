@@ -295,7 +295,7 @@ def main():
         "--model",
         type=str,
         default="kling",
-        choices=["minimax", "kling", "kling-turbo"],
+        choices=["kling", "kling-pro", "kling-2.5", "kling-turbo"],
         help="Video model to use (default: kling)"
     )
     parser.add_argument(

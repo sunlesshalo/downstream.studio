@@ -64,7 +64,7 @@ infrastructure/
 
 ```bash
 export GOOGLE_AI_API_KEY="..."      # For Gemini keyframes
-export REPLICATE_API_TOKEN="..."    # For Minimax videos
+export REPLICATE_API_TOKEN="..."    # For Kling videos
 export VERCEL_TOKEN="..."           # For auto-deployment
 ```
 

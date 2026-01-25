@@ -1,0 +1,33 @@
+{
+  "name": "Tech Minimal",
+  "description": "Sparse, clean aesthetic with blue/cyan tones",
+  "particles": {
+    "count": 15000,
+    "size": 1.5,
+    "color": "#00ddff",
+    "speed": 0.3,
+    "decay": 0.95,
+    "turbulence": 0.05
+  },
+  "lines": {
+    "count": 150,
+    "maxLength": 30,
+    "width": 1.0,
+    "color": "#0088ff",
+    "fadeSpeed": 0.015,
+    "speed": 0.2
+  },
+  "numbers": {
+    "count": 100,
+    "fontSize": 12,
+    "color": "#00ddff",
+    "fadeSpeed": 0.008,
+    "spawnThreshold": 0.15,
+    "numberType": "hex"
+  },
+  "effects": {
+    "bloomIntensity": 1.0,
+    "bloomThreshold": 0.3,
+    "bloomRadius": 0.6
+  }
+}

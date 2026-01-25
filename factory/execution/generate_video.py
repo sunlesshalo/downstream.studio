@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate video from image using Replicate API (Minimax Hailuo or Kling)."""
+"""Generate video from image using Replicate API (Kling)."""
 
 import os
 import sys
@@ -77,27 +77,21 @@ def add_frame_ai_metadata(frame_path: str, model_name: str = "Replicate") -> boo
 
 # Model configurations
 MODELS = {
-    "minimax": {
-        "id": "minimax/video-01",
-        "name": "Minimax Hailuo",
-        "cost": "~$0.50",
-        "supports_image": True,
-    },
-    "kling-v2.1": {
+    "kling": {
         "id": "kwaivgi/kling-v2.1",
         "name": "Kling v2.1 Standard",
         "cost": "~$0.25 (5s) / ~$0.50 (10s)",
         "supports_image": True,
         "mode": "standard",  # 720p @ 24fps
     },
-    "kling-v2.1-pro": {
+    "kling-pro": {
         "id": "kwaivgi/kling-v2.1",
         "name": "Kling v2.1 Pro",
         "cost": "~$0.45 (5s) / ~$0.90 (10s)",
         "supports_image": True,
         "mode": "pro",  # 1080p @ 24fps
     },
-    "kling": {
+    "kling-2.5": {
         "id": "kling-ai/kling-v2.5-pro",
         "name": "Kling v2.5 Pro",
         "cost": "~$0.50-1.00",
@@ -116,7 +110,7 @@ def generate_video(
     image_path: str,
     prompt: str,
     output_path: str,
-    model: str = "minimax",
+    model: str = "kling",
     duration: int = 5,
 ) -> str | None:
     """Generate video from image using Replicate."""
@@ -151,12 +145,7 @@ def generate_video(
         image_file = open(image_path, "rb")
 
         # Prepare input based on model
-        if model == "minimax":
-            input_params = {
-                "prompt": prompt,
-                "first_frame_image": image_file,
-            }
-        elif model.startswith("kling-v2.1"):
+        if model in ("kling", "kling-pro"):
             # Kling v2.1 uses different parameter names
             input_params = {
                 "prompt": prompt,
@@ -435,9 +424,9 @@ def main():
     parser.add_argument(
         "--model", "-m",
         type=str,
-        default="kling-v2.1",
+        default="kling",
         choices=list(MODELS.keys()),
-        help="Model to use (default: kling-v2.1)"
+        help="Model to use (default: kling)"
     )
     parser.add_argument(
         "--duration", "-d",

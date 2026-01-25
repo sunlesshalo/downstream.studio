@@ -1,6 +1,6 @@
 ---
 name: generate-video
-description: Generate animated video from keyframe image using Replicate API (Minimax Hailuo). Use after generating keyframes to create motion for stream segments.
+description: Generate animated video from keyframe image using Replicate API (Kling). Use after generating keyframes to create motion for stream segments.
 ---
 
 # Generate Video - Animation from Keyframes
@@ -29,7 +29,7 @@ python execution/generate_video.py \
   --image "streams/{id}/keyframes/segment_{n}.jpg" \
   --prompt "your motion prompt here" \
   --output "streams/{id}/videos/segment_{n}.mp4" \
-  --model minimax \
+  --model kling \
   --extract-frames \
   --frames-dir "streams/{id}/public/frames/{n}/"
 ```
@@ -93,11 +93,12 @@ GOOD: "concentric circular layers rotating at different speeds,
 
 | Model | ID | Cost | Best For |
 |-------|-------|------|----------|
-| **Minimax Hailuo** | minimax | $0.02-0.05 | POC, fast iteration |
-| **Kling v2.5 Pro** | kling | $0.50-1.00 | Production quality |
+| **Kling v2.1 Standard** | kling | $0.25 (5s) | Default, good quality |
+| **Kling v2.1 Pro** | kling-pro | $0.45 (5s) | Higher quality (1080p) |
+| **Kling v2.5 Pro** | kling-2.5 | $0.50-1.00 | Premium quality |
 | **Kling v2.5 Turbo** | kling-turbo | $0.25-0.50 | Balance of speed/quality |
 
-**Default: minimax** for POC work
+**Default: kling** (v2.1 Standard)
 
 ---
 
@@ -115,7 +116,7 @@ for i in 1 2 3 4 5; do
     -i "streams/${STREAM_ID}/keyframes/segment_${i}.jpg" \
     -p "$(jq -r ".segments[$((i-1))].motion_prompt" streams/${STREAM_ID}/production.json)" \
     -o "streams/${STREAM_ID}/videos/segment_${i}.mp4" \
-    --model minimax \
+    --model kling \
     --extract-frames \
     --frames-dir "streams/${STREAM_ID}/public/frames/${i}/"
 
@@ -181,12 +182,13 @@ If video quality is poor:
 
 ## COST
 
-| Model | Per Video | 5 Segments | 10 Segments |
-|-------|-----------|------------|-------------|
-| Minimax | $0.05 | $0.25 | $0.50 |
-| Kling | $0.75 | $3.75 | $7.50 |
+| Model | Per Video (5s) | 5 Segments | 10 Segments |
+|-------|----------------|------------|-------------|
+| Kling (v2.1 Standard) | $0.25 | $1.25 | $2.50 |
+| Kling Pro (v2.1 Pro) | $0.45 | $2.25 | $4.50 |
+| Kling 2.5 | $0.75 | $3.75 | $7.50 |
 
-**Recommendation:** Use Minimax for POC, Kling for final production
+**Recommendation:** Use Kling (v2.1 Standard) as default
 
 ---
 

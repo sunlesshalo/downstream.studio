@@ -64,11 +64,11 @@ From actual production data:
 
 | Item | Cost | Notes |
 |------|------|-------|
-| Keyframes (10) | ~$2.30 | Gemini 2.0 Flash |
-| Videos (10) | ~$5.00 | Minimax Hailuo |
-| **Direct cost** | **~$7-10** | Per stream |
+| Keyframes (10) | ~$2.00 | Gemini / Nano Banana Pro |
+| Videos (10) | ~$2.50 | Kling v2.1 Standard |
+| **Direct cost** | **~$4-5** | Per stream |
 
-Your margin at $495: **~98%** (before time/overhead)
+Your margin at $495: **~99%** (before time/overhead)
 
 This is healthy. Even at $99 you'd have margin—but you'd be positioning yourself as commodity.
 

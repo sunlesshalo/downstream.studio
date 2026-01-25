@@ -1,0 +1,33 @@
+{
+  "name": "Organic Dense",
+  "description": "Warm, high-density organic feeling",
+  "particles": {
+    "count": 60000,
+    "size": 2.5,
+    "color": "#ffaa00",
+    "speed": 0.7,
+    "decay": 0.99,
+    "turbulence": 0.15
+  },
+  "lines": {
+    "count": 500,
+    "maxLength": 80,
+    "width": 2.0,
+    "color": "#ff6600",
+    "fadeSpeed": 0.025,
+    "speed": 0.4
+  },
+  "numbers": {
+    "count": 300,
+    "fontSize": 16,
+    "color": "#ffcc00",
+    "fadeSpeed": 0.012,
+    "spawnThreshold": 0.08,
+    "numberType": "decimal"
+  },
+  "effects": {
+    "bloomIntensity": 2.0,
+    "bloomThreshold": 0.15,
+    "bloomRadius": 1.0
+  }
+}

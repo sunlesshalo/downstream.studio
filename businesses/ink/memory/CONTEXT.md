@@ -8,6 +8,24 @@
 
 # Session Log
 
+## 2026-01-25 (Session 57)
+**Critical Scroll Bug Fix + story.downstream.studio**
+
+Fixed major bug: desktop scroll on all streams was broken (worked briefly then stopped).
+
+**Root cause:** `overflow-x: hidden` on both html AND body causes scroll blocking in some browsers (Chrome/Mac).
+
+**Fix:** `overflow-x: clip` + `overflow-y: scroll` on html only. Body keeps `overscroll-behavior: none`.
+
+**Applied to:**
+- All 16 stream apps
+- Factory template for future streams
+- All redeployed to Vercel
+
+**Custom domain:** Set up story.downstream.studio for founding-story stream. Required CNAME record to project-specific Vercel DNS address (not generic cname.vercel-dns.com).
+
+---
+
 ## 2026-01-21 (Session 56)
 **Data Aesthetic Tool: FB-Style Visualization + Social Media Compression**
 

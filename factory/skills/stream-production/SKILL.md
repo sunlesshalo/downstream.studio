@@ -199,7 +199,7 @@ for each segment in production.json:
 
 ## STAGE 3: VIDEO GENERATION
 
-Animate each keyframe using Replicate API (Minimax Hailuo).
+Animate each keyframe using Replicate API (Kling).
 
 ### Command
 ```bash
@@ -207,7 +207,7 @@ python execution/generate_video.py \
   --image "streams/{id}/keyframes/segment_{n}.jpg" \
   --prompt "[MOTION_PROMPT from production.json]" \
   --output "streams/{id}/videos/segment_{n}.mp4" \
-  --model minimax
+  --model kling
 ```
 
 ### How It Works
@@ -218,8 +218,9 @@ The script uses **async predictions** to avoid timeouts:
 4. Typical generation time: 2-5 minutes per video
 
 ### Cost
-- Minimax Hailuo: ~$0.02-0.05 per 5-second video
-- Kling v2.5: ~$0.50-1.00 per video (higher quality)
+- Kling v2.1 Standard: ~$0.25 per 5-second video (default)
+- Kling v2.1 Pro: ~$0.45 per 5-second video (1080p)
+- Kling v2.5: ~$0.50-1.00 per video (premium quality)
 
 ### Quality Check
 - [ ] Motion matches prompt description
@@ -322,7 +323,7 @@ Before finalizing, verify against STREAM_STYLE_GUIDE.md:
 
 ---
 
-## COST ESTIMATION (Updated 2026-01-10)
+## COST ESTIMATION (Updated 2026-01-21)
 
 ### Video Model Options
 
@@ -330,7 +331,7 @@ Before finalizing, verify against STREAM_STYLE_GUIDE.md:
 |-------|------------|---------|---------|-------------|
 | **Kling v2.1 Standard** | 720p | $0.25 | Good | ✓ Default |
 | Kling v2.1 Pro | 1080p | $0.45 | Better | Premium option |
-| Minimax Video-01 | 720p | $0.50 | Good | Legacy |
+| Kling v2.5 Pro | 1080p | $0.75 | Best | High-end |
 
 ### Per-Stream Costs (9 segments)
 
@@ -338,9 +339,9 @@ Before finalizing, verify against STREAM_STYLE_GUIDE.md:
 |-------|-----------|--------|-------|--------------|
 | **Kling v2.1 Standard** | $1.08 | $2.25 | **$3.33** | ~€46 |
 | Kling v2.1 Pro | $1.08 | $4.05 | $5.13 | ~€44 |
-| Minimax (legacy) | $1.08 | $4.50 | $5.58 | ~€43 |
+| Kling v2.5 Pro | $1.08 | $6.75 | $7.83 | ~€41 |
 
-**Recommendation:** Use `--model kling-v2.1` for 50% video cost savings.
+**Recommendation:** Use `--model kling` (default) for best cost/quality balance.
 
 ---
 

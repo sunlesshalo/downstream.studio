@@ -339,7 +339,7 @@ class ProductionPipeline:
     # STAGE 4: GENERATE VIDEOS
     # =========================================================================
     
-    def generate_videos(self, segments: list = None, model: str = "minimax") -> dict:
+    def generate_videos(self, segments: list = None, model: str = "kling") -> dict:
         """Generate animated videos from key frames."""
         self._log("generate-videos", f"Starting video generation with {model}")
         
@@ -531,15 +531,15 @@ class ProductionPipeline:
         """Estimate production costs."""
         segments = self.spec.get("segments", [])
         num_segments = len(segments)
-        
+
         # Cost estimates
         image_cost_per = 0.20  # Nano Banana Pro
-        video_cost_per = 0.05  # Minimax
-        
+        video_cost_per = 0.25  # Kling v2.1 Standard
+
         image_total = num_segments * image_cost_per
         video_total = num_segments * video_cost_per
         total = image_total + video_total
-        
+
         estimate = {
             "stream": self.stream_id,
             "segments": num_segments,
@@ -549,31 +549,31 @@ class ProductionPipeline:
                 "total": image_total
             },
             "video_generation": {
-                "model": "Minimax Hailuo",
+                "model": "Kling v2.1 Standard",
                 "cost_per_segment": video_cost_per,
                 "total": video_total
             },
             "total_estimated_cost": total
         }
-        
+
         print(f"\nCost Estimate for: {self.stream_id}")
         print(f"{'='*40}")
         print(f"Segments: {num_segments}")
         print(f"\nImage Generation (Nano Banana Pro):")
         print(f"  {num_segments} × ${image_cost_per:.2f} = ${image_total:.2f}")
-        print(f"\nVideo Generation (Minimax):")
+        print(f"\nVideo Generation (Kling v2.1):")
         print(f"  {num_segments} × ${video_cost_per:.2f} = ${video_total:.2f}")
         print(f"\n{'='*40}")
         print(f"Total Estimated Cost: ${total:.2f}")
-        
+
         return estimate
     
     # =========================================================================
     # RUN FULL PIPELINE
     # =========================================================================
     
-    def run(self, start_stage: int = 1, segments: list = None, 
-            model: str = "minimax") -> dict:
+    def run(self, start_stage: int = 1, segments: list = None,
+            model: str = "kling") -> dict:
         """Run the complete production pipeline."""
         self._log("run", f"Starting production pipeline for {self.stream_id}")
         
@@ -645,8 +645,8 @@ Examples:
     )
     parser.add_argument(
         "--model", "-m",
-        default="minimax",
-        choices=["minimax", "kling", "kling-turbo"],
+        default="kling",
+        choices=["kling", "kling-pro", "kling-2.5", "kling-turbo"],
         help="Video generation model"
     )
     parser.add_argument(

@@ -181,7 +181,7 @@ for each segment in production.json:
 
 ## STAGE 3: VIDEO GENERATION
 
-Animate each keyframe using Replicate API (Minimax Hailuo).
+Animate each keyframe using Replicate API (Kling).
 
 ### Command
 ```bash
@@ -189,7 +189,7 @@ python execution/generate_video.py \
   --image "streams/{id}/keyframes/segment_{n}.jpg" \
   --prompt "[MOTION_PROMPT from production.json]" \
   --output "streams/{id}/videos/segment_{n}.mp4" \
-  --model minimax
+  --model kling
 ```
 
 ### How It Works
@@ -200,8 +200,9 @@ The script uses **async predictions** to avoid timeouts:
 4. Typical generation time: 2-5 minutes per video
 
 ### Cost
-- Minimax Hailuo: ~$0.02-0.05 per 5-second video
-- Kling v2.5: ~$0.50-1.00 per video (higher quality)
+- Kling v2.1 Standard: ~$0.25 per 5-second video (default)
+- Kling v2.1 Pro: ~$0.45 per 5-second video (1080p)
+- Kling v2.5: ~$0.50-1.00 per video (premium quality)
 
 ### Quality Check
 - [ ] Motion matches prompt description
@@ -300,9 +301,9 @@ After each stage, review outputs before proceeding:
 | Stage | Per Segment | 5 Segments | 10 Segments |
 |-------|-------------|------------|-------------|
 | Keyframes (Nano Banana) | $0.20 | $1.00 | $2.00 |
-| Videos (Minimax) | $0.05 | $0.25 | $0.50 |
+| Videos (Kling v2.1) | $0.25 | $1.25 | $2.50 |
 | Frame extraction | $0.00 | $0.00 | $0.00 |
-| **Total** | $0.25 | **$1.25** | **$2.50** |
+| **Total** | $0.45 | **$2.25** | **$4.50** |
 
 ---
 

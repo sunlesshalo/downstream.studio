@@ -266,8 +266,8 @@ async def get_optional_user(session_token: Optional[str] = Cookie(None)) -> Opti
 # Stream helpers
 def get_streams_dir() -> Path:
     """Get the streams directory path."""
-    # Go up from infrastructure/director to project root, then to pipeline/streams
-    return Path(__file__).parent.parent.parent / "pipeline" / "streams"
+    # Go up from infrastructure/director to project root, then to streams/specs
+    return Path(__file__).parent.parent.parent / "streams" / "specs"
 
 
 def find_keyframe_file(keyframes_dir: Path, segment_id: int) -> Optional[Path]:

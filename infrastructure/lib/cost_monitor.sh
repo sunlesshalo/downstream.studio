@@ -175,9 +175,10 @@ get_cost_summary() {
 # ============================================
 # These are estimates - actual costs may vary
 
-# Replicate video generation
-# - Minimax: ~$0.02-0.05 per video
-# - Kling Pro: ~$0.50-1.00 per video
+# Replicate video generation (Kling)
+# - Kling v2.1 Standard: ~$0.25 per 5s video (default)
+# - Kling v2.1 Pro: ~$0.45 per 5s video (1080p)
+# - Kling v2.5 Pro: ~$0.50-1.00 per video
 # - Kling Turbo: ~$0.25-0.50 per video
 
 # Google AI (Gemini)
