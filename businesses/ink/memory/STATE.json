@@ -1,7 +1,7 @@
 {
   "project": "DownStream SaaS",
-  "updated": "2026-01-25",
-  "current_focus": "Fixed critical scroll bug across all streams. story.downstream.studio now live. Next priority: Launch (Task #7) - we have 0 revenue, 0 customers.",
+  "updated": "2026-01-23",
+  "current_focus": "Fixed director dashboard (502 + wrong paths). Next priority: Launch (Task #7) - we have 0 revenue, 0 customers.",
   "metrics": {
     "revenue_total": 0,
     "revenue_this_week": 0,
@@ -451,6 +451,15 @@
       "blocked_by": "",
       "created": "2026-01-25",
       "completed": "2026-01-25"
+    },
+    {
+      "id": 50,
+      "task": "Fix director dashboard (502 + missing data)",
+      "status": "completed",
+      "notes": "Three issues: (1) nginx proxying to wrong port 8080→8083, (2) users table empty→recreated downstream user, (3) get_streams_dir() pointed to pipeline/streams/ instead of streams/specs/. All fixed on server and locally.",
+      "blocked_by": "",
+      "created": "2026-01-23",
+      "completed": "2026-01-23"
     }
   ],
   "_schema": {

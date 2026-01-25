@@ -8,6 +8,17 @@
 
 # Session Log
 
+## 2026-01-23 (Session 58)
+**Emergency Fix: Director Dashboard Down**
+
+- **502 Bad Gateway** on director.downstream.studio — nginx was proxying to port 8080 but director runs on 8083. Fixed nginx config.
+- **No users in database** — users table was empty. Recreated `downstream` user (password: `downstream`).
+- **Streams showing no data** — `get_streams_dir()` in api.py pointed to old path `pipeline/streams/` instead of `streams/specs/`. Fixed path, restarted service.
+
+Root cause unclear — database users table was wiped but schema remained. The `pipeline/streams/` directory has almost no production.json files while `streams/specs/` has all of them.
+
+---
+
 ## 2026-01-25 (Session 57)
 **Critical Scroll Bug Fix + story.downstream.studio**
 

@@ -60,6 +60,29 @@ This is the business diary. Every session (human-initiated, cron-triggered, webh
 
 ---
 
+### 2026-01-23 — Human Session (Session 58)
+
+**Trigger:** human
+**Duration:** ~15 minutes
+
+### What Happened
+- Investigated 502 Bad Gateway on director.downstream.studio
+- Found nginx proxying to port 8080 but director runs on 8083 — fixed nginx config
+- Found users table empty — recreated `downstream` user
+- Found streams showing no data — `get_streams_dir()` pointed to wrong path (`pipeline/streams/` instead of `streams/specs/`)
+- Fixed api.py path locally and on server, restarted director service
+
+### Outcomes
+- Director dashboard fully operational again
+- All stream data visible in admin panel
+- Fixed api.py committed locally (needs git push + pull on server to sync)
+
+### Flags
+- [x] Director dashboard restored
+- [ ] Investigate why users table was wiped (schema existed but no data)
+
+---
+
 ### 2026-01-21 — Human Session (Session 56)
 
 **Trigger:** human
