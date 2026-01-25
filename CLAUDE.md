@@ -90,6 +90,26 @@ Do NOT rely on memory. Do NOT guess. Read the file first.
 
 **NEVER use SCP to copy files directly.** This causes sync issues. Always use git.
 
+### Stream CSS - CRITICAL
+
+**NEVER use combined `html, body { }` selector for overflow properties.**
+
+This breaks Chrome/Mac/trackpad scrolling. The correct pattern:
+
+```css
+html {
+  overflow-x: clip;
+  overflow-y: scroll;
+}
+
+body {
+  overscroll-behavior: none;
+  /* NO overflow properties on body */
+}
+```
+
+The factory template (`factory/templates/stream-app/app/globals.css`) has the correct pattern with comments. When modifying any stream's globals.css, keep html and body as SEPARATE selectors.
+
 ---
 
 ## Mandatory Protocol

@@ -4,11 +4,14 @@
   box-sizing: border-box;
 }
 
+/*
+ * CRITICAL: html and body MUST have SEPARATE selectors.
+ * NEVER use combined "html, body { ... }" selector.
+ * Applying overflow to both elements breaks Chrome/Mac/trackpad scrolling.
+ */
 html {
   scroll-behavior: smooth;
-  /* Dark fallback for overscroll - theme background overrides this */
   background: #0a0a0f;
-  /* overflow-x: clip + overflow-y: scroll prevents scroll-blocking bug in some browsers */
   overflow-x: clip;
   overflow-y: scroll;
 }
@@ -19,4 +22,5 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background: #0a0a0f;
   overscroll-behavior: none;
+  /* NO overflow properties here - only html should have them */
 }
