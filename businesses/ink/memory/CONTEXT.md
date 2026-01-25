@@ -19,6 +19,29 @@ Root cause unclear — database users table was wiped but schema remained. The `
 
 ---
 
+## 2026-01-25 (Session 58)
+**Scroll Bug Root Cause Discovery**
+
+Scroll blocking returned on downstream.studio landing page (trackpad/Chrome/Mac).
+
+**Actual root cause:** Using COMBINED `html, body { overflow-x: clip; overflow-y: scroll; }` selector. When overflow properties are applied to BOTH elements simultaneously via combined selector, Chrome/Mac/trackpad scrolling breaks.
+
+**The correct pattern:**
+```css
+html {
+  overflow-x: clip;
+  overflow-y: scroll;
+}
+body {
+  overscroll-behavior: none;
+  /* NO overflow properties */
+}
+```
+
+**Fixed:** founding-story-perf, the-hunger-perf, bolyai-en — all pushed and deploying to Vercel.
+
+---
+
 ## 2026-01-25 (Session 57)
 **Critical Scroll Bug Fix + story.downstream.studio**
 
