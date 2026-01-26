@@ -11,15 +11,24 @@
   --ds-color-muted: #4a5d3a;
 }
 
-html, body {
+html {
   background: var(--ds-color-background);
   color: var(--ds-color-text);
   font-family: 'Georgia', serif;
   overflow-x: clip;
   overflow-y: scroll;
+  min-height: 100%;
+  width: 100%;
+}
+
+body {
+  background: var(--ds-color-background);
+  color: var(--ds-color-text);
+  font-family: 'Georgia', serif;
   overscroll-behavior: none;
   min-height: 100%;
   width: 100%;
+  overscroll-behavior: none;
 }
 
 h1, h2, h3, h4, h5, h6 {
