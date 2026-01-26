@@ -8,6 +8,32 @@
 
 # Session Log
 
+## 2026-01-26 (Session 59)
+**Scroll Bug Final Fix + Working Snapshot**
+
+Scroll blocking returned on downstream.studio landing page. Found the **actual** root cause this time.
+
+**Root cause:** Combined `html, body { overflow-x: clip; overflow-y: scroll; }` selector applies overflow to BOTH elements, which breaks Chrome/Mac/trackpad scrolling.
+
+**The fix:** SEPARATE selectors:
+- `html { overflow-x: clip; overflow-y: scroll; }`
+- `body { overscroll-behavior: none; }` (NO overflow properties)
+
+**Fixed all 17 streams:**
+- Automated fix via Python script for 11 broken streams
+- Manual `vercel --prod` deployment for streams not auto-deploying
+
+**Created reference snapshot:** `snapshots/2026-01-26-working-scroll/`
+- Contains landing page + all 3 embedded stream CSS files
+- Use `diff` against snapshot when scroll breaks again
+
+**Documentation:**
+- Added CSS constraint to CLAUDE.md under "Stream CSS - CRITICAL"
+- Added warning comments to factory template
+- Snapshot reference logged in CLAUDE.md
+
+---
+
 ## 2026-01-23 (Session 58)
 **Emergency Fix: Director Dashboard Down**
 

@@ -37,6 +37,32 @@ This is the business diary. Every session (human-initiated, cron-triggered, webh
 
 ## Operations Log
 
+### 2026-01-26 — Human Session (Session 59)
+
+**Trigger:** human
+**Duration:** ~60 minutes
+
+### What Happened
+- Scroll blocking returned on downstream.studio landing page
+- Found ACTUAL root cause: combined `html, body` selector for overflow properties
+- Fixed all 17 stream apps (Python script for batch fix)
+- Manually deployed 5 streams via `vercel --prod` (the-hunger-perf, bolyai-en, bolyai, demo-club-promo-perf, demo-restaurant-mediterranean-perf)
+- Created reference snapshot at `snapshots/2026-01-26-working-scroll/`
+- Updated CLAUDE.md with CSS constraint + snapshot reference
+- Updated factory template with warning comments
+
+### Outcomes
+- All 17 streams have correct CSS pattern
+- Working scroll snapshot saved for future debugging
+- CSS constraint documented for future sessions
+- Factory template has prominent warning
+
+### Flags
+- [x] All streams fixed and deployed
+- [x] Documentation updated
+
+---
+
 ### 2026-01-25 — Human Session (Session 57)
 
 **Trigger:** human
