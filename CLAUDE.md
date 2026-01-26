@@ -110,6 +110,8 @@ body {
 
 The factory template (`factory/templates/stream-app/app/globals.css`) has the correct pattern with comments. When modifying any stream's globals.css, keep html and body as SEPARATE selectors.
 
+**Reference snapshot:** `snapshots/2026-01-26-working-scroll/` contains known-good CSS for landing page + all embedded streams. If scrolling breaks, diff against this snapshot.
+
 ---
 
 ## Mandatory Protocol
